@@ -13,24 +13,24 @@
         .timeline {
             position: relative;
             padding: 20px 0;
-            min-height: 100%; /* Garante que a timeline tenha altura suficiente */
+            min-height: 100%;
         }
         .timeline::before {
             content: '';
             position: absolute;
             width: 4px;
             background: linear-gradient(to bottom, #2563eb, #3b82f6);
-            top: 0;
+            top: 80px; /* Ajustado para começar abaixo do título (aproximadamente a altura do título + margem) */
             bottom: 0;
             left: 20px;
-            height: 100%; /* Força a linha a ocupar toda a altura da seção */
+            height: calc(100% - 80px); /* Ajusta a altura para compensar o top */
         }
         .timeline-item {
             margin-bottom: 30px;
             position: relative;
         }
         .timeline-item:last-child {
-            margin-bottom: 0; /* Remove a margem inferior do último item para alinhar a linha */
+            margin-bottom: 0;
         }
         .timeline-icon {
             position: absolute;
