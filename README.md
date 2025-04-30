@@ -1,6 +1,5 @@
-# Path4Med Project
-Progress tracking for the Path4Med project (Horizon-IA 101156867) at ISA 
 # Path4Med Project Progress
+Progress tracking for the Path4Med project (Horizon-IA 101156867) at ISA 
 
 ## Overview
 This page tracks the progress of the Path4Med project (Horizon-IA 101156867) at ISA and Quinta da Cholda, from February to July 2025.
@@ -21,4 +20,4 @@ This page tracks the progress of the Path4Med project (Horizon-IA 101156867) at 
   - Draft scientific publication.
 - **Progress**: Equipment installed at Quinta da Cholda. Literature review completed.
 
-[Go to Main Page](index.html) | [GitHub Repository](https://github.com/diogopinto1/path4med)
+[Go to Main Page]([index.html](https://diogopinto1.github.io/path4med/)) | [GitHub Repository](https://github.com/diogopinto1/path4med)
