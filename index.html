@@ -10,6 +10,53 @@
     body {
       font-family: 'Inter', sans-serif;
     }
+    /* Estilo para o contêiner da imagem e do pin */
+    .map-container {
+      position: relative;
+      display: inline-block; /* Garante que o contêiner se ajuste ao tamanho da imagem */
+    }
+    /* Estilo para o hotspot point (pin) */
+    .hotspot-point {
+      position: absolute;
+      z-index: 10;
+    }
+    /* Posicionamento do pin sobre Portugal Continental */
+    .hotspot-point-portugal {
+      top: 65%; /* Ajustado para a posição vertical de Portugal na imagem */
+      left: 15%; /* Ajustado para a posição horizontal de Portugal na imagem */
+    }
+    /* Estilo para o marcador (ícone de +) */
+    .hotspot-marker {
+      width: 24px;
+      height: 24px;
+      background-color: #2563eb; /* Cor azul para o marcador */
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    /* Estilo para o conteúdo que aparece ao interagir com o pin */
+    .hotspot-content {
+      display: none; /* Inicialmente escondido */
+      position: absolute;
+      top: 30px; /* Abaixo do marcador */
+      left: 0;
+      background-color: white;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 200px; /* Ajustado para o conteúdo */
+      z-index: 20;
+      font-size: 14px;
+      color: #333;
+    }
+    /* Mostra o conteúdo quando o pin é clicado ou hover */
+    .hotspot-point:hover .hotspot-content {
+      display: block;
+    }
   </style>
 </head>
 
@@ -51,7 +98,7 @@
       </p>
     </section>
 
-    <!-- Nova seção: Demonstration Site -->
+    <!-- Seção: Demonstration Site -->
     <section class="mb-12">
       <h2 class="text-3xl font-semibold text-gray-800 mb-4">Demonstration Site</h2>
       <div class="flex flex-col md:flex-row items-center gap-6">
@@ -61,7 +108,18 @@
           </p>
         </div>
         <div class="md:w-1/2">
-          <img src="https://www.path4med.eu/wp-content/uploads/2024/09/europa.webp" alt="Path4Med Demonstration Sites in Europe" class="w-full h-auto rounded-lg shadow-md">
+          <div class="map-container">
+            <img src="https://www.path4med.eu/wp-content/uploads/2024/09/europa.webp" alt="Path4Med Demonstration Sites in Europe" class="w-full h-auto rounded-lg shadow-md">
+            <!-- Pin sobre Portugal Continental -->
+            <div class="hotspot-point hotspot-point-portugal">
+              <div class="hotspot-marker">
+                <i class="fas fa-plus"></i>
+              </div>
+              <div class="hotspot-content">
+                D.G.5.: Develop a monitoring system regarding the ground and surface water status in different scenarios and identify, adapt, and evaluate effective agronomical practices so that the mitigation strategies can be efficiently designed and applied.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
