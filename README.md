@@ -20,4 +20,4 @@ This page tracks the progress of the Path4Med project (Horizon-IA 101156867) at 
   - Draft scientific publication.
 - **Progress**: Equipment installed at Quinta da Cholda. Literature review completed.
 
-[Go to Main Page](https://diogopinto1.github.io/path4med) | [GitHub Repository](https://github.com/diogopinto1/path4med)
+[Go to Main Page](https://diogopinto1.github.io/path4med) 
