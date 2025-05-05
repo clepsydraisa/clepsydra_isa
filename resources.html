@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Path4Med Project Progress</title>
+  <title>Path4Med Project Resources</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
   <style>
@@ -30,9 +30,9 @@
       </div>
       <nav>
         <ul class="flex space-x-6">
-          <li><a href="index.html" class="text-white hover:underline font-semibold">Home</a></li>
+          <li><a href="index.html" class="text-white hover:underline">Home</a></li>
           <li><a href="timeline.html" class="text-white hover:underline">Timeline</a></li>
-          <li><a href="resources.html" class="text-white hover:underline">Resources</a></li>
+          <li><a href="resources.html" class="text-white hover:underline font-semibold">Resources</a></li>
           <li><a href="reports.html" class="text-white hover:underline">Reports</a></li>
         </ul>
       </nav>
@@ -41,7 +41,71 @@
 
   <!-- Main content that grows -->
   <main class="flex-grow container mx-auto px-6 py-12">
-    <!-- Preencha este espaço com o conteúdo desejado -->
+    <!-- Seção 1: Informação com os Dados -->
+    <section class="mb-12">
+      <h2 class="text-3xl font-semibold text-gray-800 mb-4">Dataset Information</h2>
+      <p class="text-gray-600 leading-relaxed mb-4">
+        The datasets used in the Path4Med project include water and soil quality measurements collected from the Tejo Vulnerable Zone in Portugal, specifically at Quinta da Cholda, Golegã. The data is sourced from the Sistema Nacional de Informação de Recursos Hídricos (SNIRH) and includes parameters such as nitrate levels, pH, and other relevant metrics for monitoring pollution in the Mediterranean Agro-Hydro-System.
+      </p>
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">
+          <i class="fas fa-folder mr-2 text-blue-600"></i> Download Datasets
+        </h3>
+        <ul class="list-disc pl-5 text-gray-600">
+          <li>
+            <a href="path4med_data/water_quality_2025.csv" class="text-blue-600 hover:underline" download>
+              Water Quality Data (CSV)
+            </a>
+          </li>
+          <li>
+            <a href="path4med_data/soil_quality_2025.csv" class="text-blue-600 hover:underline" download>
+              Soil Quality Data (CSV)
+            </a>
+          </li>
+          <li>
+            <a href="path4med_data/monitoring_logs_2025.csv" class="text-blue-600 hover:underline" download>
+              Monitoring Logs (CSV)
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Seção 2: Centralização dos Dados numa Base de Dados -->
+    <section class="mb-12">
+      <h2 class="text-3xl font-semibold text-gray-800 mb-4">Database Centralization</h2>
+      <div class="flex flex-col md:flex-row items-start gap-8">
+        <!-- Texto -->
+        <div class="md:w-1/2">
+          <p class="text-gray-600 leading-relaxed">
+            To manage and analyze the collected data efficiently, we centralized all datasets into a relational database using DBeaver, a universal database management tool. DBeaver allowed us to create a structured database schema, import the CSV files, and perform queries to support the Path4Med project's analysis and reporting needs.
+          </p>
+        </div>
+        <!-- Imagem -->
+        <div class="md:w-1/2">
+          <img src="path4med_data/dbeaver_screenshot.png" alt="DBeaver Database Schema" class="w-full h-auto max-h-[300px] rounded-lg shadow-md">
+          <p class="text-gray-500 text-sm mt-2">Screenshot of the Path4Med database schema in DBeaver.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção 3: Visualização/Mapeamento em QGIS -->
+    <section class="mb-12">
+      <h2 class="text-3xl font-semibold text-gray-800 mb-4">Visualization and Mapping in QGIS</h2>
+      <div class="flex flex-col md:flex-row items-start gap-8">
+        <!-- Texto -->
+        <div class="md:w-1/2">
+          <p class="text-gray-600 leading-relaxed">
+            The Path4Med project utilized QGIS to visualize and map the monitoring points across Portugal Continental. The map highlights the Tejo Vulnerable Zone, with specific points representing monitoring stations at Quinta da Cholda, Golegã. Each point is color-coded based on pollution levels, as indicated in the legend.
+          </p>
+        </div>
+        <!-- Imagem -->
+        <div class="md:w-1/2">
+          <img src="path4med_data/qgis_map_portugal.png" alt="QGIS Map of Monitoring Points in Portugal" class="w-full h-auto max-h-[300px] rounded-lg shadow-md">
+          <p class="text-gray-500 text-sm mt-2">Map of Portugal Continental with monitoring points and legend, created in QGIS.</p>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- Footer sticks to bottom -->
