@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Path4Med Project Progress</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      /* Estilo para o contêiner da imagem e do pin */
+      .map-container {
+        position: relative;
+        display: inline-block; /* Garante que o contêiner se ajuste ao tamanho da imagem */
+      }
+      /* Estilo para o hotspot point (pin) */
+      .hotspot-point {
+        position: absolute;
+        z-index: 10;
+      }
+      /* Posicionamento do pin sobre Portugal Continental */
+      .hotspot-point-portugal {
+        top: 75%; /* Ajustado para a posição vertical de Portugal na imagem */
+        left: 17.5%; /* Ajustado para a posição horizontal de Portugal na imagem */
+      }
+      /* Estilo para o marcador (ícone de +) */
+      .hotspot-marker {
+        width: 24px;
+        height: 24px;
+        background-color: #2563eb; /* Cor azul para o marcador */
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      /* Estilo para o conteúdo que aparece ao interagir com o pin */
+      .hotspot-content {
+        display: none; /* Inicialmente escondido */
+        position: absolute;
+        top: 30px; /* Abaixo do marcador */
+        left: 0;
+        background-color: white;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 200px; /* Ajustado para o conteúdo */
+        z-index: 20;
+        font-size: 14px;
+        color: #333;
+      }
+      /* Mostra o conteúdo quando o pin é clicado ou hover */
+      .hotspot-point:hover .hotspot-content {
+        display: block;
+      }
+    </style>
+  </head>
+
+  <!-- FLEX CONTAINER -->
+  <body class="bg-gray-50 flex flex-col min-h-screen">
+    <!-- Header -->
+    <header
+      class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-8 px-6"
+    >
+      <div class="container mx-auto flex items-center justify-between">
+        <div class="flex items-center">
+          <a href="https://www.path4med.eu/" target="_blank">
+            <img
+              src="https://www.path4med.eu/wp-content/uploads/2024/09/logo-path4med-1.svg"
+              alt="Path4Med Logo"
+              class="w-16 h-16 mr-4"
+            />
+          </a>
+          <div>
+            <h1 class="text-4xl font-bold tracking-tight">
+              Path4Med Project Progress
+            </h1>
+            <p class="mt-2 text-lg opacity-90">Horizon-IA 101156867</p>
+          </div>
+        </div>
+        <nav>
+          <ul class="flex space-x-6">
+            <li>
+              <a
+                href="index.html"
+                class="text-white hover:underline font-semibold"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a href="timeline.html" class="text-white hover:underline"
+                >Timeline</a
+              >
+            </li>
+            <li>
+              <a href="resources.html" class="text-white hover:underline"
+                >Resources</a
+              >
+            </li>
+            <li>
+              <a href="reports.html" class="text-white hover:underline"
+                >Reports</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main content that grows -->
+    <main class="flex-grow container mx-auto px-6 py-12">
+      <section class="mb-12">
+        <h2 class="text-3xl font-semibold text-gray-800 mb-4">
+          Welcome to Path4Med
+        </h2>
+        <p class="text-gray-600 leading-relaxed">
+          This site tracks the progress of the Path4Med project (Horizon-IA
+          101156867), conducted at the Instituto Superior de Agronomia (ISA) and
+          Quinta da Cholda, Golegã, from February to July 2025. The project
+          focuses on innovative solutions to address water and soil pollution in
+          the Mediterranean Agro-Hydro-System, under the supervision of Prof.
+          Maria do Rosário Cameira, Prof. João Rolim and Prof. Manuel
+          Campagnolo.
+        </p>
+        <p class="text-gray-600 mt-4">
+          Explore the sections below to view the project timeline, resources,
+          and reports.
+        </p>
+      </section>
+
+      <!-- Seção: Demonstration Site -->
+      <section class="mb-12">
+        <div class="flex flex-col md:flex-row items-start gap-8 md:items-start">
+          <!-- Texto -->
+          <div class="md:w-1/2">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-4">
+              Demonstration Site
+            </h2>
+            <p class="text-gray-600 leading-relaxed">
+              Path4Med Demonstration Sites are crucial for tackling soil and
+              water pollution in Mediterranean agricultural landscapes by
+              testing innovative practices, monitoring technologies, and
+              policies. These ‘living laboratories’ enable researchers, farmers,
+              and stakeholders to evaluate sustainable solutions in action.
+            </p>
+            <p class="text-gray-600 leading-relaxed mt-4">
+              One key site is the Tejo Vulnerable Zone in Portugal, including
+              Quinta da Cholda, Golegã. Led by the Instituto Superior de
+              Agronomia (ISA), this site focuses on monitoring ground and
+              surface water and developing effective agronomical practices to
+              mitigate pollution in the Mediterranean Agro-Hydro-System.
+            </p>
+          </div>
+
+          <!-- Mapa -->
+          <div class="md:w-1/2 mt-0">
+            <div class="map-container">
+              <img
+                src="https://www.path4med.eu/wp-content/uploads/2024/09/europa.webp"
+                alt="Path4Med Demonstration Sites in Europe"
+                class="w-full h-auto max-h-[240px] rounded-lg"
+              />
+              <div class="hotspot-point hotspot-point-portugal">
+                <div class="hotspot-marker">
+                  <i class="fas fa-plus"></i>
+                </div>
+                <div class="hotspot-content">
+                  D.G.5.: Develop a monitoring system regarding the ground and
+                  surface water status in different scenarios and identify,
+                  adapt, and evaluate effective agronomical practices so that
+                  the mitigation strategies can be efficiently designed and
+                  applied.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div
+          class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition"
+        >
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">
+            <i class="fas fa-calendar-alt mr-2 text-blue-600"></i> Project
+            Timeline
+          </h3>
+          <p class="text-gray-600">
+            View the detailed timeline of tasks and progress from February to
+            July 2025.
+          </p>
+          <a
+            href="timeline.html"
+            class="text-blue-600 hover:underline mt-4 inline-block"
+            >Go to Timeline</a
+          >
+        </div>
+        <div
+          class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition"
+        >
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">
+            <i class="fas fa-folder-open mr-2 text-blue-600"></i> Resources
+          </h3>
+          <p class="text-gray-600">
+            Access project outputs like the georeferenced database and
+            publications.
+          </p>
+          <a
+            href="resources.html"
+            class="text-blue-600 hover:underline mt-4 inline-block"
+            >View Resources</a
+          >
+        </div>
+        <div
+          class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition"
+        >
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">
+            <i class="fas fa-file-alt mr-2 text-blue-600"></i> Reports
+          </h3>
+          <p class="text-gray-600">
+            Read the interim and final reports for the Path4Med project.
+          </p>
+          <a
+            href="reports.html"
+            class="text-blue-600 hover:underline mt-4 inline-block"
+            >View Reports</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer sticks to bottom -->
+    <footer class="bg-gray-800 text-white py-6 px-6">
+      <div class="container mx-auto text-center">
+        <p>Created for Path4Med Project | Last Updated: April 2025</p>
+        <p class="mt-2 text-sm opacity-75">
+          Developed by Diogo Pinto | GitHub:
+          <a
+            href="https://github.com/diogopinto1/path4med"
+            class="text-blue-400 hover:underline"
+            >diogopinto1/path4med</a
+          >
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
