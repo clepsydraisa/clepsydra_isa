@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Path4Med Project Resources</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
+
+  <!-- FLEX CONTAINER -->
+  <body class="bg-gray-50 flex flex-col min-h-screen">
+    <!-- Header -->
+    <header
+      class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-8 px-6"
+    >
+      <div class="container mx-auto flex items-center justify-between">
+        <div class="flex items-center">
+          <a href="https://www.path4med.eu/" target="_blank">
+            <img
+              src="https://www.path4med.eu/wp-content/uploads/2024/09/logo-path4med-1.svg"
+              alt="Path4Med Logo"
+              class="w-16 h-16 mr-4"
+            />
+          </a>
+          <div>
+            <h1 class="text-4xl font-bold tracking-tight">
+              Path4Med Project Progress
+            </h1>
+            <p class="mt-2 text-lg opacity-90">Horizon-IA 101156867</p>
+          </div>
+        </div>
+        <nav>
+          <ul class="flex space-x-6">
+            <li>
+              <a href="index.html" class="text-white hover:underline">Home</a>
+            </li>
+            <li>
+              <a href="timeline.html" class="text-white hover:underline"
+                >Timeline</a
+              >
+            </li>
+            <li>
+              <a
+                href="resources.html"
+                class="text-white hover:underline font-semibold"
+                >Resources</a
+              >
+            </li>
+            <li>
+              <a href="reports.html" class="text-white hover:underline"
+                >Reports</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main content that grows -->
+    <main class="flex flex-col flex-grow container mx-auto px-6 py-12">
+      <!-- Seção 1: Informação com os Dados -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-semibold text-gray-800 mb-4">
+          Dataset Information
+        </h2>
+        <p class="text-gray-600 leading-relaxed mb-4">
+          The Path4Med project focuses on developing a data pipeline for
+          modeling the groundwater level in irrigated areas, specifically in the
+          Tejo Vulnerable Zone (ZV Tejo) in Portugal, including Quinta da
+          Cholda, Golegã. The datasets, sourced from the Sistema Nacional de
+          Informação de Recursos Hídricos (SNIRH), include historical data on
+          key variables such as precipitation, aquifer depth, nitrate
+          concentration, and electrical conductivity. These variables are
+          critical for assessing water and soil quality in the Mediterranean
+          Agro-Hydro-System and supporting sustainable water management. Due to
+          the large size of the files (up to 65MB), they are hosted on Google
+          Drive for easy access.
+        </p>
+        <div class="flex flex-col md:flex-row gap-6 items-start">
+          <!-- Caixa de Downloads -->
+          <div class="bg-white p-4 rounded-lg shadow-md">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">
+              <i class="fas fa-folder mr-2 text-blue-600"></i> Download Datasets
+            </h3>
+            <ul class="list-disc pl-5 text-gray-600">
+              <li>
+                <a
+                  href="https://drive.google.com/file/d/14b-TAv2JwZNNl94ZdmCtOQUNdGqM_OWW/view?usp=drive_link"
+                  class="text-blue-600 hover:underline"
+                  target="_blank"
+                >
+                  Precipitation Data (CSV)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://drive.google.com/file/d/1VvgPoDeru4jd4ijfQyVGpYnFegZLg_eP/view?usp=drive_link"
+                  class="text-blue-600 hover:underline"
+                  target="_blank"
+                >
+                  Nitrate Concentration Data (CSV)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://drive.google.com/file/d/1FewNp6IITH2KjlNAD9ihz0LDc-eZhcqW/view?usp=drive_link"
+                  class="text-blue-600 hover:underline"
+                  target="_blank"
+                >
+                  Electrical Conductivity Data (CSV)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://drive.google.com/file/d/16ZOW78JwceM0cnGYcTbgaxnF_bbJneiy/view?usp=drive_link"
+                  class="text-blue-600 hover:underline"
+                  target="_blank"
+                >
+                  Piezometry Data (CSV)
+                </a>
+              </li>
+            </ul>
+          </div>
+          <!-- Tabela -->
+          <div class="overflow-x-auto flex-1">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">
+              <i class="fas fa-table mr-2 text-blue-600"></i>Metadata of study
+              variables
+            </h3>
+            <table class="w-full text-gray-600 border-collapse">
+              <thead>
+                <tr class="bg-gray-100">
+                  <th class="border border-gray-300 px-4 py-2 text-left">
+                    Variable
+                  </th>
+                  <th class="border border-gray-300 px-4 py-2 text-left">
+                    Temporal MinMax
+                  </th>
+                  <th class="border border-gray-300 px-4 py-2 text-left">
+                    Recording Frequency
+                  </th>
+                  <th class="border border-gray-300 px-4 py-2 text-left">
+                    Points
+                  </th>
+                  <th class="border border-gray-300 px-4 py-2 text-left">
+                    Units
+                  </th>
+                  <th class="border border-gray-300 px-4 py-2 text-left">
+                    Zone
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="border border-gray-300 px-4 py-2">
+                    Precipitation
+                  </td>
+                  <td class="border border-gray-300 px-4 py-2">
+                    1979-10-01 to 2025-03-15
+                  </td>
+                  <td class="border border-gray-300 px-4 py-2">Daily</td>
+                  <td class="border border-gray-300 px-4 py-2">70</td>
+                  <td class="border border-gray-300 px-4 py-2">mm</td>
+                  <td class="border border-gray-300 px-4 py-2">
+                    ZVT and surrounding area
+                  </td>
+                </tr>
+                <tr>
+                  <td class="border border-gray-300 px-4 py-2">Piezometry</td>
+                  <td class="border border-gray-300 px-4 py-2">
+                    1974-10-01 to 2025-01-16
+                  </td>
+                  <td class="border border-gray-300 px-4 py-2">Undetermined</td>
+                  <td class="border border-gray-300 px-4 py-2">73</td>
+                  <td class="border border-gray-300 px-4 py-2">m</td>
+                  <td class="border border-gray-300 px-4 py-2">ZVT_aquifers</td>
+                </tr>
+                <tr>
+                  <td class="border border-gray-300 px-4 py-2">Nitrates</td>
+                  <td class="border border-gray-300 px-4 py-2">
+                    2000-03-01 to 2023-10-25
+                  </td>
+                  <td class="border border-gray-300 px-4 py-2">Undetermined</td>
+                  <td class="border border-gray-300 px-4 py-2">112</td>
+                  <td class="border border-gray-300 px-4 py-2">mg/L</td>
+                  <td class="border border-gray-300 px-4 py-2">ZVT_aquifers</td>
+                </tr>
+                <tr>
+                  <td class="border border-gray-300 px-4 py-2">
+                    Electrical Conductivity
+                  </td>
+                  <td class="border border-gray-300 px-4 py-2">
+                    2000-03-01 to 2023-10-25
+                  </td>
+                  <td class="border border-gray-300 px-4 py-2">Undetermined</td>
+                  <td class="border border-gray-300 px-4 py-2">103</td>
+                  <td class="border border-gray-300 px-4 py-2">µS/cm</td>
+                  <td class="border border-gray-300 px-4 py-2">ZVT_aquifers</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Seção 2: Centralização dos Dados numa Base de Dados -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-semibold text-gray-800 mb-4">
+          Database Centralization
+        </h2>
+        <div class="flex flex-col">
+          <div class="mb-4">
+            <p class="text-gray-600 leading-relaxed">
+              The Path4Med project adopted the CRISP-DM methodology to structure
+              the data pipeline, with a focus on the Data Preparation phase to
+              consolidate, clean, and organize historical data. We centralized
+              the datasets into a relational database using DBeaver and
+              PostgreSQL. This database includes tables such as, metadata
+              tables:
+              <code>info_qualidade</code>, <code>info_piezo</code>,
+              <code>info_meteorologia</code>, and value tables:
+              <code>condut_tejo_loc</code>, <code>nitrato_tejo_loc</code>, and
+              <code>precipitacao_tejo_loc</code>, which store data on water
+              quality, meteorological conditions, and aquifer characteristics.
+              This setup ensures data quality and supports predictive modeling
+              of groundwater levels in the ZV Tejo.
+            </p>
+          </div>
+          <div class="flex justify-center">
+            <div class="w-full md:w-1/2">
+              <img
+                src="https://github.com/diogopinto1/path4med/blob/main/db_poster_rm.png?raw=true"
+                alt="DBeaver Database Schema"
+                class="w-full h-auto max-h-[100px]"
+              />
+              <p class="text-gray-500 text-sm text- mt-1">
+                <strong> Fig 1.</strong> Screenshot of the Path4Med database
+                schema in DBeaver, showing the relational structure of water
+                quality, meteorological, and aquifer data.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Seção 3: Visualização/Mapeamento em QGIS -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-semibold text-gray-800 mb-4">
+          Visualization and Mapping in QGIS
+        </h2>
+        <div class="flex flex-col">
+          <!-- Texto -->
+          <div class="mb-4">
+            <p class="text-gray-600 leading-relaxed">
+              Using QGIS, the Path4Med project mapped monitoring points across
+              Portugal Continental, focusing on the Tejo Vulnerable Zone and its
+              surroundings, including Quinta da Cholda, Golegã. The map
+              visualizes key variables such as aquifer depth and nitrate
+              concentration. This geospatial analysis aids in evaluating the
+              effectiveness of agronomical practices for mitigating pollution,
+              supporting sustainable water management in the region.
+            </p>
+          </div>
+          <!-- Mapa e espaço para legendas -->
+          <div
+            class="w-full max-w-5xl mx-auto flex flex-row items-center justify-between gap-0"
+          >
+            <!-- Espaço para legendas dos pontos -->
+            <div
+              class="min-w-[320px] max-w-[400px] bg-white rounded-lg shadow-lg p-8 flex flex-col gap-10 items-start self-center"
+            >
+              <!-- Legenda 1: Piezometria (azul escuro) -->
+              <div class="flex flex-col items-start w-full">
+                <div class="flex items-center gap-3">
+                  <a
+                    href="https://github.com/diogopinto1/path4med/blob/main/pt_azul.png?raw=true"
+                    target="_blank"
+                    class="focus:outline-none"
+                    ><i class="fas fa-search-plus text-blue-600"></i
+                  ></a>
+                  <span
+                    class="inline-block w-4 h-4 rounded-full bg-blue-800 border-2 border-blue-900"
+                  ></span>
+                  <span class="font-semibold text-gray-800"
+                    >bd_piezo_inter</span
+                  >
+                </div>
+                <span class="text-gray-500 text-sm mt-1 ml-7"
+                  >Piezometry monitoring points</span
+                >
+              </div>
+              <!-- Legenda 2: Condutividade (verde escuro) -->
+              <div class="flex flex-col items-start w-full">
+                <div class="flex items-center gap-3">
+                  <a
+                    href="https://github.com/diogopinto1/path4med/blob/main/pt_verde_es.png?raw=true"
+                    target="_blank"
+                    class="focus:outline-none"
+                    ><i class="fas fa-search-plus text-blue-600"></i
+                  ></a>
+                  <span
+                    class="inline-block w-4 h-4 rounded-full bg-green-900 border-2 border-green-800"
+                  ></span>
+                  <span class="font-semibold text-gray-800"
+                    >bd_condut_inter</span
+                  >
+                </div>
+                <span class="text-gray-500 text-sm mt-1 ml-7"
+                  >Electrical conductivity points</span
+                >
+              </div>
+              <!-- Legenda 3: Nitrato (verde claro) -->
+              <div class="flex flex-col items-start w-full">
+                <div class="flex items-center gap-3">
+                  <a
+                    href="https://github.com/diogopinto1/path4med/blob/main/pt_verde_cl.png?raw=true"
+                    target="_blank"
+                    class="focus:outline-none"
+                    ><i class="fas fa-search-plus text-blue-600"></i
+                  ></a>
+                  <span
+                    class="inline-block w-4 h-4 rounded-full bg-green-400 border-2 border-green-700"
+                  ></span>
+                  <span class="font-semibold text-gray-800"
+                    >bd_nitrato_inter</span
+                  >
+                </div>
+                <span class="text-gray-500 text-sm mt-1 ml-7"
+                  >Nitrate concentration points</span
+                >
+              </div>
+              <!-- Legenda 4: Precipitação (roxo) -->
+              <div class="flex flex-col items-start w-full">
+                <div class="flex items-center gap-3">
+                  <a
+                    href="https://github.com/diogopinto1/path4med/blob/main/pt_roxo.png?raw=true"
+                    target="_blank"
+                    class="focus:outline-none"
+                    ><i class="fas fa-search-plus text-blue-600"></i
+                  ></a>
+                  <span
+                    class="inline-block w-4 h-4 rounded-full bg-purple-600 border-2 border-purple-800"
+                  ></span>
+                  <span class="font-semibold text-gray-800"
+                    >bd_precipitacao</span
+                  >
+                </div>
+                <span class="text-gray-500 text-sm mt-1 ml-7"
+                  >Precipitation monitoring points</span
+                >
+              </div>
+              <!-- Legenda 5: Combined (quadrado vermelho) -->
+              <div class="flex flex-col items-start w-full">
+                <div class="flex items-center gap-3">
+                  <a
+                    href="https://github.com/diogopinto1/path4med/blob/main/pt_vermelho.png?raw=true"
+                    target="_blank"
+                    class="focus:outline-none"
+                    ><i class="fas fa-search-plus text-blue-600"></i
+                  ></a>
+                  <span
+                    class="inline-block w-4 h-4 bg-red-600 border-2 border-red-800"
+                    style="border-radius: 0; width: 16px; height: 16px"
+                  ></span>
+                  <span class="font-semibold text-gray-800"
+                    >combined_2011_2024_eobs</span
+                  >
+                </div>
+                <span class="text-gray-500 text-sm mt-1 ml-7"
+                  >Combined dataset (2011-2024)</span
+                >
+              </div>
+            </div>
+            <!-- Mapa alinhado à direita -->
+            <div class="flex-shrink-0 relative group" style="width: 400px">
+              <img
+                src="https://github.com/diogopinto1/path4med/blob/main/pt_pontos.png?raw=true"
+                alt="QGIS Map of Monitoring Points in Portugal"
+                class="w-[400px] h-auto max-h-[600px] block"
+              />
+              <!-- Overlay central para hover -->
+              <div
+                class="absolute top-1/2 left-[40%] -translate-x-1/2 -translate-y-1/2 z-30 group"
+                style="
+                  width: 420px;
+                  height: 5%;
+                  cursor: zoom-in;
+                  pointer-events: auto;
+                "
+              >
+                <!-- Imagem de zoom, só aparece ao hover na zona centro-esquerda -->
+                <img
+                  src="https://github.com/diogopinto1/path4med/blob/main/pt_pontos_zoom.png?raw=true"
+                  alt="Zoom QGIS Map"
+                  class="absolute top-1/3 right-full mr-8 -translate-y-1/3 w-[500px] h-auto max-h-[90vh] rounded-lg shadow-lg border-2 border-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-40 bg-white"
+                  style="box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25)"
+                />
+              </div>
+              <p class="text-gray-500 text-sm mt-2 text">
+                <strong>Fig 2.</strong> Map extracted from QGIS showing
+                monitoring points above ZVT.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer sticks to bottom -->
+    <footer class="bg-gray-800 text-white py-6 px-6 mt-0">
+      <div class="container mx-auto text-center">
+        <p>Created for Path4Med Project | Last Updated: April 2025</p>
+        <p class="mt-2 text-sm opacity-75">
+          Developed by Diogo Pinto | GitHub:
+          <a
+            href="https://github.com/diogopinto1/path4med"
+            class="text-blue-400 hover:underline"
+            >diogopinto1/path4med</a
+          >
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // Função para mostrar o zoom de cada camada
+      function showZoom(id) {
+        // Remove qualquer zoom anterior
+        document
+          .querySelectorAll(".custom-zoom-modal")
+          .forEach((e) => e.remove());
+        // Escolhe a imagem de acordo com o id
+        let img = "";
+        if (id === "zoom-piezo")
+          img =
+            "https://github.com/diogopinto1/path4med/blob/main/pt_azul.png?raw=true";
+        if (id === "zoom-condut")
+          img =
+            "https://github.com/diogopinto1/path4med/blob/main/pt_verde_es.png?raw=true";
+        if (id === "zoom-nitrato")
+          img =
+            "https://github.com/diogopinto1/path4med/blob/main/pt_verde_cl.png?raw=true";
+        if (id === "zoom-precipitacao")
+          img =
+            "https://github.com/diogopinto1/path4med/blob/main/pt_roxo.png?raw=true";
+        if (id === "zoom-combined")
+          img =
+            "https://github.com/diogopinto1/path4med/blob/main/pt_vermelho.png?raw=true";
+        // Cria o modal
+        const modal = document.createElement("div");
+        modal.className =
+          "custom-zoom-modal fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-40";
+        modal.innerHTML = `<div class=\"relative\" style=\"width:350px;height:350px;display:flex;align-items:center;justify-content:center;\"><button onclick=\"this.parentElement.parentElement.remove()\" class=\"absolute top-2 right-2 text-gray-100 hover:text-blue-600 text-2xl z-10 bg-black bg-opacity-40 rounded-full w-8 h-8 flex items-center justify-center\">×</button><img src='${img}' alt='Zoom' style='width:100%;height:100%;object-fit:contain;border-radius:12px;' /></div>`;
+        document.body.appendChild(modal);
+      }
+    </script>
+  </body>
+</html>
