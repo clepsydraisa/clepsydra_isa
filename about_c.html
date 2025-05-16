@@ -18,16 +18,16 @@
       }
     </style>
   </head>
-  <body class="bg-gray-50 flex flex-col min-h-screen">
+  <body class="flex flex-col min-h-screen">
     <!-- Header -->
     <header
-      class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-8 px-6"
+      class="bg-white text-blue-900 py-8 px-6 shadow"
     >
       <div class="container mx-auto flex items-center justify-between">
         <div class="flex items-center">
           <a href="https://www.path4med.eu/" target="_blank">
             <img
-              src="/workspaces/clepsydra_isa/images/logo_c.png"
+              src="/workspaces/clepsydra_isa/images/logo_c2.png"
               alt="Clepsydra Logo"
               class="w-16 h-16 mr-4"
             />
@@ -41,7 +41,7 @@
             <li>
               <a
                 href="index.html"
-                class="text-white hover:underline font-semibold flex items-center"
+                class="text-blue-900 hover:underline font-semibold flex items-center"
               >
                 <i class="fas fa-home"></i>
               </a>
@@ -49,22 +49,22 @@
             <li>
               <a
                 href="about_c.html"
-                class="text-white hover:underline font-semibold"
+                class="text-blue-900 hover:underline font-semibold"
                 >About</a
               >
             </li>
             <li>
-              <a href="timeline.html" class="text-white hover:underline"
+              <a href="timeline.html" class="text-blue-900 hover:underline"
                 >Timeline</a
               >
             </li>
             <li>
-              <a href="resources.html" class="text-white hover:underline"
+              <a href="resources.html" class="text-blue-900 hover:underline"
                 >Resources</a
               >
             </li>
             <li>
-              <a href="reports.html" class="text-white hover:underline"
+              <a href="reports.html" class="text-blue-900 hover:underline"
                 >Reports</a
               >
             </li>
@@ -74,22 +74,17 @@
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow flex items-center justify-center">
-      <span class="text-2xl text-gray-500">In process...</span>
+    <main class="flex-grow flex items-center justify-center relative bg-blue-800">
+      <!-- Espaço para imagem de fundo, pode substituir o src pela sua imagem -->
+      <img src="/workspaces/clepsydra_isa/images/bg_main.png" alt="Background Main" class="absolute inset-0 w-full h-full object-cover opacity-60 pointer-events-none" />
+      <span class="text-2xl text-white relative z-10">In process...</span>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-6 px-6">
-      <div class="container mx-auto text-center">
-        <p>Created for Path4Med Project | Last Updated: April 2025</p>
-        <p class="mt-2 text-sm opacity-75">
-          Developed by Diogo Pinto | GitHub:
-          <a
-            href="https://github.com/diogopinto1/path4med"
-            class="text-blue-400 hover:underline"
-            >diogopinto1/path4med</a
-          >
-        </p>
+    <footer class="bg-white py-6 px-6">
+      <div class="container mx-auto flex justify-center items-center">
+        <!-- Espaço para imagem dos logos de rodapé -->
+        <img src="/workspaces/clepsydra_isa/images/footer_logos.png" alt="Logos rodapé" class="w-auto h-20" />
       </div>
     </footer>
   </body>
