@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Path4Med Project Progress</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
+
+  <!-- FLEX CONTAINER -->
+  <body class="bg-gray-50 flex flex-col min-h-screen">
+    <!-- Header -->
+    <header
+      class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-8 px-6"
+    >
+      <div class="container mx-auto flex items-center justify-between">
+        <div class="flex items-center">
+          <a href="https://www.path4med.eu/" target="_blank">
+            <img
+              src="https://www.path4med.eu/wp-content/uploads/2024/09/logo-path4med-1.svg"
+              alt="Path4Med Logo"
+              class="w-16 h-16 mr-4"
+            />
+          </a>
+          <div>
+            <h1 class="text-4xl font-bold tracking-tight">
+              Path4Med Project Progress
+            </h1>
+            <p class="mt-2 text-lg opacity-90">Horizon-IA 101156867</p>
+          </div>
+        </div>
+        <nav>
+          <ul class="flex space-x-6">
+            <li>
+              <a
+                href="index.html"
+                class="text-white hover:underline font-semibold flex items-center"
+              >
+                <i class="fas fa-home"></i>
+              </a>
+            </li>
+            <li>
+              <a
+                href="about_p.html"
+                class="text-white hover:underline font-semibold"
+                >About</a
+              >
+            </li>
+            <li>
+              <a href="timeline.html" class="text-white hover:underline"
+                >Timeline</a
+              >
+            </li>
+            <li>
+              <a href="resources.html" class="text-white hover:underline"
+                >Resources</a
+              >
+            </li>
+            <li>
+              <a href="reports.html" class="text-white hover:underline"
+                >Reports</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main content that grows -->
+    <main class="flex-grow container mx-auto px-6 py-12">
+      <div class="flex flex-col space-y-6">
+        <!-- Poster PDF Box -->
+        <div
+          class="flex items-center bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
+        >
+          <div class="flex-shrink-0 mr-6">
+            <i class="fas fa-file-pdf text-4xl text-blue-600"></i>
+          </div>
+          <div class="flex-grow">
+            <h3 class="text-lg font-semibold text-gray-800 mb-1">
+              Project Poster
+            </h3>
+            <p class="text-gray-600">
+              Initial presentation of the Path4Med project concept and
+              objectives (PDF)
+            </p>
+          </div>
+          <div class="ml-6">
+            <a
+              href="https://github.com/clepsydraisa/clepsydra_isa/blob/main/resources/poster_DP.pdf"
+              class="inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors duration-300"
+              target="_blank"
+            >
+              Open PDF
+            </a>
+          </div>
+        </div>
+        <!-- Literature Review PDF Box -->
+        <div
+          class="flex items-center bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
+        >
+          <div class="flex-shrink-0 mr-6">
+            <i class="fas fa-file-pdf text-4xl text-blue-600"></i>
+          </div>
+          <div class="flex-grow">
+            <h3 class="text-lg font-semibold text-gray-800 mb-1">
+              Literature Review
+            </h3>
+            <p class="text-gray-600">
+              Comprehensive analysis of existing research and methodologies
+              (PDF)
+            </p>
+          </div>
+          <div class="ml-6">
+            <a
+              href="https://github.com/clepsydraisa/clepsydra_isa/blob/main/resources/lit_rev.pdf"
+              class="inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors duration-300"
+              target="_blank"
+            >
+              Open PDF
+            </a>
+          </div>
+        </div>
+        <!-- Final Article PDF Box -->
+        <div
+          class="flex items-center bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
+        >
+          <div class="flex-shrink-0 mr-6">
+            <i class="fas fa-file-pdf text-4xl text-blue-600"></i>
+          </div>
+          <div class="flex-grow">
+            <h3 class="text-lg font-semibold text-gray-800 mb-1">
+              Final Article
+            </h3>
+            <p class="text-gray-600">
+              Complete research paper detailing project findings and conclusions
+              (PDF)
+            </p>
+          </div>
+          <div class="ml-6">
+            <a
+              href="#"
+              class="inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors duration-300"
+              target="_blank"
+            >
+              Open PDF
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer sticks to bottom -->
+    <footer class="bg-gray-800 text-white py-6 px-6">
+      <div class="container mx-auto text-center">
+        <p>Created for Path4Med Project | Last Updated: April 2025</p>
+        <p class="mt-2 text-sm opacity-75">
+          Developed by Diogo Pinto | GitHub:
+          <a
+            href="https://github.com/diogopinto1/path4med"
+            class="text-blue-400 hover:underline"
+            >diogopinto1/path4med</a
+          >
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
