@@ -57,3 +57,4 @@ if False:
     decompose = seasonal_decompose(df['nivel'], model='additive', period=365)
     decompose.plot()
     plt.show()
+
