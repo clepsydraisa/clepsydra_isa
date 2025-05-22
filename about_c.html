@@ -16,6 +16,18 @@
       body {
         font-family: "Inter", sans-serif;
       }
+      .ai-btn {
+        background-size: 200% 100%;
+        background-position: left center;
+        transition: background-position 0.4s cubic-bezier(0.4,0,0.2,1), transform 0.15s cubic-bezier(0.4,0,0.2,1);
+      }
+      .ai-btn:hover {
+        background-position: right center;
+        transform: scale(1.07);
+      }
+      .ai-btn:active {
+        transform: scale(0.96);
+      }
     </style>
   </head>
   <body class="flex flex-col min-h-screen">
@@ -29,7 +41,7 @@
             <img
               src="https://github.com/clepsydraisa/clepsydra_isa/blob/main/images/logo_c2.png?raw=true"
               alt="Clepsydra Logo"
-              class="mr-4"
+              class="mr-4 max-h-20 h-20 w-auto"
             />
           </a>
           <div>
@@ -37,38 +49,48 @@
           </div>
         </div>
         <nav>
-          <ul class="flex space-x-6">
-            <li>
-              <a
-                href="index.html"
-                class="text-blue-900 hover:underline font-semibold flex items-center"
-              >
-                <i class="fas fa-home"></i>
-              </a>
-            </li>
-            <li>
-              <a
-                href="about_c.html"
-                class="text-blue-900 hover:underline font-semibold"
-                >About</a
-              >
-            </li>
-            <li>
-              <a href="#" class="text-blue-900 hover:underline"
-                >Timeline</a
-              >
-            </li>
-            <li>
-              <a href="resources.html" class="text-blue-900 hover:underline"
-                >Resources</a
-              >
-            </li>
-            <li>
-              <a href="#" class="text-blue-900 hover:underline"
-                >Reports</a
-              >
-            </li>
-          </ul>
+          <div class="flex items-center space-x-6">
+            <ul class="flex space-x-6">
+              <li>
+                <a
+                  href="index.html"
+                  class="text-blue-900 hover:underline font-semibold flex items-center"
+                >
+                  <i class="fas fa-home"></i>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="about_c.html"
+                  class="text-blue-900 hover:underline font-semibold"
+                  >Sobre</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-blue-900 hover:underline"
+                  >Parceiros</a
+                >
+              </li>
+              <li>
+                <a href="resources.html" class="text-blue-900 hover:underline"
+                  >Biblioteca de Dados</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-blue-900 hover:underline"
+                  >Vizualização</a
+                >
+              </li>
+              <li>
+                <a href="resources.html" class="text-blue-900 hover:underline"
+                  >Condições Reais</a
+                >
+              </li>
+            </ul>
+            <button class="ml-8 ai-btn bg-gradient-to-r from-blue-700 via-blue-600 to-blue-800 text-white font-semibold py-2 px-4 rounded shadow focus:outline-none">
+              Modelo AI
+            </button>
+          </div>
         </nav>
       </div>
     </header>
