@@ -28,6 +28,14 @@
       .ai-btn:active {
         transform: scale(0.96);
       }
+      .tarefa-shadow {
+        box-shadow: 0 8px 32px 0 rgba(220,220,220,0.7);
+      }
+      .tarefa-shadow-hover:hover {
+        box-shadow: 0 16px 48px 0 rgba(255,255,255,0.8);
+        z-index: 10;
+        transform: scale(1.10);
+      }
     </style>
   </head>
   <body class="flex flex-col min-h-screen">
@@ -100,25 +108,25 @@
       <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row items-start md:items-center gap-8">
         <!-- Coluna esquerda: Tarefas -->
         <div class="w-full md:w-1/2 flex flex-col items-start mt-32 pl-8 space-y-8">
-          <div class="w-full max-w-2xl bg-white p-6 rounded-lg shadow-md hover:shadow-2xl hover:scale-110 relative hover:z-10 flex flex-col space-y-4">
+          <div class="w-full max-w-2xl bg-white p-6 rounded-lg shadow-md hover:shadow-2xl relative hover:scale-110 hover:z-10 flex flex-col space-y-4">
             <span class="font-extrabold text-2xl md:text-3xl text-blue-900">Tarefa 1</span>
             <span class="text-xl md:text-2xl text-gray-800 font-normal">
               Desenvolvimento de ferramentas para <span class="text-red-500 font-semibold">monitorização e obtenção dados</span> e <span class="text-red-500 font-semibold">identificação de lacunas</span>;
             </span>
           </div>
-          <div class="w-full max-w-2xl bg-white p-6 rounded-lg shadow-md hover:shadow-2xl hover:scale-110 relative hover:z-10 flex flex-col space-y-4">
+          <div class="w-full max-w-2xl bg-white p-6 rounded-lg shadow-md hover:shadow-2xl relative hover:scale-110 hover:z-10 flex flex-col space-y-4">
             <span class="font-extrabold text-2xl md:text-3xl text-blue-900">Tarefa 2</span>
             <span class="text-xl md:text-2xl text-gray-800 font-normal">
               Criação ou <span class="text-red-500 font-semibold">melhoria/atualização</span> de rede de monitorização - <span class="italic">geração de dados</span>
             </span>
           </div>
-          <div class="w-full max-w-2xl bg-white p-6 rounded-lg shadow-md hover:shadow-2xl hover:scale-110 relative hover:z-10 flex flex-col space-y-4">
+          <div class="w-full max-w-2xl bg-white p-6 rounded-lg shadow-md hover:shadow-2xl relative hover:scale-110 hover:z-10 flex flex-col space-y-4">
             <span class="font-extrabold text-2xl md:text-3xl text-blue-900">Tarefa 3</span>
             <span class="text-xl md:text-2xl text-gray-800 font-normal">
               <span class="text-red-500 font-semibold underline">Observações em condições reais</span> – Living Lab
             </span>
           </div>
-          <div class="w-full max-w-2xl bg-white p-6 rounded-lg shadow-md hover:shadow-2xl hover:scale-110 relative hover:z-10 flex flex-col space-y-4">
+          <div class="w-full max-w-2xl bg-white p-6 rounded-lg shadow-md hover:shadow-2xl relative hover:scale-110 hover:z-10 flex flex-col space-y-4">
             <span class="font-extrabold text-2xl md:text-3xl text-blue-900">Tarefa 4</span>
             <span class="text-xl md:text-2xl text-gray-800 font-normal">
               Capacitação e sensibilização social
@@ -126,8 +134,15 @@
           </div>
         </div>
         <!-- Coluna direita: Imagem -->
-        <div class="hidden md:flex flex-1 h-[95vh] items-start justify-end mt-20 pr-0" style="margin-right:-200px; padding-right:0;">
-          <img src="https://github.com/clepsydraisa/clepsydra_isa/blob/main/images/europa_clep.png?raw=true" alt="Europa Clepsydra" class="h-[1000px] w-[900px] object-contain m-0 p-0" style="margin-right:0; padding-right:0;" />
+        <style>
+          .europa-clep-img {
+            width: 1500px; /* Adjust as needed */
+            height: 900px; /* Maintain aspect ratio */
+          }
+        </style>
+        
+        <div class="hidden md:flex flex-1 items-start mt-20 pr-0" style="margin-right:-140px;">
+          <img src="https://github.com/clepsydraisa/clepsydra_isa/blob/main/images/europa_clep.png?raw=true" alt="Europa Clepsydra" class="europa-clep-img" />
         </div>
       </div>
     </section>
