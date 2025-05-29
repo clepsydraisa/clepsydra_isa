@@ -37,6 +37,24 @@
       .ai-btn:active {
         transform: scale(0.96);
       }
+      #chart-modal {
+        z-index: 9999 !important;
+        position: fixed !important;
+        left: 0; top: 0; right: 0; bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0,0,0,0.4);
+      }
+      #chart-modal .bg-white {
+        z-index: 10000 !important;
+      }
+      .leaflet-container {
+        z-index: 0 !important;
+      }
+      #chart-modal.hidden {
+        display: none !important;
+      }
     </style>
   </head>
   <body class="flex flex-col min-h-screen">
@@ -105,16 +123,17 @@
     <main class="flex-grow w-full py-12">
       <div class="container mx-auto px-6">
         <div id="map" style="height: 500px;"></div>
-        <!-- Modal para o gráfico -->
-        <div id="chart-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div class="bg-white p-6 rounded shadow-lg relative">
-            <button onclick="closeModal()" class="absolute top-2 right-2 text-gray-500 text-2xl">&times;</button>
-            <h2 id="well-title" class="text-lg font-bold mb-2"></h2>
-            <canvas id="wellChart" width="400" height="300"></canvas>
-          </div>
-        </div>
       </div>
     </main>
+
+    <!-- Modal deve estar FORA do container do mapa -->
+    <div id="chart-modal" class="hidden">
+      <div class="bg-white p-6 rounded shadow-lg relative">
+        <button onclick="closeModal()" class="absolute top-2 right-2 text-gray-500 text-2xl">&times;</button>
+        <h2 id="well-title" class="text-lg font-bold mb-2"></h2>
+        <canvas id="wellChart" width="400" height="300"></canvas>
+      </div>
+    </div>
 
     <!-- Friso colorido estreito acima do footer -->
     <div class="w-full h-8" style="background: linear-gradient(to right, #17479e, #0e6bb5, #0093d3, #5a5a8c, #c1272d, #ff6f1f, #d6b08c, #a3bfa8, #4a2c0a);"></div>
@@ -199,7 +218,10 @@
                 responsive: true,
                 scales: {
                   x: { title: { display: true, text: 'Data' } },
-                  y: { title: { display: true, text: 'Profundidade (m)' } }
+                  y: { 
+                    title: { display: true, text: 'Profundidade (m)' },
+                    reverse: true
+                  }
                 }
               }
             });
