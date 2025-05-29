@@ -15,10 +15,6 @@
     <style>
       body {
         font-family: "Inter", sans-serif;
-        background-image: url('https://github.com/clepsydraisa/clepsydra_isa/blob/main/images/bcground_w.png?raw=true');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: top center;
       }
       .ai-btn {
         background-size: 200% 100%;
@@ -37,28 +33,25 @@
   <body class="flex flex-col min-h-screen">
     <!-- Header -->
     <header
-      class="bg-white text-blue-900 py-8 px-6 shadow"
+      class="bg-white text-blue-900 py-4 px-6 shadow"
     >
       <div class="container mx-auto flex items-center justify-between">
-        <div class="flex items-center">
+        <div class="flex items-center space-x-4">
           <a href="https://clepsydra.interreg-euro-med.eu/" target="_blank">
             <img
               src="https://github.com/clepsydraisa/clepsydra_isa/blob/main/images/logo_c2.png?raw=true"
               alt="Clepsydra Logo"
-              class="mr-4 max-h-20 h-20 w-auto"
+              class="h-16 w-auto"
             />
           </a>
-          <div>
-            <h1 class="text-4xl font-bold tracking-tight"></h1>
-          </div>
         </div>
-        <nav>
-          <div class="flex items-center space-x-6">
-            <ul class="flex space-x-6">
+        <nav class="flex-1">
+          <div class="flex items-center justify-end space-x-6">
+            <ul class="flex items-center space-x-6">
               <li>
                 <a
                   href="index.html"
-                  class="text-blue-900 hover:underline font-semibold flex items-center"
+                  class="text-blue-900 hover:underline font-medium text-sm flex items-center"
                 >
                   <i class="fas fa-home"></i>
                 </a>
@@ -66,32 +59,32 @@
               <li>
                 <a
                   href="about_c.html"
-                  class="text-blue-900 hover:underline font-semibold"
+                  class="text-blue-900 hover:underline font-medium text-sm"
                   >Sobre</a
                 >
               </li>
               <li>
-                <a href="parceiros.html" class="text-blue-900 hover:underline"
+                <a href="parceiros.html" class="text-blue-900 hover:underline font-medium text-sm"
                   >Parceiros</a
                 >
               </li>
               <li>
-                <a href="biblio_dados.html" class="text-blue-900 hover:underline"
+                <a href="biblio_dados.html" class="text-blue-900 hover:underline font-medium text-sm"
                   >Biblioteca de Dados</a
                 >
               </li>
               <li>
-                <a href="visual.html" class="text-blue-900 hover:underline"
-                  >Vizualização</a
+                <a href="visual.html" class="text-blue-900 hover:underline font-medium text-sm"
+                  >Visualização</a
                 >
               </li>
               <li>
-                <a href="condicoesreais.html" class="text-blue-900 hover:underline font-semibold"
+                <a href="condicoesreais.html" class="text-blue-900 hover:underline font-semibold text-sm"
                   >Condições Reais</a
                 >
               </li>
             </ul>
-            <button class="ml-8 ai-btn bg-gradient-to-r from-blue-700 via-blue-600 to-blue-800 text-white font-semibold py-2 px-4 rounded shadow focus:outline-none">
+            <button class="ai-btn bg-gradient-to-r from-blue-700 via-blue-600 to-blue-800 text-white font-medium text-sm py-2 px-4 rounded shadow focus:outline-none">
               Modelo AI
             </button>
           </div>
@@ -99,22 +92,20 @@
       </div>
     </header>
 
-    <!-- Secção da imagem/friso -->
-    <section class="w-full flex-shrink-0">
-      <img src="https://github.com/clepsydraisa/clepsydra_isa/blob/main/images/bcground_w.png?raw=true" alt="Background" class="w-full h-auto block" />
-    </section>
-
     <!-- Main Content -->
-    <main class="flex-grow container mx-auto px-6 py-8">
-      <div class="grid grid-cols-1 gap-8">
-        <!-- Real conditions content will go here -->
+    <main class="flex-grow w-full py-12">
+      <div class="container mx-auto px-6">
+        <!-- Your content will go here -->
       </div>
     </main>
 
+    <!-- Friso colorido estreito acima do footer -->
+    <div class="w-full h-8" style="background: linear-gradient(to right, #17479e, #0e6bb5, #0093d3, #5a5a8c, #c1272d, #ff6f1f, #d6b08c, #a3bfa8, #4a2c0a);"></div>
+
     <!-- Footer -->
-    <footer class="bg-white py-6 px-6">
-      <div class="container mx-auto flex justify-center items-center">
-        <img src="https://github.com/clepsydraisa/clepsydra_isa/blob/main/images/logo_footer_c.png?raw=true" alt="Logos rodapé" class="w-auto h-20" />
+    <footer class="bg-white py-4 px-6 shadow">
+      <div class="container mx-auto flex justify-center items-center min-h-[80px]">
+        <img src="https://github.com/clepsydraisa/clepsydra_isa/blob/main/images/logo_footer_c.png?raw=true" alt="Logos rodapé" class="w-auto h-12" />
       </div>
     </footer>
   </body>
