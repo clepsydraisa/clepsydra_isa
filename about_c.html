@@ -36,33 +36,36 @@
         z-index: 10;
         transform: scale(1.10);
       }
+      .europa-clep-img {
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 80vh;
+      }
     </style>
   </head>
   <body class="flex flex-col min-h-screen">
     <!-- Header -->
     <header
-      class="bg-white text-blue-900 py-8 px-6 shadow"
+      class="bg-white text-blue-900 py-4 px-6 shadow"
     >
       <div class="container mx-auto flex items-center justify-between">
-        <div class="flex items-center">
+        <div class="flex items-center space-x-4">
           <a href="https://clepsydra.interreg-euro-med.eu/" target="_blank">
             <img
               src="https://github.com/clepsydraisa/clepsydra_isa/blob/main/images/logo_c2.png?raw=true"
               alt="Clepsydra Logo"
-              class="mr-4 max-h-20 h-20 w-auto"
+              class="h-16 w-auto"
             />
           </a>
-          <div>
-            <h1 class="text-4xl font-bold tracking-tight"></h1>
-          </div>
         </div>
-        <nav>
-          <div class="flex items-center space-x-6">
-            <ul class="flex space-x-6">
+        <nav class="flex-1">
+          <div class="flex items-center justify-end space-x-6">
+            <ul class="flex items-center space-x-6">
               <li>
                 <a
                   href="index.html"
-                  class="text-blue-900 hover:underline font-semibold flex items-center"
+                  class="text-blue-900 hover:underline font-medium text-sm flex items-center"
                 >
                   <i class="fas fa-home"></i>
                 </a>
@@ -70,32 +73,32 @@
               <li>
                 <a
                   href="about_c.html"
-                  class="text-blue-900 hover:underline font-semibold"
+                  class="text-blue-900 hover:underline font-semibold text-sm"
                   >Sobre</a
                 >
               </li>
               <li>
-                <a href="parceiros.html" class="text-blue-900 hover:underline"
+                <a href="parceiros.html" class="text-blue-900 hover:underline font-medium text-sm"
                   >Parceiros</a
                 >
               </li>
               <li>
-                <a href="biblio_dados.html" class="text-blue-900 hover:underline"
+                <a href="biblio_dados.html" class="text-blue-900 hover:underline font-medium text-sm"
                   >Biblioteca de Dados</a
                 >
               </li>
               <li>
-                <a href="visual.html" class="text-blue-900 hover:underline"
+                <a href="visual.html" class="text-blue-900 hover:underline font-medium text-sm"
                   >Visualização</a
                 >
               </li>
               <li>
-                <a href="condicoesreais.html" class="text-blue-900 hover:underline"
+                <a href="condicoesreais.html" class="text-blue-900 hover:underline font-medium text-sm"
                   >Condições Reais</a
                 >
               </li>
             </ul>
-            <button class="ml-8 ai-btn bg-gradient-to-r from-blue-700 via-blue-600 to-blue-800 text-white font-semibold py-2 px-4 rounded shadow focus:outline-none">
+            <button class="ai-btn bg-gradient-to-r from-blue-700 via-blue-600 to-blue-800 text-white font-medium text-sm py-2 px-4 rounded shadow focus:outline-none">
               Modelo AI
             </button>
           </div>
@@ -107,41 +110,34 @@
     <section class="w-full flex-shrink-0 min-h-screen" style="background-image: url('https://github.com/clepsydraisa/clepsydra_isa/blob/main/images/bcground.png?raw=true'); background-size: cover; background-repeat: no-repeat; background-position: top center;">
       <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row items-start md:items-center gap-8">
         <!-- Coluna esquerda: Tarefas -->
-        <div class="w-full md:w-1/2 flex flex-col items-start mt-32 pl-8 space-y-8">
-          <div class="w-full max-w-2xl bg-white p-6 rounded-lg shadow-md hover:shadow-2xl relative hover:scale-110 hover:z-10 flex flex-col space-y-4">
-            <span class="font-extrabold text-2xl md:text-3xl text-blue-900">Tarefa 1</span>
-            <span class="text-xl md:text-2xl text-gray-800 font-normal">
+        <div class="w-full md:w-1/2 flex flex-col items-start mt-16 pl-4 space-y-6">
+          <div class="w-full max-w-lg bg-white p-4 rounded-lg hover:shadow-2xl relative hover:scale-105 hover:z-10 flex flex-col space-y-2">
+            <span class="font-extrabold text-xl md:text-2xl text-blue-900">Tarefa 1</span>
+            <span class="text-base md:text-lg text-gray-800 font-normal">
               Desenvolvimento de ferramentas para <span class="text-red-500 font-semibold">monitorização e obtenção dados</span> e <span class="text-red-500 font-semibold">identificação de lacunas</span>;
             </span>
           </div>
-          <div class="w-full max-w-2xl bg-white p-6 rounded-lg shadow-md hover:shadow-2xl relative hover:scale-110 hover:z-10 flex flex-col space-y-4">
-            <span class="font-extrabold text-2xl md:text-3xl text-blue-900">Tarefa 2</span>
-            <span class="text-xl md:text-2xl text-gray-800 font-normal">
+          <div class="w-full max-w-lg bg-white p-4 rounded-lg hover:shadow-2xl relative hover:scale-105 hover:z-10 flex flex-col space-y-2">
+            <span class="font-extrabold text-xl md:text-2xl text-blue-900">Tarefa 2</span>
+            <span class="text-base md:text-lg text-gray-800 font-normal">
               Criação ou <span class="text-red-500 font-semibold">melhoria/atualização</span> de rede de monitorização - <span class="italic">geração de dados</span>
             </span>
           </div>
-          <div class="w-full max-w-2xl bg-white p-6 rounded-lg shadow-md hover:shadow-2xl relative hover:scale-110 hover:z-10 flex flex-col space-y-4">
-            <span class="font-extrabold text-2xl md:text-3xl text-blue-900">Tarefa 3</span>
-            <span class="text-xl md:text-2xl text-gray-800 font-normal">
+          <div class="w-full max-w-lg bg-white p-4 rounded-lg hover:shadow-2xl relative hover:scale-105 hover:z-10 flex flex-col space-y-2">
+            <span class="font-extrabold text-xl md:text-2xl text-blue-900">Tarefa 3</span>
+            <span class="text-base md:text-lg text-gray-800 font-normal">
               <span class="text-red-500 font-semibold underline">Observações em condições reais</span> – Living Lab
             </span>
           </div>
-          <div class="w-full max-w-2xl bg-white p-6 rounded-lg shadow-md hover:shadow-2xl relative hover:scale-110 hover:z-10 flex flex-col space-y-4">
-            <span class="font-extrabold text-2xl md:text-3xl text-blue-900">Tarefa 4</span>
-            <span class="text-xl md:text-2xl text-gray-800 font-normal">
+          <div class="w-full max-w-lg bg-white p-4 rounded-lg hover:shadow-2xl relative hover:scale-105 hover:z-10 flex flex-col space-y-2">
+            <span class="font-extrabold text-xl md:text-2xl text-blue-900">Tarefa 4</span>
+            <span class="text-base md:text-lg text-gray-800 font-normal">
               Capacitação e sensibilização social
             </span>
           </div>
         </div>
         <!-- Coluna direita: Imagem -->
-        <style>
-          .europa-clep-img {
-            width: 1500px; /* Adjust as needed */
-            height: 900px; /* Maintain aspect ratio */
-          }
-        </style>
-        
-        <div class="hidden md:flex flex-1 items-start mt-20 pr-0" style="margin-right:-140px;">
+        <div class="hidden md:flex flex-1 items-start mt-16 pr-0" style="margin-right:-60px;">
           <img src="https://github.com/clepsydraisa/clepsydra_isa/blob/main/images/europa_clep.png?raw=true" alt="Europa Clepsydra" class="europa-clep-img" />
         </div>
       </div>
@@ -181,9 +177,9 @@
     </script>
 
     <!-- Footer -->
-    <footer class="bg-white py-6 px-6">
-      <div class="container mx-auto flex justify-center items-center">
-        <img src="https://github.com/clepsydraisa/clepsydra_isa/blob/main/images/logo_footer_c.png?raw=true" alt="Logos rodapé" class="w-auto h-20" />
+    <footer class="bg-white py-4 px-6 shadow">
+      <div class="container mx-auto flex justify-center items-center min-h-[80px]">
+        <img src="https://github.com/clepsydraisa/clepsydra_isa/blob/main/images/logo_footer_c.png?raw=true" alt="Logos rodapé" class="w-auto h-12" />
       </div>
     </footer>
   </body>
