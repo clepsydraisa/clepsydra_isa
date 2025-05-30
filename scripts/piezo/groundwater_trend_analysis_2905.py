@@ -12,8 +12,46 @@ import pymannkendall as mk
 import warnings
 from pathlib import Path
 import os
+import sys
 
 warnings.filterwarnings('ignore')
+
+# identificar pasta de trabalho
+try:
+    # .../clepsydra_isa/scripts/piezo/groundwater_trend_analysis_2905.py
+    working_dir=Path(__file__).parent.parent.parent # working directory from script location: scripts are in 'scripts' folder
+except:
+    # pasta MJ
+    working_dir=Path(r"C:\Users\mjmartins\OneDrive - Universidade de Lisboa\Documentos\Clepsydra_ISA\clepsydra_isa-main")
+
+
+# Example of how to use with your data:
+"""
+# Load your data
+df = pd.read_csv('groundwater_data.csv')  # Replace with your file
+
+# Run analysis
+analyzer = analyze_groundwater_data(df, date_col='date', value_col='water_level')
+
+# Access results
+results = analyzer.results
+changepoints = analyzer.changepoints
+segments = analyzer.segments
+"""
+
+def main():
+    codigo_poco='442/94'
+    fn= Path(working_dir) /"resources" / "aquifer_depth_piezo.csv"
+    # ler ficheiro piezometria
+    df=pd.read_csv(fn)
+    # filtar dados para o poço
+    df=df[df['codigo']==codigo_poco]
+    # construir nivel e eliminar dados desnecessarios
+    df=df[['data', 'profundidade_nivel_agua']]
+    df['nivel'] = -pd.to_numeric(df['profundidade_nivel_agua'], errors='coerce') # ou 'nivel_piezometrico'
+    df=df.drop(columns=['profundidade_nivel_agua'] ) 
+    analyzer = analyze_groundwater_data(df, date_col='data', value_col='nivel')
+
 
 class GroundwaterTrendAnalysis:
     """
@@ -415,43 +453,15 @@ def analyze_groundwater_data(df, date_col='date', value_col='water_level'):
     Returns:
     GroundwaterTrendAnalysis object with results
     """
-    
     # Initialize analyzer
     analyzer = GroundwaterTrendAnalysis(df, date_col, value_col)
-    
     # Run complete analysis
     analyzer.exploratory_analysis()
     analyzer.detect_changepoints(method='pelt')
     analyzer.analyze_segments()
     analyzer.compare_segments()
     analyzer.generate_report()
-    
     return analyzer
 
-# Example of how to use with your data:
-"""
-# Load your data
-df = pd.read_csv('groundwater_data.csv')  # Replace with your file
-
-# Run analysis
-analyzer = analyze_groundwater_data(df, date_col='date', value_col='water_level')
-
-# Access results
-results = analyzer.results
-changepoints = analyzer.changepoints
-segments = analyzer.segments
-"""
-
-working_dir=r"C:\Users\mjmartins\OneDrive - Universidade de Lisboa\Documentos\Clepsydra_ISA\clepsydra_isa-main"
-codigo_poco='442/94'
-fn= Path(working_dir) /"resources" / "aquifer_depth_piezo.csv"
-# ler ficheiro piezometria
-df=pd.read_csv(fn)
-# filtar dados para o poço
-df=df[df['codigo']==codigo_poco]
-# construir nivel e eliminar dados desnecessarios
-df=df[['data', 'profundidade_nivel_agua']]
-df['nivel'] = -pd.to_numeric(df['profundidade_nivel_agua'], errors='coerce') # ou 'nivel_piezometrico'
-df=df.drop(columns=['profundidade_nivel_agua'] ) 
-
-analyzer = analyze_groundwater_data(df, date_col='data', value_col='nivel')
+if __name__ == '__main__':
+    main()
