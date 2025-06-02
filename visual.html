@@ -21,6 +21,7 @@
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
     <!-- Proj4js para converter coordenadas -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.8.0/proj4.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@1.2.1/dist/chartjs-plugin-zoom.min.js"></script>
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -131,6 +132,10 @@
       <div class="bg-white p-6 rounded shadow-lg relative">
         <button onclick="closeModal()" class="absolute top-2 right-2 text-gray-500 text-2xl">&times;</button>
         <h2 id="well-title" class="text-lg font-bold mb-2"></h2>
+        <div class="mb-2 text-sm text-gray-600">
+          Use o <b>scroll do mouse</b> para dar zoom, <b>clique e arraste</b> para selecionar uma área.<br>
+          <button id="resetZoomBtn" class="mt-2 px-3 py-1 bg-blue-100 text-blue-800 rounded hover:bg-blue-200 transition">Resetar Zoom</button>
+        </div>
         <canvas id="wellChart" width="400" height="300"></canvas>
       </div>
     </div>
@@ -210,7 +215,7 @@
                   data: well.data.map(d => d.profundidade),
                   borderColor: '#007bff',
                   backgroundColor: 'rgba(0,123,255,0.2)',
-                  fill: true,
+                  fill: 'start',
                   tension: 0.2
                 }]
               },
@@ -220,11 +225,35 @@
                   x: { title: { display: true, text: 'Data' } },
                   y: { 
                     title: { display: true, text: 'Profundidade (m)' },
-                    reverse: true
+                    reverse: true,
+                    min: 0
+                  }
+                },
+                plugins: {
+                  zoom: {
+                    pan: {
+                      enabled: true,
+                      mode: 'xy',
+                      modifierKey: null
+                    },
+                    zoom: {
+                      enabled: true,
+                      mode: 'xy',
+                      drag: {
+                        enabled: true
+                      },
+                      wheel: {
+                        enabled: true
+                      }
+                    }
                   }
                 }
               }
             });
+            // Adicionar funcionalidade ao botão de resetar zoom
+            document.getElementById('resetZoomBtn').onclick = function() {
+              if (window.currentChart) window.currentChart.resetZoom();
+            };
           });
         });
       }
