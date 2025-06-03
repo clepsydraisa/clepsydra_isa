@@ -180,6 +180,7 @@
     let map, markersLayer;
     let wellsData = null;
     let nitratoData = null;
+    let precipData = null;  // Add precipitation data variable
 
     // Inicializar o mapa
     function initMap() {
@@ -309,6 +310,62 @@
       });
     }
 
+    // Função para desenhar marcadores de precipitação
+    function drawPrecipMarkers() {
+      clearMarkers();
+      Object.entries(precipData).forEach(([codigo, station]) => {
+        const marker = L.circleMarker(station.coord, {radius: 6, color: '#17a2b8', fillColor: '#17a2b8', fillOpacity: 0.8});
+        marker.addTo(markersLayer).on('click', () => {
+          document.getElementById('chart-modal').classList.remove('hidden');
+          document.getElementById('well-title').innerText = `Estação ${codigo} - ${station.nome}`;
+          const ctx = document.getElementById('wellChart').getContext('2d');
+          if (window.currentChart) window.currentChart.destroy();
+          window.currentChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: station.data.map(d => d.date),
+              datasets: [{
+                label: 'Precipitação (mm)',
+                data: station.data.map(d => d.precipitacao),
+                borderColor: '#17a2b8',
+                backgroundColor: 'rgba(23,162,184,0.2)',
+                fill: 'start',
+                tension: 0.2
+              }]
+            },
+            options: {
+              responsive: true,
+              scales: {
+                x: { title: { display: true, text: 'Data' } },
+                y: { 
+                  title: { display: true, text: 'Precipitação (mm)' },
+                  min: 0
+                }
+              },
+              plugins: {
+                zoom: {
+                  pan: {
+                    enabled: true,
+                    mode: 'xy',
+                    modifierKey: null
+                  },
+                  zoom: {
+                    enabled: true,
+                    mode: 'xy',
+                    drag: { enabled: true },
+                    wheel: { enabled: true }
+                  }
+                }
+              }
+            }
+          });
+          document.getElementById('resetZoomBtn').onclick = function() {
+            if (window.currentChart) window.currentChart.resetZoom();
+          };
+        });
+      });
+    }
+
     // Função para limpar valores de nitrato com caracteres especiais
     function cleanNitrateValue(value) {
       if (typeof value === 'string') {
@@ -374,6 +431,35 @@
       });
     }
 
+    // Carregar e processar o CSV de precipitação
+    function loadPrecipData(callback) {
+      Papa.parse('https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/resources/model%20data/precip/prec_model_al.csv', {
+        download: true,
+        header: true,
+        complete: function(results) {
+          const data = results.data;
+          const stations = {};
+          data.forEach(row => {
+            if (!row.codigo) return;
+            if (!stations[row.codigo]) {
+              const [lon, lat] = convertCoords(row.coord_x_m, row.coord_y_m);
+              stations[row.codigo] = {
+                coord: [lat, lon],
+                nome: row.nome,
+                data: []
+              };
+            }
+            stations[row.codigo].data.push({
+              date: row.data,
+              precipitacao: parseFloat(row.precipitacao_dia_mm)
+            });
+          });
+          precipData = stations;
+          if (callback) callback();
+        }
+      });
+    }
+
     // Função para atualizar o mapa conforme o filtro
     function updateMap() {
       const variable = document.getElementById('variableFilter').value;
@@ -383,9 +469,12 @@
       } else if (variable === 'nitrato') {
         if (!nitratoData) loadNitratoData(drawNitratoMarkers);
         else drawNitratoMarkers();
+      } else if (variable === 'precipitacao') {
+        if (!precipData) loadPrecipData(drawPrecipMarkers);
+        else drawPrecipMarkers();
       } else {
         clearMarkers();
-        // Precipitação e Municípios: estrutura pronta para implementar
+        // Municípios: estrutura pronta para implementar
       }
     }
 
