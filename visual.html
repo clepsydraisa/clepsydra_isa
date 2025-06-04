@@ -132,6 +132,10 @@
             <option value="precipitacao">Precipitação</option>
             <option value="municipios">Municípios</option>
           </select>
+          <label for="wellFilter" class="font-semibold text-blue-900 ml-4">Poço:</label>
+          <select id="wellFilter" class="border border-blue-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400 min-w-[100px]">
+            <option value="">Todos</option>
+          </select>
         </div>
         <div id="map" style="height: 500px;"></div>
       </div>
@@ -460,30 +464,184 @@
       });
     }
 
-    // Função para atualizar o mapa conforme o filtro
-    function updateMap() {
+    // Atualizar filtro de poço/código conforme variável
+    function updateWellFilter() {
       const variable = document.getElementById('variableFilter').value;
-      if (variable === 'profundidade') {
-        if (!wellsData) loadProfundidadeData(drawProfundidadeMarkers);
-        else drawProfundidadeMarkers();
-      } else if (variable === 'nitrato') {
-        if (!nitratoData) loadNitratoData(drawNitratoMarkers);
-        else drawNitratoMarkers();
-      } else if (variable === 'precipitacao') {
-        if (!precipData) loadPrecipData(drawPrecipMarkers);
-        else drawPrecipMarkers();
-      } else {
-        clearMarkers();
-        // Municípios: estrutura pronta para implementar
+      const wellFilter = document.getElementById('wellFilter');
+      let codes = [];
+      if (variable === 'profundidade' && wellsData) {
+        codes = Object.keys(wellsData);
+      } else if (variable === 'nitrato' && nitratoData) {
+        codes = Object.keys(nitratoData);
+      } else if (variable === 'precipitacao' && precipData) {
+        codes = Object.keys(precipData);
       }
+      wellFilter.innerHTML = '<option value="">Todos</option>' + codes.map(c => `<option value="${c}">${c}</option>`).join('');
+    }
+
+    // Função para dar zoom e abrir modal do poço selecionado
+    function focusOnWell(codigo) {
+      const variable = document.getElementById('variableFilter').value;
+      let obj = null;
+      if (variable === 'profundidade' && wellsData && wellsData[codigo]) {
+        obj = wellsData[codigo];
+        map.setView(obj.coord, 14);
+        // Simula clique no marcador
+        document.getElementById('chart-modal').classList.remove('hidden');
+        document.getElementById('well-title').innerText = `Poço ${codigo}`;
+        const ctx = document.getElementById('wellChart').getContext('2d');
+        if (window.currentChart) window.currentChart.destroy();
+        window.currentChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: obj.data.map(d => d.date),
+            datasets: [{
+              label: 'Profundidade Nível Água (m)',
+              data: obj.data.map(d => d.profundidade),
+              borderColor: '#007bff',
+              backgroundColor: 'rgba(0,123,255,0.2)',
+              fill: 'start',
+              tension: 0.2
+            }]
+          },
+          options: {
+            responsive: true,
+            scales: {
+              x: { title: { display: true, text: 'Data' } },
+              y: { title: { display: true, text: 'Profundidade (m)' }, reverse: true, min: 0 }
+            },
+            plugins: { zoom: { pan: { enabled: true, mode: 'xy' }, zoom: { enabled: true, mode: 'xy', drag: { enabled: true }, wheel: { enabled: true } } } }
+          }
+        });
+        document.getElementById('resetZoomBtn').onclick = function() {
+          if (window.currentChart) window.currentChart.resetZoom();
+        };
+      } else if (variable === 'nitrato' && nitratoData && nitratoData[codigo]) {
+        obj = nitratoData[codigo];
+        map.setView(obj.coord, 14);
+        document.getElementById('chart-modal').classList.remove('hidden');
+        document.getElementById('well-title').innerText = `Poço ${codigo}`;
+        const ctx = document.getElementById('wellChart').getContext('2d');
+        if (window.currentChart) window.currentChart.destroy();
+        window.currentChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: obj.data.map(d => d.date),
+            datasets: [{
+              label: 'Nitrato (mg/L)',
+              data: obj.data.map(d => d.nitrato),
+              borderColor: '#28a745',
+              backgroundColor: 'rgba(40,167,69,0.2)',
+              fill: 'start',
+              tension: 0.2
+            }]
+          },
+          options: {
+            responsive: true,
+            scales: {
+              x: { title: { display: true, text: 'Data' } },
+              y: { title: { display: true, text: 'Nitrato (mg/L)' }, min: 0 }
+            },
+            plugins: { zoom: { pan: { enabled: true, mode: 'xy' }, zoom: { enabled: true, mode: 'xy', drag: { enabled: true }, wheel: { enabled: true } } } }
+          }
+        });
+        document.getElementById('resetZoomBtn').onclick = function() {
+          if (window.currentChart) window.currentChart.resetZoom();
+        };
+      } else if (variable === 'precipitacao' && precipData && precipData[codigo]) {
+        obj = precipData[codigo];
+        map.setView(obj.coord, 14);
+        document.getElementById('chart-modal').classList.remove('hidden');
+        document.getElementById('well-title').innerText = `Estação ${codigo} - ${obj.nome}`;
+        const ctx = document.getElementById('wellChart').getContext('2d');
+        if (window.currentChart) window.currentChart.destroy();
+        window.currentChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: obj.data.map(d => d.date),
+            datasets: [{
+              label: 'Precipitação (mm)',
+              data: obj.data.map(d => d.precipitacao),
+              borderColor: '#800080',
+              backgroundColor: 'rgba(128,0,128,0.2)',
+              fill: 'start',
+              tension: 0.2
+            }]
+          },
+          options: {
+            responsive: true,
+            scales: {
+              x: { title: { display: true, text: 'Data' } },
+              y: { title: { display: true, text: 'Precipitação (mm)' }, min: 0 }
+            },
+            plugins: { zoom: { pan: { enabled: true, mode: 'xy' }, zoom: { enabled: true, mode: 'xy', drag: { enabled: true }, wheel: { enabled: true } } } }
+          }
+        });
+        document.getElementById('resetZoomBtn').onclick = function() {
+          if (window.currentChart) window.currentChart.resetZoom();
+        };
+      }
+    }
+
+    // Atualizar mapa e filtro de poço ao mudar variável
+    function updateMapAndWellFilter() {
+      updateMap();
+      updateWellFilter();
+    }
+
+    // Atualizar filtro de poço ao carregar dados
+    function updateWellFilterAfterLoad() {
+      updateWellFilter();
     }
 
     // Inicialização
     document.addEventListener('DOMContentLoaded', function() {
       initMap();
-      loadProfundidadeData(drawProfundidadeMarkers); // Carrega profundidade por padrão
-      document.getElementById('variableFilter').addEventListener('change', updateMap);
+      loadProfundidadeData(function() {
+        drawProfundidadeMarkers();
+        updateWellFilterAfterLoad();
+      }); // Carrega profundidade por padrão
+      document.getElementById('variableFilter').addEventListener('change', updateMapAndWellFilter);
+      document.getElementById('wellFilter').addEventListener('change', function() {
+        const codigo = this.value;
+        if (codigo) {
+          focusOnWell(codigo);
+        }
+      });
     });
+
+    // Atualizar filtro de poço ao carregar outros dados
+    function loadNitratoDataWithFilter(cb) {
+      loadNitratoData(function() {
+        if (cb) cb();
+        updateWellFilterAfterLoad();
+      });
+    }
+    function loadPrecipDataWithFilter(cb) {
+      loadPrecipData(function() {
+        if (cb) cb();
+        updateWellFilterAfterLoad();
+      });
+    }
+
+    // Modificar updateMap para usar as funções acima
+    function updateMap() {
+      const variable = document.getElementById('variableFilter').value;
+      if (variable === 'profundidade') {
+        if (!wellsData) loadProfundidadeData(function() { drawProfundidadeMarkers(); updateWellFilterAfterLoad(); });
+        else { drawProfundidadeMarkers(); updateWellFilterAfterLoad(); }
+      } else if (variable === 'nitrato') {
+        if (!nitratoData) loadNitratoDataWithFilter(drawNitratoMarkers);
+        else { drawNitratoMarkers(); updateWellFilterAfterLoad(); }
+      } else if (variable === 'precipitacao') {
+        if (!precipData) loadPrecipDataWithFilter(drawPrecipMarkers);
+        else { drawPrecipMarkers(); updateWellFilterAfterLoad(); }
+      } else {
+        clearMarkers();
+        updateWellFilter();
+        // Municípios: estrutura pronta para implementar
+      }
+    }
     </script>
   </body>
 </html> 
