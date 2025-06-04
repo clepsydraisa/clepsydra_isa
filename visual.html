@@ -314,7 +314,7 @@
     function drawPrecipMarkers() {
       clearMarkers();
       Object.entries(precipData).forEach(([codigo, station]) => {
-        const marker = L.circleMarker(station.coord, {radius: 6, color: '#17a2b8', fillColor: '#17a2b8', fillOpacity: 0.8});
+        const marker = L.circleMarker(station.coord, {radius: 6, color: '#800080', fillColor: '#800080', fillOpacity: 0.8});
         marker.addTo(markersLayer).on('click', () => {
           document.getElementById('chart-modal').classList.remove('hidden');
           document.getElementById('well-title').innerText = `Estação ${codigo} - ${station.nome}`;
@@ -327,8 +327,8 @@
               datasets: [{
                 label: 'Precipitação (mm)',
                 data: station.data.map(d => d.precipitacao),
-                borderColor: '#17a2b8',
-                backgroundColor: 'rgba(23,162,184,0.2)',
+                borderColor: '#800080',
+                backgroundColor: 'rgba(128,0,128,0.2)',
                 fill: 'start',
                 tension: 0.2
               }]

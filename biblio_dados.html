@@ -28,6 +28,13 @@
       .ai-btn:active {
         transform: scale(0.96);
       }
+      .data-card {
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+      }
+      .data-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      }
     </style>
   </head>
   <body class="flex flex-col min-h-screen">
@@ -92,11 +99,167 @@
       </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="flex-grow w-full py-12">
-      <div class="container mx-auto px-6">
-        <!-- Your content will go here -->
-      </div>
+    <!-- Main content that grows -->
+    <main class="flex flex-col flex-grow container mx-auto px-6 py-12">
+      <!-- Seção 1: Informação com os Dados -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-semibold text-gray-800 mb-4">
+          Informação dos Dados
+        </h2>
+        <p class="text-gray-600 leading-relaxed mb-4">
+          O projeto Clepsydra foca-se no desenvolvimento de um pipeline de dados para modelação do nível freático em áreas irrigadas, especificamente na Zona Vulnerável do Tejo (ZV Tejo) em Portugal, incluindo a Quinta da Cholda, Golegã. Os conjuntos de dados, provenientes do Sistema Nacional de Informação de Recursos Hídricos (SNIRH), incluem dados históricos sobre variáveis-chave como precipitação, profundidade do aquífero, concentração de nitratos e condutividade elétrica. Estas variáveis são essenciais para avaliar a qualidade da água e do solo no Agro-Hidro-Sistema Mediterrânico e apoiar a gestão sustentável da água. Devido ao grande tamanho dos ficheiros (até 65MB), estes estão alojados no Google Drive para fácil acesso.
+        </p>
+        <div class="flex flex-col md:flex-row gap-6 items-start">
+          <!-- Caixa de Downloads -->
+          <div class="bg-white p-4 rounded-lg shadow-md">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">
+              <i class="fas fa-folder mr-2 text-blue-600"></i> Download de Dados
+            </h3>
+            <ul class="list-disc pl-5 text-gray-600">
+              <li>
+                <a
+                  href="https://drive.google.com/file/d/1TvsLe6_yz6PUkLbGkKCeNI64n-k4pmYw/view?usp=sharing"
+                  class="text-blue-600 hover:underline"
+                  target="_blank"
+                >
+                  Dados de Precipitação (CSV)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://drive.google.com/file/d/1TvsLe6_yz6PUkLbGkKCeNI64n-k4pmYw/view?usp=sharing"
+                  class="text-blue-600 hover:underline"
+                  target="_blank"
+                >
+                  Dados de Concentração de Nitratos (CSV)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://drive.google.com/file/d/1RiQHOOydlDOzvBnpGKzcT6p6Z0oOWv3M/view?usp=sharing"
+                  class="text-blue-600 hover:underline"
+                  target="_blank"
+                >
+                  Dados de Condutividade Elétrica (CSV)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://drive.google.com/file/d/1IMczBMfrlOhqPsJrYshbijUGgkuFLsPK/view?usp=sharing"
+                  class="text-blue-600 hover:underline"
+                  target="_blank"
+                >
+                  Dados de Piezometria (CSV)
+                </a>
+              </li>
+            </ul>
+          </div>
+          <!-- Tabela -->
+          <div class="overflow-x-auto flex-1">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">
+              <i class="fas fa-table mr-2 text-blue-600"></i>Metadados das variáveis de estudo
+            </h3>
+            <table class="w-full text-gray-600 border-collapse">
+              <thead>
+                <tr class="bg-gray-100">
+                  <th class="border border-gray-300 px-4 py-2 text-left">
+                    Variável
+                  </th>
+                  <th class="border border-gray-300 px-4 py-2 text-left">
+                    Intervalo Temporal
+                  </th>
+                  <th class="border border-gray-300 px-4 py-2 text-left">
+                    Frequência de Registo
+                  </th>
+                  <th class="border border-gray-300 px-4 py-2 text-left">
+                    Pontos
+                  </th>
+                  <th class="border border-gray-300 px-4 py-2 text-left">
+                    Unidades
+                  </th>
+                  <th class="border border-gray-300 px-4 py-2 text-left">
+                    Zona
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="border border-gray-300 px-4 py-2">
+                    Precipitação
+                  </td>
+                  <td class="border border-gray-300 px-4 py-2">
+                    1979-10-01 a 2025-03-15
+                  </td>
+                  <td class="border border-gray-300 px-4 py-2">Diário</td>
+                  <td class="border border-gray-300 px-4 py-2">70</td>
+                  <td class="border border-gray-300 px-4 py-2">mm</td>
+                  <td class="border border-gray-300 px-4 py-2">
+                    ZVT e área envolvente
+                  </td>
+                </tr>
+                <tr>
+                  <td class="border border-gray-300 px-4 py-2">Piezometria</td>
+                  <td class="border border-gray-300 px-4 py-2">
+                    1974-10-01 a 2025-01-16
+                  </td>
+                  <td class="border border-gray-300 px-4 py-2">Indeterminado</td>
+                  <td class="border border-gray-300 px-4 py-2">73</td>
+                  <td class="border border-gray-300 px-4 py-2">m</td>
+                  <td class="border border-gray-300 px-4 py-2">Aquíferos ZVT</td>
+                </tr>
+                <tr>
+                  <td class="border border-gray-300 px-4 py-2">Nitratos</td>
+                  <td class="border border-gray-300 px-4 py-2">
+                    2000-03-01 a 2023-10-25
+                  </td>
+                  <td class="border border-gray-300 px-4 py-2">Indeterminado</td>
+                  <td class="border border-gray-300 px-4 py-2">112</td>
+                  <td class="border border-gray-300 px-4 py-2">mg/L</td>
+                  <td class="border border-gray-300 px-4 py-2">Aquíferos ZVT</td>
+                </tr>
+                <tr>
+                  <td class="border border-gray-300 px-4 py-2">
+                    Condutividade Elétrica
+                  </td>
+                  <td class="border border-gray-300 px-4 py-2">
+                    2000-03-01 a 2023-10-25
+                  </td>
+                  <td class="border border-gray-300 px-4 py-2">Indeterminado</td>
+                  <td class="border border-gray-300 px-4 py-2">103</td>
+                  <td class="border border-gray-300 px-4 py-2">µS/cm</td>
+                  <td class="border border-gray-300 px-4 py-2">Aquíferos ZVT</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Seção 2: Centralização dos Dados numa Base de Dados -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-semibold text-gray-800 mb-4">
+          Centralização dos Dados numa Base de Dados
+        </h2>
+        <div class="flex flex-col">
+          <div class="mb-4">
+            <p class="text-gray-600 leading-relaxed">
+              O projeto Clepsydra adotou a metodologia CRISP-DM para estruturar o pipeline de dados, com foco na fase de Preparação de Dados para consolidar, limpar e organizar dados históricos. Centralizámos os conjuntos de dados numa base de dados relacional usando DBeaver e PostgreSQL. Esta base de dados inclui tabelas de metadados: <code>info_qualidade</code>, <code>info_piezo</code>, <code>info_meteorologia</code>, e tabelas de valores: <code>condut_tejo_loc</code>, <code>nitrato_tejo_loc</code> e <code>precipitacao_tejo_loc</code>, que armazenam dados sobre qualidade da água, condições meteorológicas e características dos aquíferos. Esta estrutura garante a qualidade dos dados e suporta a modelação preditiva dos níveis freáticos na ZV Tejo.
+            </p>
+          </div>
+          <div class="flex justify-center">
+            <div class="w-full md:w-1/2">
+              <img
+                src="https://github.com/diogopinto1/path4med/blob/main/db_poster_rm.png?raw=true"
+                alt="Esquema da Base de Dados DBeaver"
+                class="w-full h-auto max-h-[100px]"
+              />
+              <p class="text-gray-500 text-sm text- mt-1">
+                <strong> Fig 1.</strong> Screenshot do esquema da base de dados Clepsydra no DBeaver, mostrando a estrutura relacional dos dados de qualidade da água, meteorologia e aquíferos.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- Friso colorido estreito acima do footer -->
