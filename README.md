@@ -1,23 +1,9 @@
-# Path4Med Project Progress
-Progress tracking for the Path4Med project (Horizon-IA 101156867) at ISA 
+# Clepsydra & Path4Med Projects
 
-## Overview
-This page tracks the progress of the Path4Med project (Horizon-IA 101156867) at ISA and Quinta da Cholda, from February to July 2025.
+This repository tracks the development and progress of the **Clepsydra** and **Path4Med** projects, conducted at the **Instituto Superior de Agronomia (ISA)** and **Quinta da Cholda**. These initiatives focus on innovative approaches to sustainable water management, precision agriculture, and the integration of data-driven tools such as machine learning and geospatial analysis.
 
-## Timeline
+Both projects aim to support climate-resilient farming practices, enhance water quality monitoring, and promote efficient use of resources in vulnerable Mediterranean agro-hydrosystems.
 
-### February 2025
-- **Tasks**:
-  - Collect historical data in the Tejo Vulnerable Zone.
-  - Develop a georeferenced database.
-  - Literature review on machine learning in water resources.
-- **Progress**: Collected climate and soil data. Database schema designed.
+---
 
-### March 2025
-- **Tasks**:
-  - Continue data collection.
-  - Test and install monitoring equipment.
-  - Draft scientific publication.
-- **Progress**: Equipment installed at Quinta da Cholda. Literature review completed.
-
-[Go to Main Page](https://clepsydraisa.github.io/clepsydra_isa/) 
+[![Visit Site](https://img.shields.io/badge/Visit%20Site-clepsydra_isa-blue?style=for-the-badge)](https://clepsydraisa.github.io/clepsydra_isa/)
