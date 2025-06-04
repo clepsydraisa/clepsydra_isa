@@ -167,7 +167,6 @@ class GroundwaterTrendAnalysis:
         try:
             stl = STL(self.monthly_data.dropna(), seasonal=13,period=12)
             decomp = stl.fit()
-            
             axes[0,1].plot(decomp.trend, 'r-', linewidth=2)
             axes[0,1].set_title('Extracted Trend Component')
             axes[0,1].set_ylabel('Trend')
@@ -201,6 +200,10 @@ class GroundwaterTrendAnalysis:
         axes[1,1].grid(True, alpha=0.3)
         
         plt.tight_layout()
+        plt.show()
+        
+        # ver a decomposicao da ts
+        decomp.plot()
         plt.show()
 
 # FIM DE ADICIONADO        
@@ -534,8 +537,28 @@ class GroundwaterTrendAnalysis:
                 
             except Exception as e:
                 print(f"  Seasonal Mann-Kendall test failed: {e}")
-                
-        # 3. Linear Regression
+  
+       
+       # 3.  Hamed Rao modified Mann-Kendall test for autocorrelated data
+       
+        try:
+           HRmk_result = mk.hamed_rao_modification_test(data.values, alpha=alpha)
+           result['hamed_rao_modification'] = {
+               'trend': HRmk_result.trend,
+               'p_value': HRmk_result.p,
+               'tau': HRmk_result.Tau,
+               'slope': HRmk_result.slope,
+               'slope_per_year': HRmk_result.slope * 12,  # Convert to per-year
+               'significant': HRmk_result.p < alpha
+           }
+           print(f"  Hamed Rao Mann-Kendall: {HRmk_result.trend} (p={HRmk_result.p:.4f}, τ={HRmk_result.Tau:.3f})")
+           print(f"  Sen's slope: {HRmk_result.slope*12:.4f} units/year")
+           
+        except Exception as e:
+           print(f" Hamed Rao Mann-Kendall test failed: {e}")
+      
+    
+        # 4. Linear Regression
         try:
             x = np.arange(len(data))
             slope, intercept, r_value, p_value, std_err = stats.linregress(x, data.values)
@@ -596,6 +619,13 @@ class GroundwaterTrendAnalysis:
                 row['SMK_p_value'] = f"{smk['p_value']:.4f}"
                 row['SMK_Slope_yr'] = f"{smk['slope_per_year']:.4f}"
                 
+            # Add Hamed-Rao modified Mann-Kendall if available
+            if 'hamed_rao_modification' in result:
+                HRsmk = result['hamed_rao_modification']
+                row['HRMK_Trend'] = HRsmk['trend']
+                row['HRMK_p_value'] = f"{HRsmk['p_value']:.4f}"
+                row['HRSMK_Slope_yr'] = f"{HRsmk['slope_per_year']:.4f}"
+           
             # Add linear regression
             if 'linear_regression' in result:
                 lr = result['linear_regression']
@@ -606,9 +636,9 @@ class GroundwaterTrendAnalysis:
             summary_data.append(row)
             
         # Display table
-        df_summary = pd.DataFrame(summary_data)
+        df_summary = pd.DataFrame(summary_data).transpose()
         print("\nDetailed Results:")
-        print(df_summary.to_string(index=False))
+        print(df_summary.to_string(index=True))
         
         # Overall summary
         print(f"\n{'='*50}")
@@ -622,12 +652,15 @@ class GroundwaterTrendAnalysis:
                            if r.get('mann_kendall', {}).get('significant', False))
         smk_significant = sum(1 for r in self.trend_results 
                             if r.get('seasonal_mann_kendall', {}).get('significant', False))
+        HRsmk_significant = sum(1 for r in self.trend_results 
+                    if r.get('hamed_rao_modification', {}).get('significant', False))
         lr_significant = sum(1 for r in self.trend_results 
                            if r.get('linear_regression', {}).get('significant', False))
         
         print(f"Total segments analyzed: {total_segments}")
         print(f"Significant trends (Mann-Kendall): {mk_significant}/{total_segments}")
         print(f"Significant trends (Seasonal MK): {smk_significant}/{total_segments}")
+        print(f"Significant trends (Hamed Rao modified MK): {HRsmk_significant}/{total_segments}")
         print(f"Significant trends (Linear regression): {lr_significant}/{total_segments}")
         
         # Trend directions
@@ -651,7 +684,7 @@ class GroundwaterTrendAnalysis:
         ax1 = axes[0, 0]
         for i, seg in enumerate(self.filled_segments):
             color = 'red' if any(r['segment_id'] == seg['id'] and 
-                               r.get('mann_kendall', {}).get('significant', False) 
+                               r.get('hamed_rao_modification', {}).get('significant', False) 
                                for r in self.trend_results) else 'blue'
             ax1.plot(seg['filled_data'].index, seg['filled_data'].values, 
                     color=color, alpha=0.7, linewidth=2, 
@@ -666,12 +699,13 @@ class GroundwaterTrendAnalysis:
         segments = [r['segment_id'] for r in self.trend_results]
         mk_pvals = [r.get('mann_kendall', {}).get('p_value', 1) for r in self.trend_results]
         smk_pvals = [r.get('seasonal_mann_kendall', {}).get('p_value', 1) for r in self.trend_results]
-        
+        hrmk_pvals = [r.get('hamed_rao_modification', {}).get('p_value', 1) for r in self.trend_results]
         x = np.arange(len(segments))
-        width = 0.35
+        width = 0.25
         
-        ax2.bar(x - width/2, mk_pvals, width, label='Mann-Kendall', alpha=0.7)
-        ax2.bar(x + width/2, smk_pvals, width, label='Seasonal MK', alpha=0.7)
+        ax2.bar(x - width, mk_pvals, width, label='Mann-Kendall', alpha=0.7)
+        ax2.bar(x , smk_pvals, width, label='Seasonal MK', alpha=0.7)
+        ax2.bar(x + width, hrmk_pvals, width, label='Hamed Rao MK', alpha=0.7)
         ax2.axhline(y=0.05, color='red', linestyle='--', alpha=0.7, label='α=0.05')
         ax2.set_xlabel('Segment')
         ax2.set_ylabel('p-value')
@@ -680,14 +714,17 @@ class GroundwaterTrendAnalysis:
         ax2.set_xticklabels(segments)
         ax2.legend()
         ax2.grid(True, alpha=0.3)
+    
         
         # Plot 3: Trend slopes
         ax3 = axes[1, 0]
         mk_slopes = [r.get('mann_kendall', {}).get('slope_per_year', 0) for r in self.trend_results]
         smk_slopes = [r.get('seasonal_mann_kendall', {}).get('slope_per_year', 0) for r in self.trend_results]
+        hrmk_slopes = [r.get('hamed_rao_modification', {}).get('slope_per_year', 0) for r in self.trend_results]
         
-        ax3.bar(x - width/2, mk_slopes, width, label='Mann-Kendall', alpha=0.7)
-        ax3.bar(x + width/2, smk_slopes, width, label='Seasonal MK', alpha=0.7)
+        ax3.bar(x - width, mk_slopes, width, label='Mann-Kendall', alpha=0.7)
+        ax3.bar(x , smk_slopes, width, label='Seasonal MK', alpha=0.7)
+        ax3.bar(x + width, hrmk_slopes, width, label='Hamed Rao MK', alpha=0.7)
         ax3.axhline(y=0, color='black', linestyle='-', alpha=0.3)
         ax3.set_xlabel('Segment')
         ax3.set_ylabel('Trend Slope (units/year)')
