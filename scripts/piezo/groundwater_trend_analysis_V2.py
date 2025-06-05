@@ -20,8 +20,6 @@ except:
     working_dir=Path(r"C:\Users\mjmartins\OneDrive - Universidade de Lisboa\Documentos\Clepsydra_ISA\clepsydra_isa-main")
 
 
-main()
-
 # Example usage:
 """
 # Load your evenly spaced groundwater data
@@ -790,3 +788,5 @@ def analyze_groundwater_trends(df, date_col='date', value_col='water_level',
     
     return analyzer
 
+if __name__ == '__main__':
+    main()
