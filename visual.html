@@ -733,6 +733,9 @@
         const codigo = this.value;
         if (codigo) {
           focusOnWell(codigo);
+        } else {
+          // Zoom out para a vista inicial
+          if (map) map.setView([39.5, -8], 8);
         }
       });
     });
