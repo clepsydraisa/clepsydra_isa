@@ -9,7 +9,6 @@ import warnings
 from pathlib import Path
 import os
 import sys
-import json
 warnings.filterwarnings('ignore')
 
 # identificar pasta de trabalho
@@ -45,30 +44,26 @@ trend_results = analyzer.trend_results
 """
 
 def main():
-    codigos = [
-        '330/183', '331/15', '331/2', '341/17', '342/78', '342/97', '377/54', '377/59', '377/84', '377/86',
-        '377/94', '390/208', '390/99', '391/243', '391/33', '391/437', '404/69', '405/17', '405/34', '418/15', '418/4'
-    ]
+    codigo_poco='442/94'
     fn= Path(working_dir) /"resources" / "aquifer_depth_piezo.csv"
-    output_dir = Path(working_dir) / "resources" / "trends"
-    output_dir.mkdir(parents=True, exist_ok=True)
-    for codigo_poco in codigos:
-        df=pd.read_csv(fn)
-        df=df[df['codigo']==codigo_poco]
-        df=df[['data', 'profundidade_nivel_agua']]
-        df['nivel'] = -pd.to_numeric(df['profundidade_nivel_agua'], errors='coerce')
-        df=df.drop(columns=['profundidade_nivel_agua'] ) 
-        analyzer = analyze_groundwater_trends(
-            df, 
-            date_col='data', 
-            value_col='nivel',
-            monthly_method='mean',
-            fill_method='seasonal_decompose',
-            min_gap_months=24,
-            alpha=0.05
-        )
-        output_path = output_dir / f"trend_{codigo_poco.replace('/', '_')}.json"
-        export_trend_json(analyzer, output_path)
+    # ler ficheiro piezometria
+    df=pd.read_csv(fn)
+    # filtar dados para o poço
+    df=df[df['codigo']==codigo_poco]
+    # construir nivel e eliminar dados desnecessariosAdd commentMore actions
+    df=df[['data', 'profundidade_nivel_agua']]
+    df['nivel'] = -pd.to_numeric(df['profundidade_nivel_agua'], errors='coerce') # ou 'nivel_piezometrico'
+    df=df.drop(columns=['profundidade_nivel_agua'] ) 
+    analyzer = analyze_groundwater_trends(
+        df, 
+        date_col='data', 
+        value_col='nivel',
+        monthly_method='mean',
+        fill_method='seasonal_decompose',
+        min_gap_months=24,
+        alpha=0.05
+    )
+
 
 class GroundwaterTrendAnalysis:
     """
@@ -792,43 +787,6 @@ def analyze_groundwater_trends(df, date_col='date', value_col='water_level',
     analyzer.step4_test_trends(alpha=alpha)
     
     return analyzer
-
-def export_trend_json(analyzer, output_path):
-    segments_json = []
-    for seg, trend in zip(analyzer.filled_segments, analyzer.trend_results):
-        # Linear regression points for trend line
-        x = np.arange(len(seg['filled_data']))
-        y = seg['filled_data'].values
-        if 'linear_regression' in trend:
-            slope = trend['linear_regression']['slope_per_year'] / 12  # per month
-            intercept = trend['linear_regression']['intercept']
-            trend_line = [float(intercept + slope * i) for i in range(len(x))]
-            trend_points = [
-                {"x": str(date.date()), "y": float(val)}
-                for date, val in zip(seg['filled_data'].index, trend_line)
-            ]
-        else:
-            trend_points = []
-
-        segments_json.append({
-            "start_date": str(seg['start_date'].date()),
-            "end_date": str(seg['end_date'].date()),
-            "trend_type": trend.get('mann_kendall', {}).get('trend', 'no trend'),
-            "p_value": trend.get('mann_kendall', {}).get('p_value', None),
-            "slope_per_year": trend.get('mann_kendall', {}).get('slope_per_year', None),
-            "r_squared": trend.get('linear_regression', {}).get('r_squared', None),
-            "trend_points": trend_points
-        })
-
-    result = {
-        "segments": segments_json,
-        "overall": {
-            "significant": any(seg.get("p_value", 1) is not None and seg.get("p_value", 1) < 0.05 for seg in segments_json),
-            "method": "Mann-Kendall"
-        }
-    }
-    with open(output_path, "w") as f:
-        json.dump(result, f, indent=2)
 
 if __name__ == '__main__':
     main()
