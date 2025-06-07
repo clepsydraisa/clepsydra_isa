@@ -254,7 +254,6 @@
           let trendVisible = false;
           document.getElementById('trendAnalysisBtn').onclick = async function() {
             if (!trendVisible) {
-              // Buscar JSON de tendência
               const jsonUrl = `resources/trends/trend_${codigo.replace('/', '_')}.json`;
               try {
                 const resp = await fetch(jsonUrl);
@@ -355,9 +354,68 @@
           document.getElementById('resetZoomBtn').onclick = function() {
             if (window.currentChart) window.currentChart.resetZoom();
           };
-          document.getElementById('trendAnalysisBtn').classList.add('hidden');
+          // Mostrar botão de análise de tendência para nitrato
+          document.getElementById('trendAnalysisBtn').classList.remove('hidden');
           document.getElementById('trendStatsBox').classList.add('hidden');
           document.getElementById('trendStatsBox').innerHTML = '';
+          let trendVisible = false;
+          document.getElementById('trendAnalysisBtn').onclick = async function() {
+            if (!trendVisible) {
+              const jsonUrl = `resources/trends_nitrato/trend_${codigo.replace('/', '_')}.json`;
+              try {
+                const resp = await fetch(jsonUrl);
+                if (!resp.ok) throw new Error('Trend JSON não encontrado');
+                const trendData = await resp.json();
+                // Adicionar linhas de tendência ao gráfico
+                if (window.currentChart) {
+                  const mainDataset = window.currentChart.data.datasets.filter(ds => !ds._isTrend);
+                  const trendDatasets = trendData.segments.map((seg, idx) => ({
+                    label: `Tendência Segmento ${idx+1}`,
+                    data: seg.trend_points, // NÃO inverter sinal!
+                    borderColor: '#e67e22',
+                    backgroundColor: 'rgba(230,126,34,0.1)',
+                    borderDash: [6,3],
+                    pointRadius: 0,
+                    fill: false,
+                    tension: 0,
+                    _isTrend: true,
+                    order: 99
+                  }));
+                  window.currentChart.data.datasets = mainDataset.concat(trendDatasets);
+                  window.currentChart.update();
+                }
+                // Mostrar estatísticas na box
+                let html = `<b>Análise de tendência</b><br>`;
+                trendData.segments.forEach((seg, idx) => {
+                  html += `<hr><b>Segmento ${idx+1}</b><br>`;
+                  html += `Período: ${seg.start_date} a ${seg.end_date}<br>`;
+                  html += `Tipo: <b>${seg.trend_type}</b><br>`;
+                  html += `Inclinação/ano: <b>${seg.slope_per_year !== null ? seg.slope_per_year.toFixed(3) : '-'}</b><br>`;
+                  html += `p-valor: <b>${seg.p_value !== null ? seg.p_value.toExponential(2) : '-'}</b><br>`;
+                  html += `R²: <b>${seg.r_squared !== null ? seg.r_squared.toFixed(2) : '-'}</b><br>`;
+                });
+                document.getElementById('trendStatsBox').innerHTML = html;
+                document.getElementById('trendStatsBox').classList.remove('hidden');
+                trendVisible = true;
+                this.textContent = 'Fechar análise de tendência';
+              } catch (e) {
+                document.getElementById('trendStatsBox').innerHTML = '<span class="text-red-600">Erro ao carregar análise de tendência.</span>';
+                document.getElementById('trendStatsBox').classList.remove('hidden');
+                trendVisible = true;
+                this.textContent = 'Fechar análise de tendência';
+              }
+            } else {
+              // Esconder linhas de tendência e box
+              if (window.currentChart) {
+                window.currentChart.data.datasets = window.currentChart.data.datasets.filter(ds => !ds._isTrend);
+                window.currentChart.update();
+              }
+              document.getElementById('trendStatsBox').classList.add('hidden');
+              document.getElementById('trendStatsBox').innerHTML = '';
+              trendVisible = false;
+              this.textContent = 'Análise de tendência';
+            }
+          };
         });
       });
     }
@@ -569,7 +627,6 @@
         let trendVisible = false;
         document.getElementById('trendAnalysisBtn').onclick = async function() {
           if (!trendVisible) {
-            // Buscar JSON de tendência
             const jsonUrl = `resources/trends/trend_${codigo.replace('/', '_')}.json`;
             try {
               const resp = await fetch(jsonUrl);
@@ -663,9 +720,68 @@
         document.getElementById('resetZoomBtn').onclick = function() {
           if (window.currentChart) window.currentChart.resetZoom();
         };
-        document.getElementById('trendAnalysisBtn').classList.add('hidden');
+        // Mostrar botão de análise de tendência para nitrato
+        document.getElementById('trendAnalysisBtn').classList.remove('hidden');
         document.getElementById('trendStatsBox').classList.add('hidden');
         document.getElementById('trendStatsBox').innerHTML = '';
+        let trendVisible = false;
+        document.getElementById('trendAnalysisBtn').onclick = async function() {
+          if (!trendVisible) {
+            const jsonUrl = `resources/trends_nitrato/trend_${codigo.replace('/', '_')}.json`;
+            try {
+              const resp = await fetch(jsonUrl);
+              if (!resp.ok) throw new Error('Trend JSON não encontrado');
+              const trendData = await resp.json();
+              // Adicionar linhas de tendência ao gráfico
+              if (window.currentChart) {
+                const mainDataset = window.currentChart.data.datasets.filter(ds => !ds._isTrend);
+                const trendDatasets = trendData.segments.map((seg, idx) => ({
+                  label: `Tendência Segmento ${idx+1}`,
+                  data: seg.trend_points, // NÃO inverter sinal!
+                  borderColor: '#e67e22',
+                  backgroundColor: 'rgba(230,126,34,0.1)',
+                  borderDash: [6,3],
+                  pointRadius: 0,
+                  fill: false,
+                  tension: 0,
+                  _isTrend: true,
+                  order: 99
+                }));
+                window.currentChart.data.datasets = mainDataset.concat(trendDatasets);
+                window.currentChart.update();
+              }
+              // Mostrar estatísticas na box
+              let html = `<b>Análise de tendência</b><br>`;
+              trendData.segments.forEach((seg, idx) => {
+                html += `<hr><b>Segmento ${idx+1}</b><br>`;
+                html += `Período: ${seg.start_date} a ${seg.end_date}<br>`;
+                html += `Tipo: <b>${seg.trend_type}</b><br>`;
+                html += `Inclinação/ano: <b>${seg.slope_per_year !== null ? seg.slope_per_year.toFixed(3) : '-'}</b><br>`;
+                html += `p-valor: <b>${seg.p_value !== null ? seg.p_value.toExponential(2) : '-'}</b><br>`;
+                html += `R²: <b>${seg.r_squared !== null ? seg.r_squared.toFixed(2) : '-'}</b><br>`;
+              });
+              document.getElementById('trendStatsBox').innerHTML = html;
+              document.getElementById('trendStatsBox').classList.remove('hidden');
+              trendVisible = true;
+              this.textContent = 'Fechar análise de tendência';
+            } catch (e) {
+              document.getElementById('trendStatsBox').innerHTML = '<span class="text-red-600">Erro ao carregar análise de tendência.</span>';
+              document.getElementById('trendStatsBox').classList.remove('hidden');
+              trendVisible = true;
+              this.textContent = 'Fechar análise de tendência';
+            }
+          } else {
+            // Esconder linhas de tendência e box
+            if (window.currentChart) {
+              window.currentChart.data.datasets = window.currentChart.data.datasets.filter(ds => !ds._isTrend);
+              window.currentChart.update();
+            }
+            document.getElementById('trendStatsBox').classList.add('hidden');
+            document.getElementById('trendStatsBox').innerHTML = '';
+            trendVisible = false;
+            this.textContent = 'Análise de tendência';
+          }
+        };
       } else if (variable === 'precipitacao' && precipData && precipData[codigo]) {
         obj = precipData[codigo];
         map.setView(obj.coord, 14);

@@ -95,8 +95,7 @@ def main():
                 min_gap_months=24,
                 alpha=0.05
             )
-            # Salvar o JSON preservando letras e caracteres especiais
-            output_path = output_dir_nitrato / f"trend_{codigo_poco.replace('/', '_')}.json"
+            output_path = output_dir_nitrato / f"trend_{str(codigo_poco).replace('/', '_')}.json"
             export_trend_json(analyzer, output_path)
     else:
         print(f"Arquivo não encontrado: {fn_nitrato}")
