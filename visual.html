@@ -507,7 +507,7 @@
 
     // Carregar e processar o CSV de nitrato
     function loadNitratoData(callback) {
-      Papa.parse('https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/resources/model%20data/nitrato/nitrato_model_al.csv', {
+      Papa.parse('resources/model_data/nitrato/nitrato_model_al.csv', {
         download: true,
         header: true,
         complete: function(results) {
