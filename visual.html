@@ -486,7 +486,7 @@
           const data = results.data;
           const wells = {};
           data.forEach(row => {
-            if (!row.codigo) return;
+            if (!row.codigo || row.codigo === '377/287') return; // Skip well 377/287
             if (!wells[row.codigo]) {
               const [lon, lat] = convertCoords(row.coord_x_m, row.coord_y_m);
               wells[row.codigo] = {
