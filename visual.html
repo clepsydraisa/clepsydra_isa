@@ -323,12 +323,14 @@
           document.getElementById('well-title').innerText = `Poço ${codigo}`;
           const ctx = document.getElementById('wellChart').getContext('2d');
           if (window.currentChart) window.currentChart.destroy();
+          // Ordenar os dados por data antes de plotar
+          const sortedData = well.data.slice().sort((a, b) => new Date(a.date) - new Date(b.date));
           window.currentChart = new Chart(ctx, {
             type: 'line',
             data: {
               datasets: [{
                 label: 'Nitrato (mg/L)',
-                data: well.data.map(d => ({x: d.date, y: d.nitrato})),
+                data: sortedData.map(d => ({x: d.date, y: d.nitrato})),
                 borderColor: '#28a745',
                 backgroundColor: 'rgba(40,167,69,0.2)',
                 fill: 'start',
@@ -522,10 +524,16 @@
                 data: []
               };
             }
+            // Converter data para string ISO e guardar
+            let dateStr = row.data ? row.data.substring(0, 10) : '';
             nitratos[row.codigo].data.push({
-              date: row.data ? row.data.substring(0, 10) : '',
+              date: dateStr,
               nitrato: cleanNitrateValue(row.nitrato)
             });
+          });
+          // Ordenar os dados de cada poço por data
+          Object.values(nitratos).forEach(well => {
+            well.data.sort((a, b) => new Date(a.date) - new Date(b.date));
           });
           nitratoData = nitratos;
           if (callback) callback();
