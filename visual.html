@@ -214,6 +214,7 @@
         marker.addTo(markersLayer).on('click', () => {
           document.getElementById('chart-modal').classList.remove('hidden');
           document.getElementById('well-title').innerText = `Poço ${codigo}`;
+          document.getElementById('trendAnalysisBtn').textContent = 'Análise de tendência';
           const ctx = document.getElementById('wellChart').getContext('2d');
           if (window.currentChart) window.currentChart.destroy();
           window.currentChart = new Chart(ctx, {
@@ -321,6 +322,7 @@
         marker.addTo(markersLayer).on('click', () => {
           document.getElementById('chart-modal').classList.remove('hidden');
           document.getElementById('well-title').innerText = `Poço ${codigo}`;
+          document.getElementById('trendAnalysisBtn').textContent = 'Análise de tendência';
           const ctx = document.getElementById('wellChart').getContext('2d');
           if (window.currentChart) window.currentChart.destroy();
           // Ordenar os dados por data antes de plotar
@@ -363,7 +365,7 @@
           let trendVisible = false;
           document.getElementById('trendAnalysisBtn').onclick = async function() {
             if (!trendVisible) {
-              const jsonUrl = `resources/trends_nitrato/trend_${codigo.replace('/', '_')}.json`;
+              const jsonUrl = `resources/trends/trends_nitrato/trend_${codigo.replace('/', '_')}.json`;
               try {
                 const resp = await fetch(jsonUrl);
                 if (!resp.ok) throw new Error('Trend JSON não encontrado');
@@ -430,6 +432,7 @@
         marker.addTo(markersLayer).on('click', () => {
           document.getElementById('chart-modal').classList.remove('hidden');
           document.getElementById('well-title').innerText = `Estação ${codigo} - ${station.nome}`;
+          document.getElementById('trendAnalysisBtn').textContent = 'Análise de tendência';
           const ctx = document.getElementById('wellChart').getContext('2d');
           if (window.currentChart) window.currentChart.destroy();
           // Ordenar os dados por data antes de plotar
@@ -603,6 +606,7 @@
         // Simula clique no marcador
         document.getElementById('chart-modal').classList.remove('hidden');
         document.getElementById('well-title').innerText = `Poço ${codigo}`;
+        document.getElementById('trendAnalysisBtn').textContent = 'Análise de tendência';
         const ctx = document.getElementById('wellChart').getContext('2d');
         if (window.currentChart) window.currentChart.destroy();
         window.currentChart = new Chart(ctx, {
@@ -703,6 +707,7 @@
         map.setView(obj.coord, 14);
         document.getElementById('chart-modal').classList.remove('hidden');
         document.getElementById('well-title').innerText = `Poço ${codigo}`;
+        document.getElementById('trendAnalysisBtn').textContent = 'Análise de tendência';
         const ctx = document.getElementById('wellChart').getContext('2d');
         if (window.currentChart) window.currentChart.destroy();
         window.currentChart = new Chart(ctx, {
@@ -743,7 +748,7 @@
         let trendVisible = false;
         document.getElementById('trendAnalysisBtn').onclick = async function() {
           if (!trendVisible) {
-            const jsonUrl = `resources/trends_nitrato/trend_${codigo.replace('/', '_')}.json`;
+            const jsonUrl = `resources/trends/trends_nitrato/trend_${codigo.replace('/', '_')}.json`;
             try {
               const resp = await fetch(jsonUrl);
               if (!resp.ok) throw new Error('Trend JSON não encontrado');
@@ -803,6 +808,7 @@
         map.setView(obj.coord, 14);
         document.getElementById('chart-modal').classList.remove('hidden');
         document.getElementById('well-title').innerText = `Estação ${codigo} - ${obj.nome}`;
+        document.getElementById('trendAnalysisBtn').textContent = 'Análise de tendência';
         const ctx = document.getElementById('wellChart').getContext('2d');
         if (window.currentChart) window.currentChart.destroy();
         window.currentChart = new Chart(ctx, {

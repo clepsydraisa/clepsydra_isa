@@ -64,14 +64,16 @@ def main():
         except:
             return np.nan
     df['nitrato'] = df['nitrato'].apply(clean_nitrate_value)
+    # Converter a coluna 'data' para datetime e remover horas
+    df['data'] = pd.to_datetime(df['data'], errors='coerce').dt.date
     # Listar todos os poços únicos
     codigos = df['codigo'].unique()
     print(f"Encontrados {len(codigos)} poços únicos.")
     for codigo in codigos:
         df_poco = df[df['codigo'] == codigo].copy()
         df_poco = df_poco[['data', 'nitrato']].dropna()
-        # Converter datas
-        df_poco['data'] = pd.to_datetime(df_poco['data'].str[:10], errors='coerce')
+        # Converter datas para datetime novamente (agora já sem horas)
+        df_poco['data'] = pd.to_datetime(df_poco['data'], errors='coerce')
         df_poco = df_poco.dropna(subset=['data'])
         if len(df_poco) < 10:
             print(f"Poço {codigo} ignorado (menos de 10 observações)")
@@ -88,6 +90,9 @@ def main():
             min_gap_months=24,
             alpha=0.05
         )
+        # FILTRAR segmentos com pelo menos 2 pontos válidos
+        analyzer.segments = [seg for seg in analyzer.segments if seg['data'].notna().sum() >= 2]
+        analyzer.trend_results = [trend for seg, trend in zip(analyzer.segments, analyzer.trend_results) if seg['data'].notna().sum() >= 2]
         # Salvar resultados em JSON
         trend_json = build_trend_json(analyzer, codigo)
         json_path = trends_dir / f"trend_{codigo.replace('/', '_')}.json"
@@ -106,15 +111,17 @@ def build_trend_json(analyzer, codigo):
             y = trend['linear_regression']['intercept'] + trend['linear_regression']['slope_per_year']/12 * x
             for i, (date, val) in enumerate(zip(seg['data'].index, y)):
                 trend_points.append({'x': date.strftime('%Y-%m-%d'), 'y': val})
-        segments.append({
-            'start_date': seg['start_date'].strftime('%Y-%m-%d'),
-            'end_date': seg['end_date'].strftime('%Y-%m-%d'),
-            'trend_type': trend.get('mann_kendall', {}).get('trend', None),
-            'slope_per_year': trend.get('linear_regression', {}).get('slope_per_year', None),
-            'p_value': trend.get('linear_regression', {}).get('p_value', None),
-            'r_squared': trend.get('linear_regression', {}).get('r_squared', None),
-            'trend_points': trend_points
-        })
+        # Só adiciona segmentos com pelo menos 2 pontos
+        if len(trend_points) >= 2:
+            segments.append({
+                'start_date': seg['start_date'].strftime('%Y-%m-%d'),
+                'end_date': seg['end_date'].strftime('%Y-%m-%d'),
+                'trend_type': trend.get('mann_kendall', {}).get('trend', None),
+                'slope_per_year': trend.get('linear_regression', {}).get('slope_per_year', None),
+                'p_value': trend.get('linear_regression', {}).get('p_value', None),
+                'r_squared': trend.get('linear_regression', {}).get('r_squared', None),
+                'trend_points': trend_points
+            })
     return {'codigo': codigo, 'segments': segments}
 
 class GroundwaterTrendAnalysis:
