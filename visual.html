@@ -264,8 +264,9 @@
                 if (window.currentChart) {
                   const mainDataset = window.currentChart.data.datasets.filter(ds => !ds._isTrend);
                   const trendDatasets = trendData.segments.map((seg, idx) => ({
+                    type: 'line',
                     label: `Tendência Segmento ${idx+1}`,
-                    data: seg.trend_points.map(p => ({x: p.x, y: -p.y})),
+                    data: seg.trend_points,
                     borderColor: '#e67e22',
                     backgroundColor: 'rgba(230,126,34,0.1)',
                     borderDash: [6,3],
@@ -328,15 +329,15 @@
           // Ordenar os dados por data antes de plotar
           const sortedData = well.data.slice().sort((a, b) => new Date(a.date) - new Date(b.date));
           window.currentChart = new Chart(ctx, {
-            type: 'line',
+            type: 'scatter',
             data: {
               datasets: [{
                 label: 'Nitrato (mg/L)',
                 data: sortedData.map(d => ({x: d.date, y: d.nitrato})),
                 borderColor: '#28a745',
-                backgroundColor: 'rgba(40,167,69,0.2)',
-                fill: 'start',
-                tension: 0.2
+                backgroundColor: '#28a745',
+                pointRadius: 5,
+                showLine: false
               }]
             },
             options: {
@@ -374,8 +375,9 @@
                 if (window.currentChart) {
                   const mainDataset = window.currentChart.data.datasets.filter(ds => !ds._isTrend);
                   const trendDatasets = trendData.segments.map((seg, idx) => ({
+                    type: 'line',
                     label: `Tendência Segmento ${idx+1}`,
-                    data: seg.trend_points, // NÃO inverter sinal!
+                    data: seg.trend_points,
                     borderColor: '#e67e22',
                     backgroundColor: 'rgba(230,126,34,0.1)',
                     borderDash: [6,3],
@@ -656,8 +658,9 @@
               if (window.currentChart) {
                 const mainDataset = window.currentChart.data.datasets.filter(ds => !ds._isTrend);
                 const trendDatasets = trendData.segments.map((seg, idx) => ({
+                  type: 'line',
                   label: `Tendência Segmento ${idx+1}`,
-                  data: seg.trend_points.map(p => ({x: p.x, y: -p.y})),
+                  data: seg.trend_points,
                   borderColor: '#e67e22',
                   backgroundColor: 'rgba(230,126,34,0.1)',
                   borderDash: [6,3],
@@ -711,15 +714,15 @@
         const ctx = document.getElementById('wellChart').getContext('2d');
         if (window.currentChart) window.currentChart.destroy();
         window.currentChart = new Chart(ctx, {
-          type: 'line',
+          type: 'scatter',
           data: {
             datasets: [{
               label: 'Nitrato (mg/L)',
               data: obj.data.map(d => ({x: d.date, y: d.nitrato})),
               borderColor: '#28a745',
-              backgroundColor: 'rgba(40,167,69,0.2)',
-              fill: 'start',
-              tension: 0.2
+              backgroundColor: '#28a745',
+              pointRadius: 5,
+              showLine: false
             }]
           },
           options: {
@@ -757,8 +760,9 @@
               if (window.currentChart) {
                 const mainDataset = window.currentChart.data.datasets.filter(ds => !ds._isTrend);
                 const trendDatasets = trendData.segments.map((seg, idx) => ({
+                  type: 'line',
                   label: `Tendência Segmento ${idx+1}`,
-                  data: seg.trend_points, // NÃO inverter sinal!
+                  data: seg.trend_points,
                   borderColor: '#e67e22',
                   backgroundColor: 'rgba(230,126,34,0.1)',
                   borderDash: [6,3],
