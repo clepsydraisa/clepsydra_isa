@@ -9,6 +9,7 @@ import warnings
 from pathlib import Path
 import os
 import sys
+import json
 warnings.filterwarnings('ignore')
 
 # identificar pasta de trabalho
@@ -19,6 +20,10 @@ except:
     # pasta MJ
     working_dir=Path(r"C:\Users\mjmartins\OneDrive - Universidade de Lisboa\Documentos\Clepsydra_ISA\clepsydra_isa-main")
 
+# NOVO: Caminho para os dados de nitrato
+nitrato_csv = working_dir / "resources" / "model_data" / "nitrato" / "nitrato_model_al.csv"
+trends_dir = working_dir / "resources" / "trends_nitrato"
+trends_dir.mkdir(parents=True, exist_ok=True)
 
 # Example usage:
 """
@@ -44,26 +49,73 @@ trend_results = analyzer.trend_results
 """
 
 def main():
-    codigo_poco='442/94'
-    fn= Path(working_dir) /"resources" / "aquifer_depth_piezo.csv"
-    # ler ficheiro piezometria
-    df=pd.read_csv(fn)
-    # filtar dados para o poço
-    df=df[df['codigo']==codigo_poco]
-    # construir nivel e eliminar dados desnecessariosAdd commentMore actions
-    df=df[['data', 'profundidade_nivel_agua']]
-    df['nivel'] = -pd.to_numeric(df['profundidade_nivel_agua'], errors='coerce') # ou 'nivel_piezometrico'
-    df=df.drop(columns=['profundidade_nivel_agua'] ) 
-    analyzer = analyze_groundwater_trends(
-        df, 
-        date_col='data', 
-        value_col='nivel',
-        monthly_method='mean',
-        fill_method='seasonal_decompose',
-        min_gap_months=24,
-        alpha=0.05
-    )
+    # Ler o CSV de nitrato
+    df = pd.read_csv(nitrato_csv)
+    # Garantir que as colunas existem
+    if not set(['codigo', 'data', 'nitrato']).issubset(df.columns):
+        print("Colunas necessárias não encontradas no CSV!")
+        return
+    # Limpar valores não numéricos de nitrato
+    def clean_nitrate_value(value):
+        if isinstance(value, str):
+            value = value.replace('(e<)', '').replace('(<)', '')
+        try:
+            return float(value)
+        except:
+            return np.nan
+    df['nitrato'] = df['nitrato'].apply(clean_nitrate_value)
+    # Listar todos os poços únicos
+    codigos = df['codigo'].unique()
+    print(f"Encontrados {len(codigos)} poços únicos.")
+    for codigo in codigos:
+        df_poco = df[df['codigo'] == codigo].copy()
+        df_poco = df_poco[['data', 'nitrato']].dropna()
+        # Converter datas
+        df_poco['data'] = pd.to_datetime(df_poco['data'].str[:10], errors='coerce')
+        df_poco = df_poco.dropna(subset=['data'])
+        if len(df_poco) < 10:
+            print(f"Poço {codigo} ignorado (menos de 10 observações)")
+            continue
+        # Ordenar por data
+        df_poco = df_poco.sort_values('data')
+        # Rodar análise de tendência
+        analyzer = analyze_groundwater_trends(
+            df_poco,
+            date_col='data',
+            value_col='nitrato',
+            monthly_method='mean',
+            fill_method='seasonal_decompose',
+            min_gap_months=24,
+            alpha=0.05
+        )
+        # Salvar resultados em JSON
+        trend_json = build_trend_json(analyzer, codigo)
+        json_path = trends_dir / f"trend_{codigo.replace('/', '_')}.json"
+        with open(json_path, 'w', encoding='utf-8') as f:
+            json.dump(trend_json, f, ensure_ascii=False, indent=2, default=str)
+        print(f"Poço {codigo}: JSON salvo em {json_path}")
 
+def build_trend_json(analyzer, codigo):
+    # Montar estrutura de saída compatível com o frontend
+    segments = []
+    for seg, trend in zip(analyzer.segments, analyzer.trend_results):
+        # Pegar pontos da linha de tendência (linear regression)
+        trend_points = []
+        if 'linear_regression' in trend:
+            x = np.arange(len(seg['data']))
+            y = trend['linear_regression']['intercept'] + trend['linear_regression']['slope_per_year']/12 * x
+            for i, (date, val) in enumerate(zip(seg['data'].index, y)):
+                trend_points.append({'x': date.strftime('%Y-%m-%d'), 'y': val})
+        segments.append({
+            'start_date': seg['start_date'].strftime('%Y-%m-%d'),
+            'end_date': seg['end_date'].strftime('%Y-%m-%d'),
+            'trend_type': trend.get('mann_kendall', {}).get('trend', None),
+            'slope_per_year': trend.get('linear_regression', {}).get('slope_per_year', None),
+            'p_value': trend.get('linear_regression', {}).get('p_value', None),
+            'r_squared': trend.get('linear_regression', {}).get('r_squared', None),
+            'trend_points': trend_points
+        })
+    return {'codigo': codigo, 'segments': segments}
 
 class GroundwaterTrendAnalysis:
     """

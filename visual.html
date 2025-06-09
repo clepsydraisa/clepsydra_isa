@@ -432,12 +432,14 @@
           document.getElementById('well-title').innerText = `Estação ${codigo} - ${station.nome}`;
           const ctx = document.getElementById('wellChart').getContext('2d');
           if (window.currentChart) window.currentChart.destroy();
+          // Ordenar os dados por data antes de plotar
+          const sortedData = station.data.slice().sort((a, b) => new Date(a.date) - new Date(b.date));
           window.currentChart = new Chart(ctx, {
             type: 'line',
             data: {
               datasets: [{
                 label: 'Precipitação (mm)',
-                data: station.data.map(d => ({x: d.date, y: d.precipitacao})),
+                data: sortedData.map(d => ({x: d.date, y: d.precipitacao})),
                 borderColor: '#800080',
                 backgroundColor: 'rgba(128,0,128,0.2)',
                 fill: 'start',
@@ -559,10 +561,16 @@
                 data: []
               };
             }
+            // Converter data para string ISO e guardar
+            let dateStr = row.data ? row.data.substring(0, 10) : '';
             stations[row.codigo].data.push({
-              date: row.data,
+              date: dateStr,
               precipitacao: parseFloat(row.precipitacao_dia_mm)
             });
+          });
+          // Ordenar os dados de cada estação por data
+          Object.values(stations).forEach(station => {
+            station.data.sort((a, b) => new Date(a.date) - new Date(b.date));
           });
           precipData = stations;
           if (callback) callback();
