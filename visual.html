@@ -54,12 +54,29 @@
       }
       #chart-modal .bg-white {
         z-index: 10000 !important;
+        max-width: 98vw;
+        max-height: 98vh;
+        overflow-y: auto;
+        position: relative;
+      }
+      #chart-modal .flex-row {
+        flex-wrap: wrap;
+      }
+      #wellChart {
+        max-width: 70vw;
+        max-height: 70vh;
       }
       .leaflet-container {
         z-index: 0 !important;
       }
       #chart-modal.hidden {
         display: none !important;
+      }
+      #chart-modal button.absolute.top-2.right-2 {
+        z-index: 10100;
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
       }
     </style>
   </head>
