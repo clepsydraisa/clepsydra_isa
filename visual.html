@@ -30,7 +30,8 @@
       .ai-btn {
         background-size: 200% 100%;
         background-position: left center;
-        transition: background-position 0.4s cubic-bezier(0.4,0,0.2,1), transform 0.15s cubic-bezier(0.4,0,0.2,1);
+        transition: background-position 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+          transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
       }
       .ai-btn:hover {
         background-position: right center;
@@ -42,11 +43,14 @@
       #chart-modal {
         z-index: 9999 !important;
         position: fixed !important;
-        left: 0; top: 0; right: 0; bottom: 0;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
         display: flex;
         align-items: center;
         justify-content: center;
-        background: rgba(0,0,0,0.4);
+        background: rgba(0, 0, 0, 0.4);
       }
       #chart-modal .bg-white {
         z-index: 10000 !important;
@@ -61,9 +65,7 @@
   </head>
   <body class="flex flex-col min-h-screen">
     <!-- Header -->
-    <header
-      class="bg-white text-blue-900 py-4 px-6 shadow"
-    >
+    <header class="bg-white text-blue-900 py-4 px-6 shadow">
       <div class="container mx-auto flex items-center justify-between">
         <div class="flex items-center space-x-4">
           <a href="https://clepsydra.interreg-euro-med.eu/" target="_blank">
@@ -93,27 +95,37 @@
                 >
               </li>
               <li>
-                <a href="parceiros.html" class="text-blue-900 hover:underline font-medium text-sm"
+                <a
+                  href="parceiros.html"
+                  class="text-blue-900 hover:underline font-medium text-sm"
                   >Parceiros</a
                 >
               </li>
               <li>
-                <a href="biblio_dados.html" class="text-blue-900 hover:underline font-medium text-sm"
+                <a
+                  href="biblio_dados.html"
+                  class="text-blue-900 hover:underline font-medium text-sm"
                   >Biblioteca de Dados</a
                 >
               </li>
               <li>
-                <a href="visual.html" class="text-blue-900 hover:underline font-semibold text-sm"
+                <a
+                  href="visual.html"
+                  class="text-blue-900 hover:underline font-semibold text-sm"
                   >Visualização</a
                 >
               </li>
               <li>
-                <a href="condicoesreais.html" class="text-blue-900 hover:underline font-medium text-sm"
+                <a
+                  href="condicoesreais.html"
+                  class="text-blue-900 hover:underline font-medium text-sm"
                   >Condições Reais</a
                 >
               </li>
             </ul>
-            <button class="ai-btn bg-gradient-to-r from-blue-700 via-blue-600 to-blue-800 text-white font-medium text-sm py-2 px-4 rounded shadow focus:outline-none">
+            <button
+              class="ai-btn bg-gradient-to-r from-blue-700 via-blue-600 to-blue-800 text-white font-medium text-sm py-2 px-4 rounded shadow focus:outline-none"
+            >
               Modelo AI
             </button>
           </div>
@@ -126,794 +138,1126 @@
       <div class="container mx-auto px-6">
         <!-- Filtro de variáveis -->
         <div class="mb-4 flex items-center space-x-2">
-          <label for="variableFilter" class="font-semibold text-blue-900">Variável:</label>
-          <select id="variableFilter" class="border border-blue-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400">
+          <label for="variableFilter" class="font-semibold text-blue-900"
+            >Variável:</label
+          >
+          <select
+            id="variableFilter"
+            class="border border-blue-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          >
             <option value="profundidade">Profundidade</option>
             <option value="nitrato">Nitratos</option>
             <option value="precipitacao">Precipitação</option>
             <option value="rega">Rega</option>
           </select>
-          <label for="wellFilter" class="font-semibold text-blue-900 ml-4">Poço:</label>
-          <select id="wellFilter" class="border border-blue-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400 min-w-[100px]">
+          <label for="wellFilter" class="font-semibold text-blue-900 ml-4"
+            >Poço:</label
+          >
+          <select
+            id="wellFilter"
+            class="border border-blue-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400 min-w-[100px]"
+          >
             <option value="">Todos</option>
           </select>
         </div>
-        <div id="map" style="height: 500px;"></div>
+        <div id="map" style="height: 500px"></div>
       </div>
     </main>
 
     <!-- Modal deve estar FORA do container do mapa -->
     <div id="chart-modal" class="hidden">
       <div class="bg-white p-6 rounded shadow-lg relative">
-        <button onclick="closeModal()" class="absolute top-2 right-2 text-gray-500 text-2xl">&times;</button>
+        <button
+          onclick="closeModal()"
+          class="absolute top-2 right-2 text-gray-500 text-2xl"
+        >
+          &times;
+        </button>
         <h2 id="well-title" class="text-lg font-bold mb-2"></h2>
         <div class="mb-2 text-sm text-gray-600">
-          Use o <b>scroll do mouse</b> para dar zoom, <b>clique e arraste</b> para selecionar uma área.<br>
-          <button id="resetZoomBtn" class="mt-2 px-3 py-1 bg-blue-100 text-blue-800 rounded hover:bg-blue-200 transition">Resetar Zoom</button>
-          <button id="trendAnalysisBtn" class="mt-2 ml-2 px-3 py-1 bg-green-100 text-green-800 rounded hover:bg-green-200 transition hidden">Análise de tendência</button>
+          Use o <b>scroll do mouse</b> para dar zoom,
+          <b>clique e arraste</b> para selecionar uma área.<br />
+          <button
+            id="resetZoomBtn"
+            class="mt-2 px-3 py-1 bg-blue-100 text-blue-800 rounded hover:bg-blue-200 transition"
+          >
+            Resetar Zoom
+          </button>
+          <button
+            id="trendAnalysisBtn"
+            class="mt-2 ml-2 px-3 py-1 bg-green-100 text-green-800 rounded hover:bg-green-200 transition hidden"
+          >
+            Análise de tendência
+          </button>
         </div>
         <div class="flex flex-row">
           <canvas id="wellChart" width="400" height="300"></canvas>
-          <div id="trendStatsBox" class="ml-6 p-4 bg-gray-50 border border-gray-200 rounded shadow text-xs hidden" style="min-width:220px; max-width:320px;"></div>
+          <div
+            id="trendStatsBox"
+            class="ml-6 p-4 bg-gray-50 border border-gray-200 rounded shadow text-xs hidden"
+            style="min-width: 220px; max-width: 320px"
+          ></div>
         </div>
       </div>
     </div>
 
     <!-- Friso colorido estreito acima do footer -->
-    <div class="w-full h-8" style="background: linear-gradient(to right, #17479e, #0e6bb5, #0093d3, #5a5a8c, #c1272d, #ff6f1f, #d6b08c, #a3bfa8, #4a2c0a);"></div>
+    <div
+      class="w-full h-8"
+      style="
+        background: linear-gradient(
+          to right,
+          #17479e,
+          #0e6bb5,
+          #0093d3,
+          #5a5a8c,
+          #c1272d,
+          #ff6f1f,
+          #d6b08c,
+          #a3bfa8,
+          #4a2c0a
+        );
+      "
+    ></div>
 
     <!-- Footer -->
     <footer class="bg-white py-4 px-6 shadow">
-      <div class="container mx-auto flex justify-center items-center min-h-[80px]">
-        <img src="https://github.com/clepsydraisa/clepsydra_isa/blob/main/images/logo_footer_c.png?raw=true" alt="Logos rodapé" class="w-auto h-12" />
+      <div
+        class="container mx-auto flex justify-center items-center min-h-[80px]"
+      >
+        <img
+          src="https://github.com/clepsydraisa/clepsydra_isa/blob/main/images/logo_footer_c.png?raw=true"
+          alt="Logos rodapé"
+          class="w-auto h-12"
+        />
       </div>
     </footer>
 
     <script>
-    // Definição dos sistemas de coordenadas
-    proj4.defs("ESRI:102164","+proj=tmerc +lat_0=39.66666666666666 +lon_0=-8.131906111111112 +k=1 +x_0=200000 +y_0=300000 +ellps=intl +units=m +no_defs");
-    const fromProj = "ESRI:102164";
-    const toProj = "WGS84";
+      // Definição dos sistemas de coordenadas
+      proj4.defs(
+        "ESRI:102164",
+        "+proj=tmerc +lat_0=39.66666666666666 +lon_0=-8.131906111111112 +k=1 +x_0=200000 +y_0=300000 +ellps=intl +units=m +no_defs"
+      );
+      const fromProj = "ESRI:102164";
+      const toProj = "WGS84";
 
-    // Função para converter coordenadas
-    function convertCoords(x, y) {
-      return proj4(fromProj, toProj, [parseFloat(x), parseFloat(y)]);
-    }
+      // Função para converter coordenadas
+      function convertCoords(x, y) {
+        return proj4(fromProj, toProj, [parseFloat(x), parseFloat(y)]);
+      }
 
-    // Função para fechar o modal
-    function closeModal() {
-      document.getElementById('chart-modal').classList.add('hidden');
-    }
+      // Função para fechar o modal
+      function closeModal() {
+        document.getElementById("chart-modal").classList.add("hidden");
+      }
 
-    // Variáveis globais para mapa e marcadores
-    let map, markersLayer;
-    let wellsData = null;
-    let nitratoData = null;
-    let precipData = null;  // Add precipitation data variable
+      // Variáveis globais para mapa e marcadores
+      let map, markersLayer;
+      let wellsData = null;
+      let nitratoData = null;
+      let precipData = null; // Add precipitation data variable
 
-    // Inicializar o mapa
-    function initMap() {
-      if (map) return;
-      map = L.map('map').setView([39.5, -8], 8);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-      }).addTo(map);
-      markersLayer = L.layerGroup().addTo(map);
-    }
+      // Inicializar o mapa
+      function initMap() {
+        if (map) return;
+        map = L.map("map").setView([39.5, -8], 8);
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attribution: "© OpenStreetMap contributors",
+        }).addTo(map);
+        markersLayer = L.layerGroup().addTo(map);
+      }
 
-    // Função para limpar marcadores
-    function clearMarkers() {
-      if (markersLayer) markersLayer.clearLayers();
-    }
+      // Função para limpar marcadores
+      function clearMarkers() {
+        if (markersLayer) markersLayer.clearLayers();
+      }
 
-    // Função para desenhar marcadores de profundidade
-    function drawProfundidadeMarkers() {
-      clearMarkers();
-      Object.entries(wellsData).forEach(([codigo, well]) => {
-        const marker = L.circleMarker(well.coord, {radius: 6, color: '#007bff', fillColor: '#007bff', fillOpacity: 0.8});
-        marker.addTo(markersLayer).on('click', () => {
-          document.getElementById('chart-modal').classList.remove('hidden');
-          document.getElementById('well-title').innerText = `Poço ${codigo}`;
-          document.getElementById('trendAnalysisBtn').textContent = 'Análise de tendência';
-          const ctx = document.getElementById('wellChart').getContext('2d');
+      // Função para desenhar marcadores de profundidade
+      function drawProfundidadeMarkers() {
+        clearMarkers();
+        Object.entries(wellsData).forEach(([codigo, well]) => {
+          const marker = L.circleMarker(well.coord, {
+            radius: 6,
+            color: "#007bff",
+            fillColor: "#007bff",
+            fillOpacity: 0.8,
+          });
+          marker.addTo(markersLayer).on("click", () => {
+            document.getElementById("chart-modal").classList.remove("hidden");
+            document.getElementById("well-title").innerText = `Poço ${codigo}`;
+            document.getElementById("trendAnalysisBtn").textContent =
+              "Análise de tendência";
+            const ctx = document.getElementById("wellChart").getContext("2d");
+            if (window.currentChart) window.currentChart.destroy();
+            window.currentChart = new Chart(ctx, {
+              type: "line",
+              data: {
+                datasets: [
+                  {
+                    label: "Profundidade Nível Água (m)",
+                    data: well.data.map((d) => ({
+                      x: d.date,
+                      y: d.profundidade,
+                    })),
+                    borderColor: "#007bff",
+                    backgroundColor: "rgba(0,123,255,0.2)",
+                    fill: "start",
+                    tension: 0.2,
+                  },
+                ],
+              },
+              options: {
+                responsive: true,
+                scales: {
+                  x: {
+                    type: "time",
+                    time: {
+                      unit: "year",
+                      tooltipFormat: "yyyy-MM-dd",
+                    },
+                    title: { display: true, text: "Data" },
+                  },
+                  y: {
+                    title: { display: true, text: "Profundidade (m)" },
+                    reverse: true,
+                    min: 0,
+                  },
+                },
+                plugins: {
+                  zoom: {
+                    pan: { enabled: true, mode: "x", modifierKey: null },
+                    zoom: {
+                      enabled: true,
+                      mode: "x",
+                      drag: { enabled: true },
+                      wheel: { enabled: true },
+                    },
+                  },
+                },
+              },
+            });
+            document.getElementById("resetZoomBtn").onclick = function () {
+              if (window.currentChart) window.currentChart.resetZoom();
+            };
+            // Mostrar botão de análise de tendência apenas para piezometria
+            document
+              .getElementById("trendAnalysisBtn")
+              .classList.remove("hidden");
+            document.getElementById("trendStatsBox").classList.add("hidden");
+            document.getElementById("trendStatsBox").innerHTML = "";
+            let trendVisible = false;
+            document.getElementById("trendAnalysisBtn").onclick =
+              async function () {
+                if (!trendVisible) {
+                  const jsonUrl = `resources/trends/trend_${codigo.replace(
+                    "/",
+                    "_"
+                  )}.json`;
+                  try {
+                    const resp = await fetch(jsonUrl);
+                    if (!resp.ok) throw new Error("Trend JSON não encontrado");
+                    const trendData = await resp.json();
+                    // Adicionar linhas de tendência ao gráfico
+                    if (window.currentChart) {
+                      const mainDataset =
+                        window.currentChart.data.datasets.filter(
+                          (ds) => !ds._isTrend
+                        );
+                      const trendDatasets = trendData.segments.map(
+                        (seg, idx) => ({
+                          label: `Tendência Segmento ${idx + 1}`,
+                          data: seg.trend_points.map((p) => ({
+                            x: p.x,
+                            y: -p.y,
+                          })),
+                          borderColor: "#e67e22",
+                          backgroundColor: "rgba(230,126,34,0.1)",
+                          borderDash: [6, 3],
+                          pointRadius: 0,
+                          fill: false,
+                          tension: 0,
+                          _isTrend: true,
+                          order: 99,
+                        })
+                      );
+                      window.currentChart.data.datasets =
+                        mainDataset.concat(trendDatasets);
+                      window.currentChart.update();
+                    }
+                    // Mostrar estatísticas na box
+                    let html = `<b>Análise de tendência</b><br>`;
+                    trendData.segments.forEach((seg, idx) => {
+                      html += `<hr><b>Segmento ${idx + 1}</b><br>`;
+                      html += `Período: ${seg.start_date} a ${seg.end_date}<br>`;
+                      html += `Tipo: <b>${seg.trend_type}</b><br>`;
+                      html += `Inclinação/ano: <b>${
+                        seg.slope_per_year !== null
+                          ? seg.slope_per_year.toFixed(3)
+                          : "-"
+                      }</b><br>`;
+                      html += `p-valor: <b>${
+                        seg.p_value !== null
+                          ? seg.p_value.toExponential(2)
+                          : "-"
+                      }</b><br>`;
+                      html += `R²: <b>${
+                        seg.r_squared !== null ? seg.r_squared.toFixed(2) : "-"
+                      }</b><br>`;
+                    });
+                    document.getElementById("trendStatsBox").innerHTML = html;
+                    document
+                      .getElementById("trendStatsBox")
+                      .classList.remove("hidden");
+                    trendVisible = true;
+                    this.textContent = "Fechar análise de tendência";
+                  } catch (e) {
+                    document.getElementById("trendStatsBox").innerHTML =
+                      '<span class="text-red-600">Erro ao carregar análise de tendência.</span>';
+                    document
+                      .getElementById("trendStatsBox")
+                      .classList.remove("hidden");
+                    trendVisible = true;
+                    this.textContent = "Fechar análise de tendência";
+                  }
+                } else {
+                  // Esconder linhas de tendência e box
+                  if (window.currentChart) {
+                    window.currentChart.data.datasets =
+                      window.currentChart.data.datasets.filter(
+                        (ds) => !ds._isTrend
+                      );
+                    window.currentChart.update();
+                  }
+                  document
+                    .getElementById("trendStatsBox")
+                    .classList.add("hidden");
+                  document.getElementById("trendStatsBox").innerHTML = "";
+                  trendVisible = false;
+                  this.textContent = "Análise de tendência";
+                }
+              };
+          });
+        });
+      }
+
+      // Função para desenhar marcadores de nitrato
+      function drawNitratoMarkers() {
+        clearMarkers();
+        Object.entries(nitratoData).forEach(([codigo, well]) => {
+          const marker = L.circleMarker(well.coord, {
+            radius: 6,
+            color: "#28a745",
+            fillColor: "#28a745",
+            fillOpacity: 0.8,
+          });
+          marker.addTo(markersLayer).on("click", () => {
+            document.getElementById("chart-modal").classList.remove("hidden");
+            document.getElementById("well-title").innerText = `Poço ${codigo}`;
+            document.getElementById("trendAnalysisBtn").textContent =
+              "Análise de tendência";
+            const ctx = document.getElementById("wellChart").getContext("2d");
+            if (window.currentChart) window.currentChart.destroy();
+            // Ordenar os dados por data antes de plotar
+            const sortedData = well.data
+              .slice()
+              .sort((a, b) => new Date(a.date) - new Date(b.date));
+            window.currentChart = new Chart(ctx, {
+              type: "line",
+              data: {
+                datasets: [
+                  {
+                    label: "Nitrato (mg/L)",
+                    data: sortedData.map((d) => ({ x: d.date, y: d.nitrato })),
+                    borderColor: "#28a745",
+                    backgroundColor: "rgba(40,167,69,0.2)",
+                    fill: "start",
+                    tension: 0.2,
+                  },
+                ],
+              },
+              options: {
+                responsive: true,
+                scales: {
+                  x: {
+                    type: "time",
+                    time: {
+                      unit: "year",
+                      tooltipFormat: "yyyy-MM-dd",
+                    },
+                    title: { display: true, text: "Data" },
+                  },
+                  y: {
+                    title: { display: true, text: "Nitrato (mg/L)" },
+                    min: 0,
+                  },
+                },
+                plugins: {
+                  zoom: {
+                    pan: { enabled: true, mode: "x", modifierKey: null },
+                    zoom: {
+                      enabled: true,
+                      mode: "x",
+                      drag: { enabled: true },
+                      wheel: { enabled: true },
+                    },
+                  },
+                },
+              },
+            });
+            document.getElementById("resetZoomBtn").onclick = function () {
+              if (window.currentChart) window.currentChart.resetZoom();
+            };
+            // Mostrar botão de análise de tendência para nitrato
+            document
+              .getElementById("trendAnalysisBtn")
+              .classList.remove("hidden");
+            document.getElementById("trendStatsBox").classList.add("hidden");
+            document.getElementById("trendStatsBox").innerHTML = "";
+            let trendVisible = false;
+            document.getElementById("trendAnalysisBtn").onclick =
+              async function () {
+                if (!trendVisible) {
+                  const jsonUrl = `resources/trends/trends_nitrato/trend_${codigo.replace(
+                    "/",
+                    "_"
+                  )}.json`;
+                  try {
+                    const resp = await fetch(jsonUrl);
+                    if (!resp.ok) throw new Error("Trend JSON não encontrado");
+                    const trendData = await resp.json();
+                    // Adicionar linhas de tendência ao gráfico
+                    if (window.currentChart) {
+                      const mainDataset =
+                        window.currentChart.data.datasets.filter(
+                          (ds) => !ds._isTrend
+                        );
+                      const trendDatasets = trendData.segments.map(
+                        (seg, idx) => ({
+                          label: `Tendência Segmento ${idx + 1}`,
+                          data: seg.trend_points, // NÃO inverter sinal!
+                          borderColor: "#e67e22",
+                          backgroundColor: "rgba(230,126,34,0.1)",
+                          borderDash: [6, 3],
+                          pointRadius: 0,
+                          fill: false,
+                          tension: 0,
+                          _isTrend: true,
+                          order: 99,
+                        })
+                      );
+                      window.currentChart.data.datasets =
+                        mainDataset.concat(trendDatasets);
+                      window.currentChart.update();
+                    }
+                    // Mostrar estatísticas na box
+                    let html = `<b>Análise de tendência</b><br>`;
+                    trendData.segments.forEach((seg, idx) => {
+                      html += `<hr><b>Segmento ${idx + 1}</b><br>`;
+                      html += `Período: ${seg.start_date} a ${seg.end_date}<br>`;
+                      html += `Tipo: <b>${seg.trend_type}</b><br>`;
+                      html += `Inclinação/ano: <b>${
+                        seg.slope_per_year !== null
+                          ? seg.slope_per_year.toFixed(3)
+                          : "-"
+                      }</b><br>`;
+                      html += `p-valor: <b>${
+                        seg.p_value !== null
+                          ? seg.p_value.toExponential(2)
+                          : "-"
+                      }</b><br>`;
+                      html += `R²: <b>${
+                        seg.r_squared !== null ? seg.r_squared.toFixed(2) : "-"
+                      }</b><br>`;
+                    });
+                    document.getElementById("trendStatsBox").innerHTML = html;
+                    document
+                      .getElementById("trendStatsBox")
+                      .classList.remove("hidden");
+                    trendVisible = true;
+                    this.textContent = "Fechar análise de tendência";
+                  } catch (e) {
+                    document.getElementById("trendStatsBox").innerHTML =
+                      '<span class="text-red-600">Erro ao carregar análise de tendência.</span>';
+                    document
+                      .getElementById("trendStatsBox")
+                      .classList.remove("hidden");
+                    trendVisible = true;
+                    this.textContent = "Fechar análise de tendência";
+                  }
+                } else {
+                  // Esconder linhas de tendência e box
+                  if (window.currentChart) {
+                    window.currentChart.data.datasets =
+                      window.currentChart.data.datasets.filter(
+                        (ds) => !ds._isTrend
+                      );
+                    window.currentChart.update();
+                  }
+                  document
+                    .getElementById("trendStatsBox")
+                    .classList.add("hidden");
+                  document.getElementById("trendStatsBox").innerHTML = "";
+                  trendVisible = false;
+                  this.textContent = "Análise de tendência";
+                }
+              };
+          });
+        });
+      }
+
+      // Função para desenhar marcadores de precipitação
+      function drawPrecipMarkers() {
+        clearMarkers();
+        Object.entries(precipData).forEach(([codigo, station]) => {
+          const marker = L.circleMarker(station.coord, {
+            radius: 6,
+            color: "#800080",
+            fillColor: "#800080",
+            fillOpacity: 0.8,
+          });
+          marker.addTo(markersLayer).on("click", () => {
+            document.getElementById("chart-modal").classList.remove("hidden");
+            document.getElementById(
+              "well-title"
+            ).innerText = `Estação ${codigo} - ${station.nome}`;
+            document.getElementById("trendAnalysisBtn").textContent =
+              "Análise de tendência";
+            const ctx = document.getElementById("wellChart").getContext("2d");
+            if (window.currentChart) window.currentChart.destroy();
+            // Ordenar os dados por data antes de plotar
+            const sortedData = station.data
+              .slice()
+              .sort((a, b) => new Date(a.date) - new Date(b.date));
+            window.currentChart = new Chart(ctx, {
+              type: "line",
+              data: {
+                datasets: [
+                  {
+                    label: "Precipitação (mm)",
+                    data: sortedData.map((d) => ({
+                      x: d.date,
+                      y: d.precipitacao,
+                    })),
+                    borderColor: "#800080",
+                    backgroundColor: "rgba(128,0,128,0.2)",
+                    fill: "start",
+                    tension: 0.2,
+                  },
+                ],
+              },
+              options: {
+                responsive: true,
+                scales: {
+                  x: {
+                    type: "time",
+                    time: {
+                      unit: "year",
+                      tooltipFormat: "yyyy-MM-dd",
+                    },
+                    title: { display: true, text: "Data" },
+                  },
+                  y: {
+                    title: { display: true, text: "Precipitação (mm)" },
+                    min: 0,
+                  },
+                },
+                plugins: {
+                  zoom: {
+                    pan: { enabled: true, mode: "x", modifierKey: null },
+                    zoom: {
+                      enabled: true,
+                      mode: "x",
+                      drag: { enabled: true },
+                      wheel: { enabled: true },
+                    },
+                  },
+                },
+              },
+            });
+            document.getElementById("resetZoomBtn").onclick = function () {
+              if (window.currentChart) window.currentChart.resetZoom();
+            };
+            document.getElementById("trendAnalysisBtn").classList.add("hidden");
+            document.getElementById("trendStatsBox").classList.add("hidden");
+            document.getElementById("trendStatsBox").innerHTML = "";
+          });
+        });
+      }
+
+      // Função para limpar valores de nitrato com caracteres especiais
+      function cleanNitrateValue(value) {
+        if (typeof value === "string") {
+          value = value.replace(/\(e<\)|\(<\)/g, "");
+        }
+        var num = parseFloat(value);
+        return isNaN(num) ? 0 : num;
+      }
+
+      // Carregar e processar o CSV de profundidade
+      function loadProfundidadeData(callback) {
+        Papa.parse("resources/model_data/piezo/piezo_model_al.csv", {
+          download: true,
+          header: true,
+          complete: function (results) {
+            const data = results.data;
+            const wells = {};
+            data.forEach((row) => {
+              if (!row.codigo || row.codigo === "377/287") return; // Skip well 377/287
+              if (!wells[row.codigo]) {
+                const [lon, lat] = convertCoords(row.coord_x_m, row.coord_y_m);
+                wells[row.codigo] = {
+                  coord: [lat, lon],
+                  data: [],
+                };
+              }
+              wells[row.codigo].data.push({
+                date: row.data,
+                profundidade: parseFloat(row.profundidade_nivel_agua),
+              });
+            });
+            wellsData = wells;
+            if (callback) callback();
+          },
+        });
+      }
+
+      // Carregar e processar o CSV de nitrato
+      function loadNitratoData(callback) {
+        Papa.parse("resources/model_data/nitrato/nitrato_model_al.csv", {
+          download: true,
+          header: true,
+          complete: function (results) {
+            const data = results.data;
+            const nitratos = {};
+            data.forEach((row) => {
+              if (!row.codigo) return;
+              if (!nitratos[row.codigo]) {
+                const [lon, lat] = convertCoords(row.coord_x_m, row.coord_y_m);
+                nitratos[row.codigo] = {
+                  coord: [lat, lon],
+                  data: [],
+                };
+              }
+              // Converter data para string ISO e guardar
+              let dateStr = row.data ? row.data.substring(0, 10) : "";
+              nitratos[row.codigo].data.push({
+                date: dateStr,
+                nitrato: cleanNitrateValue(row.nitrato),
+              });
+            });
+            // Ordenar os dados de cada poço por data
+            Object.values(nitratos).forEach((well) => {
+              well.data.sort((a, b) => new Date(a.date) - new Date(b.date));
+            });
+            nitratoData = nitratos;
+            if (callback) callback();
+          },
+        });
+      }
+
+      // Carregar e processar o CSV de precipitação
+      function loadPrecipData(callback) {
+        Papa.parse("resources/model_data/precip/prec_model_al.csv", {
+          download: true,
+          header: true,
+          complete: function (results) {
+            const data = results.data;
+            const stations = {};
+            data.forEach((row) => {
+              if (!row.codigo) return;
+              if (!stations[row.codigo]) {
+                const [lon, lat] = convertCoords(row.coord_x_m, row.coord_y_m);
+                stations[row.codigo] = {
+                  coord: [lat, lon],
+                  nome: row.nome,
+                  data: [],
+                };
+              }
+              // Converter data para string ISO e guardar
+              let dateStr = row.data ? row.data.substring(0, 10) : "";
+              stations[row.codigo].data.push({
+                date: dateStr,
+                precipitacao: parseFloat(row.precipitacao_dia_mm),
+              });
+            });
+            // Ordenar os dados de cada estação por data
+            Object.values(stations).forEach((station) => {
+              station.data.sort((a, b) => new Date(a.date) - new Date(b.date));
+            });
+            precipData = stations;
+            if (callback) callback();
+          },
+        });
+      }
+
+      // Atualizar filtro de poço/código conforme variável
+      function updateWellFilter() {
+        const variable = document.getElementById("variableFilter").value;
+        const wellFilter = document.getElementById("wellFilter");
+        let codes = [];
+        if (variable === "profundidade" && wellsData) {
+          codes = Object.keys(wellsData);
+        } else if (variable === "nitrato" && nitratoData) {
+          codes = Object.keys(nitratoData);
+        } else if (variable === "precipitacao" && precipData) {
+          codes = Object.keys(precipData);
+        }
+        wellFilter.innerHTML =
+          '<option value="">Todos</option>' +
+          codes.map((c) => `<option value="${c}">${c}</option>`).join("");
+      }
+
+      // Função para dar zoom e abrir modal do poço selecionado
+      function focusOnWell(codigo) {
+        const variable = document.getElementById("variableFilter").value;
+        let obj = null;
+        if (variable === "profundidade" && wellsData && wellsData[codigo]) {
+          obj = wellsData[codigo];
+          map.setView(obj.coord, 14);
+          // Simula clique no marcador
+          document.getElementById("chart-modal").classList.remove("hidden");
+          document.getElementById("well-title").innerText = `Poço ${codigo}`;
+          document.getElementById("trendAnalysisBtn").textContent =
+            "Análise de tendência";
+          const ctx = document.getElementById("wellChart").getContext("2d");
           if (window.currentChart) window.currentChart.destroy();
           window.currentChart = new Chart(ctx, {
-            type: 'line',
+            type: "line",
             data: {
-              datasets: [{
-                label: 'Profundidade Nível Água (m)',
-                data: well.data.map(d => ({x: d.date, y: d.profundidade})),
-                borderColor: '#007bff',
-                backgroundColor: 'rgba(0,123,255,0.2)',
-                fill: 'start',
-                tension: 0.2
-              }]
+              datasets: [
+                {
+                  label: "Profundidade Nível Água (m)",
+                  data: obj.data.map((d) => ({ x: d.date, y: d.profundidade })),
+                  borderColor: "#007bff",
+                  backgroundColor: "rgba(0,123,255,0.2)",
+                  fill: "start",
+                  tension: 0.2,
+                },
+              ],
             },
             options: {
               responsive: true,
               scales: {
                 x: {
-                  type: 'time',
+                  type: "time",
                   time: {
-                    unit: 'year',
-                    tooltipFormat: 'yyyy-MM-dd'
+                    unit: "year",
+                    tooltipFormat: "yyyy-MM-dd",
                   },
-                  title: { display: true, text: 'Data' }
+                  title: { display: true, text: "Data" },
                 },
-                y: { title: { display: true, text: 'Profundidade (m)' }, reverse: true, min: 0 }
+                y: {
+                  title: { display: true, text: "Profundidade (m)" },
+                  reverse: true,
+                  min: 0,
+                },
               },
-              plugins: { zoom: { pan: { enabled: true, mode: 'x', modifierKey: null }, zoom: { enabled: true, mode: 'x', drag: { enabled: true }, wheel: { enabled: true } } } }
-            }
+              plugins: {
+                zoom: {
+                  pan: { enabled: true, mode: "x", modifierKey: null },
+                  zoom: {
+                    enabled: true,
+                    mode: "x",
+                    drag: { enabled: true },
+                    wheel: { enabled: true },
+                  },
+                },
+              },
+            },
           });
-          document.getElementById('resetZoomBtn').onclick = function() {
+          document.getElementById("resetZoomBtn").onclick = function () {
             if (window.currentChart) window.currentChart.resetZoom();
           };
           // Mostrar botão de análise de tendência apenas para piezometria
-          document.getElementById('trendAnalysisBtn').classList.remove('hidden');
-          document.getElementById('trendStatsBox').classList.add('hidden');
-          document.getElementById('trendStatsBox').innerHTML = '';
+          document
+            .getElementById("trendAnalysisBtn")
+            .classList.remove("hidden");
+          document.getElementById("trendStatsBox").classList.add("hidden");
+          document.getElementById("trendStatsBox").innerHTML = "";
           let trendVisible = false;
-          document.getElementById('trendAnalysisBtn').onclick = async function() {
-            if (!trendVisible) {
-              const jsonUrl = `resources/trends/trend_${codigo.replace('/', '_')}.json`;
-              try {
-                const resp = await fetch(jsonUrl);
-                if (!resp.ok) throw new Error('Trend JSON não encontrado');
-                const trendData = await resp.json();
-                // Adicionar linhas de tendência ao gráfico
+          document.getElementById("trendAnalysisBtn").onclick =
+            async function () {
+              if (!trendVisible) {
+                const jsonUrl = `resources/trends/trend_${codigo.replace(
+                  "/",
+                  "_"
+                )}.json`;
+                try {
+                  const resp = await fetch(jsonUrl);
+                  if (!resp.ok) throw new Error("Trend JSON não encontrado");
+                  const trendData = await resp.json();
+                  // Adicionar linhas de tendência ao gráfico
+                  if (window.currentChart) {
+                    const mainDataset =
+                      window.currentChart.data.datasets.filter(
+                        (ds) => !ds._isTrend
+                      );
+                    const trendDatasets = trendData.segments.map(
+                      (seg, idx) => ({
+                        label: `Tendência Segmento ${idx + 1}`,
+                        data: seg.trend_points.map((p) => ({
+                          x: p.x,
+                          y: -p.y,
+                        })),
+                        borderColor: "#e67e22",
+                        backgroundColor: "rgba(230,126,34,0.1)",
+                        borderDash: [6, 3],
+                        pointRadius: 0,
+                        fill: false,
+                        tension: 0,
+                        _isTrend: true,
+                        order: 99,
+                      })
+                    );
+                    window.currentChart.data.datasets =
+                      mainDataset.concat(trendDatasets);
+                    window.currentChart.update();
+                  }
+                  // Mostrar estatísticas na box
+                  let html = `<b>Análise de tendência</b><br>`;
+                  trendData.segments.forEach((seg, idx) => {
+                    html += `<hr><b>Segmento ${idx + 1}</b><br>`;
+                    html += `Período: ${seg.start_date} a ${seg.end_date}<br>`;
+                    html += `Tipo: <b>${seg.trend_type}</b><br>`;
+                    html += `Inclinação/ano: <b>${
+                      seg.slope_per_year !== null
+                        ? seg.slope_per_year.toFixed(3)
+                        : "-"
+                    }</b><br>`;
+                    html += `p-valor: <b>${
+                      seg.p_value !== null ? seg.p_value.toExponential(2) : "-"
+                    }</b><br>`;
+                    html += `R²: <b>${
+                      seg.r_squared !== null ? seg.r_squared.toFixed(2) : "-"
+                    }</b><br>`;
+                  });
+                  document.getElementById("trendStatsBox").innerHTML = html;
+                  document
+                    .getElementById("trendStatsBox")
+                    .classList.remove("hidden");
+                  trendVisible = true;
+                  this.textContent = "Fechar análise de tendência";
+                } catch (e) {
+                  document.getElementById("trendStatsBox").innerHTML =
+                    '<span class="text-red-600">Erro ao carregar análise de tendência.</span>';
+                  document
+                    .getElementById("trendStatsBox")
+                    .classList.remove("hidden");
+                  trendVisible = true;
+                  this.textContent = "Fechar análise de tendência";
+                }
+              } else {
+                // Esconder linhas de tendência e box
                 if (window.currentChart) {
-                  const mainDataset = window.currentChart.data.datasets.filter(ds => !ds._isTrend);
-                  const trendDatasets = trendData.segments.map((seg, idx) => ({
-                    type: 'line',
-                    label: `Tendência Segmento ${idx+1}`,
-                    data: seg.trend_points,
-                    borderColor: '#e67e22',
-                    backgroundColor: 'rgba(230,126,34,0.1)',
-                    borderDash: [6,3],
-                    pointRadius: 0,
-                    fill: false,
-                    tension: 0,
-                    _isTrend: true,
-                    order: 99
-                  }));
-                  window.currentChart.data.datasets = mainDataset.concat(trendDatasets);
+                  window.currentChart.data.datasets =
+                    window.currentChart.data.datasets.filter(
+                      (ds) => !ds._isTrend
+                    );
                   window.currentChart.update();
                 }
-                // Mostrar estatísticas na box
-                let html = `<b>Análise de tendência</b><br>`;
-                trendData.segments.forEach((seg, idx) => {
-                  html += `<hr><b>Segmento ${idx+1}</b><br>`;
-                  html += `Período: ${seg.start_date} a ${seg.end_date}<br>`;
-                  html += `Tipo: <b>${seg.trend_type}</b><br>`;
-                  html += `Inclinação/ano: <b>${seg.slope_per_year !== null ? seg.slope_per_year.toFixed(3) : '-'}</b><br>`;
-                  html += `p-valor: <b>${seg.p_value !== null ? seg.p_value.toExponential(2) : '-'}</b><br>`;
-                  html += `R²: <b>${seg.r_squared !== null ? seg.r_squared.toFixed(2) : '-'}</b><br>`;
-                });
-                document.getElementById('trendStatsBox').innerHTML = html;
-                document.getElementById('trendStatsBox').classList.remove('hidden');
-                trendVisible = true;
-                this.textContent = 'Fechar análise de tendência';
-              } catch (e) {
-                document.getElementById('trendStatsBox').innerHTML = '<span class="text-red-600">Erro ao carregar análise de tendência.</span>';
-                document.getElementById('trendStatsBox').classList.remove('hidden');
-                trendVisible = true;
-                this.textContent = 'Fechar análise de tendência';
+                document
+                  .getElementById("trendStatsBox")
+                  .classList.add("hidden");
+                document.getElementById("trendStatsBox").innerHTML = "";
+                trendVisible = false;
+                this.textContent = "Análise de tendência";
               }
-            } else {
-              // Esconder linhas de tendência e box
-              if (window.currentChart) {
-                window.currentChart.data.datasets = window.currentChart.data.datasets.filter(ds => !ds._isTrend);
-                window.currentChart.update();
-              }
-              document.getElementById('trendStatsBox').classList.add('hidden');
-              document.getElementById('trendStatsBox').innerHTML = '';
-              trendVisible = false;
-              this.textContent = 'Análise de tendência';
-            }
-          };
-        });
-      });
-    }
-
-    // Função para desenhar marcadores de nitrato
-    function drawNitratoMarkers() {
-      clearMarkers();
-      Object.entries(nitratoData).forEach(([codigo, well]) => {
-        const marker = L.circleMarker(well.coord, {radius: 6, color: '#28a745', fillColor: '#28a745', fillOpacity: 0.8});
-        marker.addTo(markersLayer).on('click', () => {
-          document.getElementById('chart-modal').classList.remove('hidden');
-          document.getElementById('well-title').innerText = `Poço ${codigo}`;
-          document.getElementById('trendAnalysisBtn').textContent = 'Análise de tendência';
-          const ctx = document.getElementById('wellChart').getContext('2d');
+            };
+        } else if (
+          variable === "nitrato" &&
+          nitratoData &&
+          nitratoData[codigo]
+        ) {
+          obj = nitratoData[codigo];
+          map.setView(obj.coord, 14);
+          document.getElementById("chart-modal").classList.remove("hidden");
+          document.getElementById("well-title").innerText = `Poço ${codigo}`;
+          document.getElementById("trendAnalysisBtn").textContent =
+            "Análise de tendência";
+          const ctx = document.getElementById("wellChart").getContext("2d");
           if (window.currentChart) window.currentChart.destroy();
-          // Ordenar os dados por data antes de plotar
-          const sortedData = well.data.slice().sort((a, b) => new Date(a.date) - new Date(b.date));
           window.currentChart = new Chart(ctx, {
-            type: 'scatter',
+            type: "line",
             data: {
-              datasets: [{
-                label: 'Nitrato (mg/L)',
-                data: sortedData.map(d => ({x: d.date, y: d.nitrato})),
-                borderColor: '#28a745',
-                backgroundColor: '#28a745',
-                pointRadius: 5,
-                showLine: false
-              }]
+              datasets: [
+                {
+                  label: "Nitrato (mg/L)",
+                  data: obj.data.map((d) => ({ x: d.date, y: d.nitrato })),
+                  borderColor: "#28a745",
+                  backgroundColor: "rgba(40,167,69,0.2)",
+                  fill: "start",
+                  tension: 0.2,
+                },
+              ],
             },
             options: {
               responsive: true,
               scales: {
                 x: {
-                  type: 'time',
+                  type: "time",
                   time: {
-                    unit: 'year',
-                    tooltipFormat: 'yyyy-MM-dd'
+                    unit: "year",
+                    tooltipFormat: "yyyy-MM-dd",
                   },
-                  title: { display: true, text: 'Data' }
+                  title: { display: true, text: "Data" },
                 },
-                y: { title: { display: true, text: 'Nitrato (mg/L)' }, min: 0 }
+                y: { title: { display: true, text: "Nitrato (mg/L)" }, min: 0 },
               },
-              plugins: { zoom: { pan: { enabled: true, mode: 'x', modifierKey: null }, zoom: { enabled: true, mode: 'x', drag: { enabled: true }, wheel: { enabled: true } } } }
-            }
+              plugins: {
+                zoom: {
+                  pan: { enabled: true, mode: "x", modifierKey: null },
+                  zoom: {
+                    enabled: true,
+                    mode: "x",
+                    drag: { enabled: true },
+                    wheel: { enabled: true },
+                  },
+                },
+              },
+            },
           });
-          document.getElementById('resetZoomBtn').onclick = function() {
+          document.getElementById("resetZoomBtn").onclick = function () {
             if (window.currentChart) window.currentChart.resetZoom();
           };
           // Mostrar botão de análise de tendência para nitrato
-          document.getElementById('trendAnalysisBtn').classList.remove('hidden');
-          document.getElementById('trendStatsBox').classList.add('hidden');
-          document.getElementById('trendStatsBox').innerHTML = '';
+          document
+            .getElementById("trendAnalysisBtn")
+            .classList.remove("hidden");
+          document.getElementById("trendStatsBox").classList.add("hidden");
+          document.getElementById("trendStatsBox").innerHTML = "";
           let trendVisible = false;
-          document.getElementById('trendAnalysisBtn').onclick = async function() {
-            if (!trendVisible) {
-              const jsonUrl = `resources/trends/trends_nitrato/trend_${codigo.replace('/', '_')}.json`;
-              try {
-                const resp = await fetch(jsonUrl);
-                if (!resp.ok) throw new Error('Trend JSON não encontrado');
-                const trendData = await resp.json();
-                // Adicionar linhas de tendência ao gráfico
+          document.getElementById("trendAnalysisBtn").onclick =
+            async function () {
+              if (!trendVisible) {
+                const jsonUrl = `resources/trends/trends_nitrato/trend_${codigo.replace(
+                  "/",
+                  "_"
+                )}.json`;
+                try {
+                  const resp = await fetch(jsonUrl);
+                  if (!resp.ok) throw new Error("Trend JSON não encontrado");
+                  const trendData = await resp.json();
+                  // Adicionar linhas de tendência ao gráfico
+                  if (window.currentChart) {
+                    const mainDataset =
+                      window.currentChart.data.datasets.filter(
+                        (ds) => !ds._isTrend
+                      );
+                    const trendDatasets = trendData.segments.map(
+                      (seg, idx) => ({
+                        label: `Tendência Segmento ${idx + 1}`,
+                        data: seg.trend_points, // NÃO inverter sinal!
+                        borderColor: "#e67e22",
+                        backgroundColor: "rgba(230,126,34,0.1)",
+                        borderDash: [6, 3],
+                        pointRadius: 0,
+                        fill: false,
+                        tension: 0,
+                        _isTrend: true,
+                        order: 99,
+                      })
+                    );
+                    window.currentChart.data.datasets =
+                      mainDataset.concat(trendDatasets);
+                    window.currentChart.update();
+                  }
+                  // Mostrar estatísticas na box
+                  let html = `<b>Análise de tendência</b><br>`;
+                  trendData.segments.forEach((seg, idx) => {
+                    html += `<hr><b>Segmento ${idx + 1}</b><br>`;
+                    html += `Período: ${seg.start_date} a ${seg.end_date}<br>`;
+                    html += `Tipo: <b>${seg.trend_type}</b><br>`;
+                    html += `Inclinação/ano: <b>${
+                      seg.slope_per_year !== null
+                        ? seg.slope_per_year.toFixed(3)
+                        : "-"
+                    }</b><br>`;
+                    html += `p-valor: <b>${
+                      seg.p_value !== null ? seg.p_value.toExponential(2) : "-"
+                    }</b><br>`;
+                    html += `R²: <b>${
+                      seg.r_squared !== null ? seg.r_squared.toFixed(2) : "-"
+                    }</b><br>`;
+                  });
+                  document.getElementById("trendStatsBox").innerHTML = html;
+                  document
+                    .getElementById("trendStatsBox")
+                    .classList.remove("hidden");
+                  trendVisible = true;
+                  this.textContent = "Fechar análise de tendência";
+                } catch (e) {
+                  document.getElementById("trendStatsBox").innerHTML =
+                    '<span class="text-red-600">Erro ao carregar análise de tendência.</span>';
+                  document
+                    .getElementById("trendStatsBox")
+                    .classList.remove("hidden");
+                  trendVisible = true;
+                  this.textContent = "Fechar análise de tendência";
+                }
+              } else {
+                // Esconder linhas de tendência e box
                 if (window.currentChart) {
-                  const mainDataset = window.currentChart.data.datasets.filter(ds => !ds._isTrend);
-                  const trendDatasets = trendData.segments.map((seg, idx) => ({
-                    type: 'line',
-                    label: `Tendência Segmento ${idx+1}`,
-                    data: seg.trend_points,
-                    borderColor: '#e67e22',
-                    backgroundColor: 'rgba(230,126,34,0.1)',
-                    borderDash: [6,3],
-                    pointRadius: 0,
-                    fill: false,
-                    tension: 0,
-                    _isTrend: true,
-                    order: 99
-                  }));
-                  window.currentChart.data.datasets = mainDataset.concat(trendDatasets);
+                  window.currentChart.data.datasets =
+                    window.currentChart.data.datasets.filter(
+                      (ds) => !ds._isTrend
+                    );
                   window.currentChart.update();
                 }
-                // Mostrar estatísticas na box
-                let html = `<b>Análise de tendência</b><br>`;
-                trendData.segments.forEach((seg, idx) => {
-                  html += `<hr><b>Segmento ${idx+1}</b><br>`;
-                  html += `Período: ${seg.start_date} a ${seg.end_date}<br>`;
-                  html += `Tipo: <b>${seg.trend_type}</b><br>`;
-                  html += `Inclinação/ano: <b>${seg.slope_per_year !== null ? seg.slope_per_year.toFixed(3) : '-'}</b><br>`;
-                  html += `p-valor: <b>${seg.p_value !== null ? seg.p_value.toExponential(2) : '-'}</b><br>`;
-                  html += `R²: <b>${seg.r_squared !== null ? seg.r_squared.toFixed(2) : '-'}</b><br>`;
-                });
-                document.getElementById('trendStatsBox').innerHTML = html;
-                document.getElementById('trendStatsBox').classList.remove('hidden');
-                trendVisible = true;
-                this.textContent = 'Fechar análise de tendência';
-              } catch (e) {
-                document.getElementById('trendStatsBox').innerHTML = '<span class="text-red-600">Erro ao carregar análise de tendência.</span>';
-                document.getElementById('trendStatsBox').classList.remove('hidden');
-                trendVisible = true;
-                this.textContent = 'Fechar análise de tendência';
+                document
+                  .getElementById("trendStatsBox")
+                  .classList.add("hidden");
+                document.getElementById("trendStatsBox").innerHTML = "";
+                trendVisible = false;
+                this.textContent = "Análise de tendência";
               }
-            } else {
-              // Esconder linhas de tendência e box
-              if (window.currentChart) {
-                window.currentChart.data.datasets = window.currentChart.data.datasets.filter(ds => !ds._isTrend);
-                window.currentChart.update();
-              }
-              document.getElementById('trendStatsBox').classList.add('hidden');
-              document.getElementById('trendStatsBox').innerHTML = '';
-              trendVisible = false;
-              this.textContent = 'Análise de tendência';
-            }
-          };
-        });
-      });
-    }
-
-    // Função para desenhar marcadores de precipitação
-    function drawPrecipMarkers() {
-      clearMarkers();
-      Object.entries(precipData).forEach(([codigo, station]) => {
-        const marker = L.circleMarker(station.coord, {radius: 6, color: '#800080', fillColor: '#800080', fillOpacity: 0.8});
-        marker.addTo(markersLayer).on('click', () => {
-          document.getElementById('chart-modal').classList.remove('hidden');
-          document.getElementById('well-title').innerText = `Estação ${codigo} - ${station.nome}`;
-          document.getElementById('trendAnalysisBtn').textContent = 'Análise de tendência';
-          const ctx = document.getElementById('wellChart').getContext('2d');
+            };
+        } else if (
+          variable === "precipitacao" &&
+          precipData &&
+          precipData[codigo]
+        ) {
+          obj = precipData[codigo];
+          map.setView(obj.coord, 14);
+          document.getElementById("chart-modal").classList.remove("hidden");
+          document.getElementById(
+            "well-title"
+          ).innerText = `Estação ${codigo} - ${obj.nome}`;
+          document.getElementById("trendAnalysisBtn").textContent =
+            "Análise de tendência";
+          const ctx = document.getElementById("wellChart").getContext("2d");
           if (window.currentChart) window.currentChart.destroy();
-          // Ordenar os dados por data antes de plotar
-          const sortedData = station.data.slice().sort((a, b) => new Date(a.date) - new Date(b.date));
           window.currentChart = new Chart(ctx, {
-            type: 'line',
+            type: "line",
             data: {
-              datasets: [{
-                label: 'Precipitação (mm)',
-                data: sortedData.map(d => ({x: d.date, y: d.precipitacao})),
-                borderColor: '#800080',
-                backgroundColor: 'rgba(128,0,128,0.2)',
-                fill: 'start',
-                tension: 0.2
-              }]
+              datasets: [
+                {
+                  label: "Precipitação (mm)",
+                  data: obj.data.map((d) => ({ x: d.date, y: d.precipitacao })),
+                  borderColor: "#800080",
+                  backgroundColor: "rgba(128,0,128,0.2)",
+                  fill: "start",
+                  tension: 0.2,
+                },
+              ],
             },
             options: {
               responsive: true,
               scales: {
                 x: {
-                  type: 'time',
+                  type: "time",
                   time: {
-                    unit: 'year',
-                    tooltipFormat: 'yyyy-MM-dd'
+                    unit: "year",
+                    tooltipFormat: "yyyy-MM-dd",
                   },
-                  title: { display: true, text: 'Data' }
+                  title: { display: true, text: "Data" },
                 },
-                y: { title: { display: true, text: 'Precipitação (mm)' }, min: 0 }
+                y: {
+                  title: { display: true, text: "Precipitação (mm)" },
+                  min: 0,
+                },
               },
-              plugins: { zoom: { pan: { enabled: true, mode: 'x', modifierKey: null }, zoom: { enabled: true, mode: 'x', drag: { enabled: true }, wheel: { enabled: true } } } }
-            }
+              plugins: {
+                zoom: {
+                  pan: { enabled: true, mode: "x", modifierKey: null },
+                  zoom: {
+                    enabled: true,
+                    mode: "x",
+                    drag: { enabled: true },
+                    wheel: { enabled: true },
+                  },
+                },
+              },
+            },
           });
-          document.getElementById('resetZoomBtn').onclick = function() {
+          document.getElementById("resetZoomBtn").onclick = function () {
             if (window.currentChart) window.currentChart.resetZoom();
           };
-          document.getElementById('trendAnalysisBtn').classList.add('hidden');
-          document.getElementById('trendStatsBox').classList.add('hidden');
-          document.getElementById('trendStatsBox').innerHTML = '';
-        });
-      });
-    }
-
-    // Função para limpar valores de nitrato com caracteres especiais
-    function cleanNitrateValue(value) {
-      if (typeof value === 'string') {
-        value = value.replace(/\(e<\)|\(<\)/g, '');
+          document.getElementById("trendAnalysisBtn").classList.add("hidden");
+          document.getElementById("trendStatsBox").classList.add("hidden");
+          document.getElementById("trendStatsBox").innerHTML = "";
+        }
       }
-      var num = parseFloat(value);
-      return isNaN(num) ? 0 : num;
-    }
 
-    // Carregar e processar o CSV de profundidade
-    function loadProfundidadeData(callback) {
-      Papa.parse('resources/model_data/piezo/piezo_model_al.csv', {
-        download: true,
-        header: true,
-        complete: function(results) {
-          const data = results.data;
-          const wells = {};
-          data.forEach(row => {
-            if (!row.codigo || row.codigo === '377/287') return; // Skip well 377/287
-            if (!wells[row.codigo]) {
-              const [lon, lat] = convertCoords(row.coord_x_m, row.coord_y_m);
-              wells[row.codigo] = {
-                coord: [lat, lon],
-                data: []
-              };
-            }
-            wells[row.codigo].data.push({
-              date: row.data,
-              profundidade: parseFloat(row.profundidade_nivel_agua)
-            });
-          });
-          wellsData = wells;
-          if (callback) callback();
-        }
-      });
-    }
-
-    // Carregar e processar o CSV de nitrato
-    function loadNitratoData(callback) {
-      Papa.parse('resources/model_data/nitrato/nitrato_model_al.csv', {
-        download: true,
-        header: true,
-        complete: function(results) {
-          const data = results.data;
-          const nitratos = {};
-          data.forEach(row => {
-            if (!row.codigo) return;
-            if (!nitratos[row.codigo]) {
-              const [lon, lat] = convertCoords(row.coord_x_m, row.coord_y_m);
-              nitratos[row.codigo] = {
-                coord: [lat, lon],
-                data: []
-              };
-            }
-            // Converter data para string ISO e guardar
-            let dateStr = row.data ? row.data.substring(0, 10) : '';
-            nitratos[row.codigo].data.push({
-              date: dateStr,
-              nitrato: cleanNitrateValue(row.nitrato)
-            });
-          });
-          // Ordenar os dados de cada poço por data
-          Object.values(nitratos).forEach(well => {
-            well.data.sort((a, b) => new Date(a.date) - new Date(b.date));
-          });
-          nitratoData = nitratos;
-          if (callback) callback();
-        }
-      });
-    }
-
-    // Carregar e processar o CSV de precipitação
-    function loadPrecipData(callback) {
-      Papa.parse('resources/model_data/precip/prec_model_al.csv', {
-        download: true,
-        header: true,
-        complete: function(results) {
-          const data = results.data;
-          const stations = {};
-          data.forEach(row => {
-            if (!row.codigo) return;
-            if (!stations[row.codigo]) {
-              const [lon, lat] = convertCoords(row.coord_x_m, row.coord_y_m);
-              stations[row.codigo] = {
-                coord: [lat, lon],
-                nome: row.nome,
-                data: []
-              };
-            }
-            // Converter data para string ISO e guardar
-            let dateStr = row.data ? row.data.substring(0, 10) : '';
-            stations[row.codigo].data.push({
-              date: dateStr,
-              precipitacao: parseFloat(row.precipitacao_dia_mm)
-            });
-          });
-          // Ordenar os dados de cada estação por data
-          Object.values(stations).forEach(station => {
-            station.data.sort((a, b) => new Date(a.date) - new Date(b.date));
-          });
-          precipData = stations;
-          if (callback) callback();
-        }
-      });
-    }
-
-    // Atualizar filtro de poço/código conforme variável
-    function updateWellFilter() {
-      const variable = document.getElementById('variableFilter').value;
-      const wellFilter = document.getElementById('wellFilter');
-      let codes = [];
-      if (variable === 'profundidade' && wellsData) {
-        codes = Object.keys(wellsData);
-      } else if (variable === 'nitrato' && nitratoData) {
-        codes = Object.keys(nitratoData);
-      } else if (variable === 'precipitacao' && precipData) {
-        codes = Object.keys(precipData);
-      }
-      wellFilter.innerHTML = '<option value="">Todos</option>' + codes.map(c => `<option value="${c}">${c}</option>`).join('');
-    }
-
-    // Função para dar zoom e abrir modal do poço selecionado
-    function focusOnWell(codigo) {
-      const variable = document.getElementById('variableFilter').value;
-      let obj = null;
-      if (variable === 'profundidade' && wellsData && wellsData[codigo]) {
-        obj = wellsData[codigo];
-        map.setView(obj.coord, 14);
-        // Simula clique no marcador
-        document.getElementById('chart-modal').classList.remove('hidden');
-        document.getElementById('well-title').innerText = `Poço ${codigo}`;
-        document.getElementById('trendAnalysisBtn').textContent = 'Análise de tendência';
-        const ctx = document.getElementById('wellChart').getContext('2d');
-        if (window.currentChart) window.currentChart.destroy();
-        window.currentChart = new Chart(ctx, {
-          type: 'line',
-          data: {
-            datasets: [{
-              label: 'Profundidade Nível Água (m)',
-              data: obj.data.map(d => ({x: d.date, y: d.profundidade})),
-              borderColor: '#007bff',
-              backgroundColor: 'rgba(0,123,255,0.2)',
-              fill: 'start',
-              tension: 0.2
-            }]
-          },
-          options: {
-            responsive: true,
-            scales: {
-              x: {
-                type: 'time',
-                time: {
-                  unit: 'year',
-                  tooltipFormat: 'yyyy-MM-dd'
-                },
-                title: { display: true, text: 'Data' }
-              },
-              y: { title: { display: true, text: 'Profundidade (m)' }, reverse: true, min: 0 }
-            },
-            plugins: { zoom: { pan: { enabled: true, mode: 'x', modifierKey: null }, zoom: { enabled: true, mode: 'x', drag: { enabled: true }, wheel: { enabled: true } } } }
-          }
-        });
-        document.getElementById('resetZoomBtn').onclick = function() {
-          if (window.currentChart) window.currentChart.resetZoom();
-        };
-        // Mostrar botão de análise de tendência apenas para piezometria
-        document.getElementById('trendAnalysisBtn').classList.remove('hidden');
-        document.getElementById('trendStatsBox').classList.add('hidden');
-        document.getElementById('trendStatsBox').innerHTML = '';
-        let trendVisible = false;
-        document.getElementById('trendAnalysisBtn').onclick = async function() {
-          if (!trendVisible) {
-            const jsonUrl = `resources/trends/trend_${codigo.replace('/', '_')}.json`;
-            try {
-              const resp = await fetch(jsonUrl);
-              if (!resp.ok) throw new Error('Trend JSON não encontrado');
-              const trendData = await resp.json();
-              // Adicionar linhas de tendência ao gráfico
-              if (window.currentChart) {
-                const mainDataset = window.currentChart.data.datasets.filter(ds => !ds._isTrend);
-                const trendDatasets = trendData.segments.map((seg, idx) => ({
-                  type: 'line',
-                  label: `Tendência Segmento ${idx+1}`,
-                  data: seg.trend_points,
-                  borderColor: '#e67e22',
-                  backgroundColor: 'rgba(230,126,34,0.1)',
-                  borderDash: [6,3],
-                  pointRadius: 0,
-                  fill: false,
-                  tension: 0,
-                  _isTrend: true,
-                  order: 99
-                }));
-                window.currentChart.data.datasets = mainDataset.concat(trendDatasets);
-                window.currentChart.update();
-              }
-              // Mostrar estatísticas na box
-              let html = `<b>Análise de tendência</b><br>`;
-              trendData.segments.forEach((seg, idx) => {
-                html += `<hr><b>Segmento ${idx+1}</b><br>`;
-                html += `Período: ${seg.start_date} a ${seg.end_date}<br>`;
-                html += `Tipo: <b>${seg.trend_type}</b><br>`;
-                html += `Inclinação/ano: <b>${seg.slope_per_year !== null ? seg.slope_per_year.toFixed(3) : '-'}</b><br>`;
-                html += `p-valor: <b>${seg.p_value !== null ? seg.p_value.toExponential(2) : '-'}</b><br>`;
-                html += `R²: <b>${seg.r_squared !== null ? seg.r_squared.toFixed(2) : '-'}</b><br>`;
-              });
-              document.getElementById('trendStatsBox').innerHTML = html;
-              document.getElementById('trendStatsBox').classList.remove('hidden');
-              trendVisible = true;
-              this.textContent = 'Fechar análise de tendência';
-            } catch (e) {
-              document.getElementById('trendStatsBox').innerHTML = '<span class="text-red-600">Erro ao carregar análise de tendência.</span>';
-              document.getElementById('trendStatsBox').classList.remove('hidden');
-              trendVisible = true;
-              this.textContent = 'Fechar análise de tendência';
-            }
-          } else {
-            // Esconder linhas de tendência e box
-            if (window.currentChart) {
-              window.currentChart.data.datasets = window.currentChart.data.datasets.filter(ds => !ds._isTrend);
-              window.currentChart.update();
-            }
-            document.getElementById('trendStatsBox').classList.add('hidden');
-            document.getElementById('trendStatsBox').innerHTML = '';
-            trendVisible = false;
-            this.textContent = 'Análise de tendência';
-          }
-        };
-      } else if (variable === 'nitrato' && nitratoData && nitratoData[codigo]) {
-        obj = nitratoData[codigo];
-        map.setView(obj.coord, 14);
-        document.getElementById('chart-modal').classList.remove('hidden');
-        document.getElementById('well-title').innerText = `Poço ${codigo}`;
-        document.getElementById('trendAnalysisBtn').textContent = 'Análise de tendência';
-        const ctx = document.getElementById('wellChart').getContext('2d');
-        if (window.currentChart) window.currentChart.destroy();
-        window.currentChart = new Chart(ctx, {
-          type: 'scatter',
-          data: {
-            datasets: [{
-              label: 'Nitrato (mg/L)',
-              data: obj.data.map(d => ({x: d.date, y: d.nitrato})),
-              borderColor: '#28a745',
-              backgroundColor: '#28a745',
-              pointRadius: 5,
-              showLine: false
-            }]
-          },
-          options: {
-            responsive: true,
-            scales: {
-              x: {
-                type: 'time',
-                time: {
-                  unit: 'year',
-                  tooltipFormat: 'yyyy-MM-dd'
-                },
-                title: { display: true, text: 'Data' }
-              },
-              y: { title: { display: true, text: 'Nitrato (mg/L)' }, min: 0 }
-            },
-            plugins: { zoom: { pan: { enabled: true, mode: 'x', modifierKey: null }, zoom: { enabled: true, mode: 'x', drag: { enabled: true }, wheel: { enabled: true } } } }
-          }
-        });
-        document.getElementById('resetZoomBtn').onclick = function() {
-          if (window.currentChart) window.currentChart.resetZoom();
-        };
-        // Mostrar botão de análise de tendência para nitrato
-        document.getElementById('trendAnalysisBtn').classList.remove('hidden');
-        document.getElementById('trendStatsBox').classList.add('hidden');
-        document.getElementById('trendStatsBox').innerHTML = '';
-        let trendVisible = false;
-        document.getElementById('trendAnalysisBtn').onclick = async function() {
-          if (!trendVisible) {
-            const jsonUrl = `resources/trends/trends_nitrato/trend_${codigo.replace('/', '_')}.json`;
-            try {
-              const resp = await fetch(jsonUrl);
-              if (!resp.ok) throw new Error('Trend JSON não encontrado');
-              const trendData = await resp.json();
-              // Adicionar linhas de tendência ao gráfico
-              if (window.currentChart) {
-                const mainDataset = window.currentChart.data.datasets.filter(ds => !ds._isTrend);
-                const trendDatasets = trendData.segments.map((seg, idx) => ({
-                  type: 'line',
-                  label: `Tendência Segmento ${idx+1}`,
-                  data: seg.trend_points,
-                  borderColor: '#e67e22',
-                  backgroundColor: 'rgba(230,126,34,0.1)',
-                  borderDash: [6,3],
-                  pointRadius: 0,
-                  fill: false,
-                  tension: 0,
-                  _isTrend: true,
-                  order: 99
-                }));
-                window.currentChart.data.datasets = mainDataset.concat(trendDatasets);
-                window.currentChart.update();
-              }
-              // Mostrar estatísticas na box
-              let html = `<b>Análise de tendência</b><br>`;
-              trendData.segments.forEach((seg, idx) => {
-                html += `<hr><b>Segmento ${idx+1}</b><br>`;
-                html += `Período: ${seg.start_date} a ${seg.end_date}<br>`;
-                html += `Tipo: <b>${seg.trend_type}</b><br>`;
-                html += `Inclinação/ano: <b>${seg.slope_per_year !== null ? seg.slope_per_year.toFixed(3) : '-'}</b><br>`;
-                html += `p-valor: <b>${seg.p_value !== null ? seg.p_value.toExponential(2) : '-'}</b><br>`;
-                html += `R²: <b>${seg.r_squared !== null ? seg.r_squared.toFixed(2) : '-'}</b><br>`;
-              });
-              document.getElementById('trendStatsBox').innerHTML = html;
-              document.getElementById('trendStatsBox').classList.remove('hidden');
-              trendVisible = true;
-              this.textContent = 'Fechar análise de tendência';
-            } catch (e) {
-              document.getElementById('trendStatsBox').innerHTML = '<span class="text-red-600">Erro ao carregar análise de tendência.</span>';
-              document.getElementById('trendStatsBox').classList.remove('hidden');
-              trendVisible = true;
-              this.textContent = 'Fechar análise de tendência';
-            }
-          } else {
-            // Esconder linhas de tendência e box
-            if (window.currentChart) {
-              window.currentChart.data.datasets = window.currentChart.data.datasets.filter(ds => !ds._isTrend);
-              window.currentChart.update();
-            }
-            document.getElementById('trendStatsBox').classList.add('hidden');
-            document.getElementById('trendStatsBox').innerHTML = '';
-            trendVisible = false;
-            this.textContent = 'Análise de tendência';
-          }
-        };
-      } else if (variable === 'precipitacao' && precipData && precipData[codigo]) {
-        obj = precipData[codigo];
-        map.setView(obj.coord, 14);
-        document.getElementById('chart-modal').classList.remove('hidden');
-        document.getElementById('well-title').innerText = `Estação ${codigo} - ${obj.nome}`;
-        document.getElementById('trendAnalysisBtn').textContent = 'Análise de tendência';
-        const ctx = document.getElementById('wellChart').getContext('2d');
-        if (window.currentChart) window.currentChart.destroy();
-        window.currentChart = new Chart(ctx, {
-          type: 'line',
-          data: {
-            datasets: [{
-              label: 'Precipitação (mm)',
-              data: obj.data.map(d => ({x: d.date, y: d.precipitacao})),
-              borderColor: '#800080',
-              backgroundColor: 'rgba(128,0,128,0.2)',
-              fill: 'start',
-              tension: 0.2
-            }]
-          },
-          options: {
-            responsive: true,
-            scales: {
-              x: {
-                type: 'time',
-                time: {
-                  unit: 'year',
-                  tooltipFormat: 'yyyy-MM-dd'
-                },
-                title: { display: true, text: 'Data' }
-              },
-              y: { title: { display: true, text: 'Precipitação (mm)' }, min: 0 }
-            },
-            plugins: { zoom: { pan: { enabled: true, mode: 'x', modifierKey: null }, zoom: { enabled: true, mode: 'x', drag: { enabled: true }, wheel: { enabled: true } } } }
-          }
-        });
-        document.getElementById('resetZoomBtn').onclick = function() {
-          if (window.currentChart) window.currentChart.resetZoom();
-        };
-        document.getElementById('trendAnalysisBtn').classList.add('hidden');
-        document.getElementById('trendStatsBox').classList.add('hidden');
-        document.getElementById('trendStatsBox').innerHTML = '';
-      }
-    }
-
-    // Atualizar mapa e filtro de poço ao mudar variável
-    function updateMapAndWellFilter() {
-      updateMap();
-      updateWellFilter();
-    }
-
-    // Atualizar filtro de poço ao carregar dados
-    function updateWellFilterAfterLoad() {
-      updateWellFilter();
-    }
-
-    // Inicialização
-    document.addEventListener('DOMContentLoaded', function() {
-      initMap();
-      loadProfundidadeData(function() {
-        drawProfundidadeMarkers();
-        updateWellFilterAfterLoad();
-      }); // Carrega profundidade por padrão
-      document.getElementById('variableFilter').addEventListener('change', updateMapAndWellFilter);
-      document.getElementById('wellFilter').addEventListener('change', function() {
-        const codigo = this.value;
-        if (codigo) {
-          focusOnWell(codigo);
-        } else {
-          // Zoom out para a vista inicial
-          if (map) map.setView([39.5, -8], 8);
-        }
-      });
-    });
-
-    // Atualizar filtro de poço ao carregar outros dados
-    function loadNitratoDataWithFilter(cb) {
-      loadNitratoData(function() {
-        if (cb) cb();
-        updateWellFilterAfterLoad();
-      });
-    }
-    function loadPrecipDataWithFilter(cb) {
-      loadPrecipData(function() {
-        if (cb) cb();
-        updateWellFilterAfterLoad();
-      });
-    }
-
-    // Modificar updateMap para usar as funções acima
-    function updateMap() {
-      const variable = document.getElementById('variableFilter').value;
-      if (variable === 'profundidade') {
-        if (!wellsData) loadProfundidadeData(function() { drawProfundidadeMarkers(); updateWellFilterAfterLoad(); });
-        else { drawProfundidadeMarkers(); updateWellFilterAfterLoad(); }
-      } else if (variable === 'nitrato') {
-        if (!nitratoData) loadNitratoDataWithFilter(drawNitratoMarkers);
-        else { drawNitratoMarkers(); updateWellFilterAfterLoad(); }
-      } else if (variable === 'precipitacao') {
-        if (!precipData) loadPrecipDataWithFilter(drawPrecipMarkers);
-        else { drawPrecipMarkers(); updateWellFilterAfterLoad(); }
-      } else {
-        clearMarkers();
+      // Atualizar mapa e filtro de poço ao mudar variável
+      function updateMapAndWellFilter() {
+        updateMap();
         updateWellFilter();
-        // Municípios: estrutura pronta para implementar
       }
-    }
+
+      // Atualizar filtro de poço ao carregar dados
+      function updateWellFilterAfterLoad() {
+        updateWellFilter();
+      }
+
+      // Inicialização
+      document.addEventListener("DOMContentLoaded", function () {
+        initMap();
+        loadProfundidadeData(function () {
+          drawProfundidadeMarkers();
+          updateWellFilterAfterLoad();
+        }); // Carrega profundidade por padrão
+        document
+          .getElementById("variableFilter")
+          .addEventListener("change", updateMapAndWellFilter);
+        document
+          .getElementById("wellFilter")
+          .addEventListener("change", function () {
+            const codigo = this.value;
+            if (codigo) {
+              focusOnWell(codigo);
+            } else {
+              // Zoom out para a vista inicial
+              if (map) map.setView([39.5, -8], 8);
+            }
+          });
+      });
+
+      // Atualizar filtro de poço ao carregar outros dados
+      function loadNitratoDataWithFilter(cb) {
+        loadNitratoData(function () {
+          if (cb) cb();
+          updateWellFilterAfterLoad();
+        });
+      }
+      function loadPrecipDataWithFilter(cb) {
+        loadPrecipData(function () {
+          if (cb) cb();
+          updateWellFilterAfterLoad();
+        });
+      }
+
+      // Modificar updateMap para usar as funções acima
+      function updateMap() {
+        const variable = document.getElementById("variableFilter").value;
+        if (variable === "profundidade") {
+          if (!wellsData)
+            loadProfundidadeData(function () {
+              drawProfundidadeMarkers();
+              updateWellFilterAfterLoad();
+            });
+          else {
+            drawProfundidadeMarkers();
+            updateWellFilterAfterLoad();
+          }
+        } else if (variable === "nitrato") {
+          if (!nitratoData) loadNitratoDataWithFilter(drawNitratoMarkers);
+          else {
+            drawNitratoMarkers();
+            updateWellFilterAfterLoad();
+          }
+        } else if (variable === "precipitacao") {
+          if (!precipData) loadPrecipDataWithFilter(drawPrecipMarkers);
+          else {
+            drawPrecipMarkers();
+            updateWellFilterAfterLoad();
+          }
+        } else {
+          clearMarkers();
+          updateWellFilter();
+          // Municípios: estrutura pronta para implementar
+        }
+      }
     </script>
   </body>
-</html> 
+</html>

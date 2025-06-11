@@ -37,10 +37,9 @@
         transform: scale(1.10);
       }
       .europa-clep-img {
-        width: auto;
-        height: auto;
-        max-width: 100%;
-        max-height: 80vh;
+        max-width: 420px;
+        max-height: 60vh;
+        object-fit: contain;
       }
     </style>
   </head>
@@ -108,39 +107,64 @@
 
     <!-- Main Content -->
     <main class="flex-grow w-full py-12" style="background-color: #174192;">
-      <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row items-start md:items-center gap-8">
-        <!-- Coluna esquerda: Tarefas -->
-        <div class="w-full md:w-1/2 flex flex-col items-start mt-16 pl-4 space-y-6">
-          <div class="w-full max-w-lg bg-white p-4 rounded-lg hover:shadow-2xl relative hover:scale-105 hover:z-10 flex flex-col space-y-2">
-            <span class="font-extrabold text-xl md:text-2xl text-blue-900">Tarefa 1</span>
-            <span class="text-base md:text-lg text-gray-800 font-normal">
-              Desenvolvimento de ferramentas para <span class="text-red-500 font-semibold">monitorização e obtenção dados</span> e <span class="text-red-500 font-semibold">identificação de lacunas</span>;
-            </span>
-          </div>
-          <div class="w-full max-w-lg bg-white p-4 rounded-lg hover:shadow-2xl relative hover:scale-105 hover:z-10 flex flex-col space-y-2">
-            <span class="font-extrabold text-xl md:text-2xl text-blue-900">Tarefa 2</span>
-            <span class="text-base md:text-lg text-gray-800 font-normal">
-              Criação ou <span class="text-red-500 font-semibold">melhoria/atualização</span> de rede de monitorização - <span class="italic">geração de dados</span>
-            </span>
-          </div>
-          <div class="w-full max-w-lg bg-white p-4 rounded-lg hover:shadow-2xl relative hover:scale-105 hover:z-10 flex flex-col space-y-2">
-            <span class="font-extrabold text-xl md:text-2xl text-blue-900">Tarefa 3</span>
-            <span class="text-base md:text-lg text-gray-800 font-normal">
-              <span class="text-red-500 font-semibold underline">Observações em condições reais</span> – Living Lab
-            </span>
-          </div>
-          <div class="w-full max-w-lg bg-white p-4 rounded-lg hover:shadow-2xl relative hover:scale-105 hover:z-10 flex flex-col space-y-2">
-            <span class="font-extrabold text-xl md:text-2xl text-blue-900">Tarefa 4</span>
-            <span class="text-base md:text-lg text-gray-800 font-normal">
-              Capacitação e sensibilização social
-            </span>
-          </div>
+      <div class="relative w-full flex-grow min-h-[60vh] flex items-center justify-start" style="min-height: 600px;">
+        <!-- Mapa como background decorativo, ocupa parte da área principal -->
+        <div class="absolute right-0 top-0 h-[65vh] w-[900px] max-w-[60vw] pointer-events-none select-none z-0 overflow-hidden flex items-center justify-end">
+          <img src="https://github.com/clepsydraisa/clepsydra_isa/blob/main/images/europa_clep.png?raw=true" alt="Europa Clepsydra" class="h-full w-auto object-contain object-right" />
         </div>
-        <!-- Coluna direita: Imagem -->
-        <div class="hidden md:flex flex-1 items-start mt-16 pr-0" style="margin-right:-60px;">
-          <img src="https://github.com/clepsydraisa/clepsydra_isa/blob/main/images/europa_clep.png?raw=true" alt="Europa Clepsydra" class="europa-clep-img" />
+        <!-- Boxes das tarefas em grid quadrado, alinhadas à esquerda e centralizadas verticalmente -->
+        <div class="relative z-10 flex flex-1 flex-col justify-center md:block w-full max-w-4xl pl-4 md:pl-16" style="height: 65vh; min-height: 420px;">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 h-full content-center">
+            <div class="bg-white bg-opacity-95 rounded-xl p-6 flex flex-col justify-center gap-2 border border-gray-100 items-start w-[600px] h-[220px] transition-all duration-200 cursor-pointer hover:opacity-80">
+              <div class="flex items-center gap-3 mb-1">
+                <div class="w-7 h-7 flex items-center justify-center rounded-full bg-blue-100 text-blue-700 font-bold text-base">1</div>
+                <span class="text-blue-900 text-base font-semibold">Tarefa 1</span>
+              </div>
+              <span class="text-gray-700 text-sm font-normal leading-relaxed">
+                Desenvolvimento de ferramentas para <span class="text-blue-700 font-medium">monitorização e obtenção dados</span> e <span class="text-blue-700 font-medium">identificação de lacunas</span>.
+              </span>
+            </div>
+            <div class="bg-white bg-opacity-95 rounded-xl p-6 flex flex-col justify-center gap-2 border border-gray-100 items-start w-[600px] h-[220px] transition-all duration-200 cursor-pointer hover:opacity-80">
+              <div class="flex items-center gap-3 mb-1">
+                <div class="w-7 h-7 flex items-center justify-center rounded-full bg-blue-100 text-blue-700 font-bold text-base">2</div>
+                <span class="text-blue-900 text-base font-semibold">Tarefa 2</span>
+              </div>
+              <span class="text-gray-700 text-sm font-normal leading-relaxed">
+                Criação ou <span class="text-blue-700 font-medium">melhoria/atualização</span> de rede de monitorização <span class="italic">(geração de dados)</span>
+              </span>
+            </div>
+            <div class="bg-white bg-opacity-95 rounded-xl p-6 flex flex-col justify-center gap-2 border border-gray-100 items-start w-[600px] h-[220px] transition-all duration-200 cursor-pointer hover:opacity-80">
+              <div class="flex items-center gap-3 mb-1">
+                <div class="w-7 h-7 flex items-center justify-center rounded-full bg-blue-100 text-blue-700 font-bold text-base">3</div>
+                <span class="text-blue-900 text-base font-semibold">Tarefa 3</span>
+              </div>
+              <span class="text-gray-700 text-sm font-normal leading-relaxed">
+                <span class="text-blue-700 font-medium">Observações em condições reais</span> – Living Lab
+              </span>
+            </div>
+            <div class="bg-white bg-opacity-95 rounded-xl p-6 flex flex-col justify-center gap-2 border border-gray-100 items-start w-[600px] h-[220px] transition-all duration-200 cursor-pointer hover:opacity-80">
+              <div class="flex items-center gap-3 mb-1">
+                <div class="w-7 h-7 flex items-center justify-center rounded-full bg-blue-100 text-blue-700 font-bold text-base">4</div>
+                <span class="text-blue-900 text-base font-semibold">Tarefa 4</span>
+              </div>
+              <span class="text-gray-700 text-sm font-normal leading-relaxed">
+                Capacitação e sensibilização social
+              </span>
+            </div>
+          </div>
         </div>
       </div>
+      <style>
+        @media (max-width: 900px) {
+          .w-\[600px\] { width: 90vw !important; }
+        }
+        @media (max-width: 768px) {
+          .grid-cols-1, .md\:grid-cols-2 { grid-template-columns: 1fr !important; }
+          .w-full.max-w-4xl { align-items: center; }
+          .w-\[600px\] { width: 100% !important; }
+          .h-\[220px\] { height: auto !important; }
+        }
+      </style>
     </main>
 
     <!-- Friso colorido estreito acima do footer -->
