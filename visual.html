@@ -78,6 +78,36 @@
         top: 0.5rem;
         right: 0.5rem;
       }
+      /* Estilos para análise de tendência */
+      .trend-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+      .trend-period-card {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        padding: 0.75rem 1rem;
+        margin-bottom: 1rem;
+      }
+      .trend-type-up {
+        color: #6b7280;
+        font-weight: bold;
+      }
+      .trend-type-down {
+        color: #6b7280;
+        font-weight: bold;
+      }
+      .trend-type-none {
+        color: #6b7280;
+        font-weight: bold;
+      }
+      .trend-value {
+        font-size: 1.1em;
+        margin-top: 0.2em;
+      }
     </style>
   </head>
   <body class="flex flex-col min-h-screen">
@@ -290,6 +320,35 @@
         if (markersLayer) markersLayer.clearLayers();
       }
 
+      // Adiciona a função utilitária para formatar o texto da análise de tendência
+      function getTrendDescription(seg, idx, variable) {
+        // Tradução e cor do tipo de tendência
+        let trendType = seg.trend_type;
+        let trendClass = "trend-type-none";
+        if (trendType === "decreasing") {
+          trendType = "Tendência Decrescente";
+          trendClass = "trend-type-down";
+        } else if (trendType === "increasing") {
+          trendType = "Tendência Crescente";
+          trendClass = "trend-type-up";
+        } else {
+          trendType = "Sem tendência";
+        }
+
+        // Unidade com expoente
+        let unit = variable === "profundidade"
+          ? "m ano<sup>-1</sup>"
+          : "mg/L ano<sup>-1</sup>";
+
+        return `
+          <div class="trend-period-card">
+            <div><b>Período ${idx + 1}:</b> ${seg.start_date} a ${seg.end_date}</div>
+            <div class="${trendClass}">${trendType}</div>
+            <div class="trend-value">${seg.slope_per_year !== null ? seg.slope_per_year.toFixed(3) : "-"} ${unit}</div>
+          </div>
+        `;
+      }
+
       // Função para desenhar marcadores de profundidade
       function drawProfundidadeMarkers() {
         clearMarkers();
@@ -383,7 +442,7 @@
                         );
                       const trendDatasets = trendData.segments.map(
                         (seg, idx) => ({
-                          label: `Tendência Segmento ${idx + 1}`,
+                          label: `Período ${idx + 1}`,
                           data: seg.trend_points.map((p) => ({
                             x: p.x,
                             y: -p.y,
@@ -396,6 +455,7 @@
                           tension: 0,
                           _isTrend: true,
                           order: 99,
+                          type: "line",
                         })
                       );
                       window.currentChart.data.datasets =
@@ -403,24 +463,9 @@
                       window.currentChart.update();
                     }
                     // Mostrar estatísticas na box
-                    let html = `<b>Análise de tendência</b><br>`;
+                    let html = `<div class="trend-title">Análise de tendência</div>`;
                     trendData.segments.forEach((seg, idx) => {
-                      html += `<hr><b>Segmento ${idx + 1}</b><br>`;
-                      html += `Período: ${seg.start_date} a ${seg.end_date}<br>`;
-                      html += `Tipo: <b>${seg.trend_type}</b><br>`;
-                      html += `Inclinação/ano: <b>${
-                        seg.slope_per_year !== null
-                          ? seg.slope_per_year.toFixed(3)
-                          : "-"
-                      }</b><br>`;
-                      html += `p-valor: <b>${
-                        seg.p_value !== null
-                          ? seg.p_value.toExponential(2)
-                          : "-"
-                      }</b><br>`;
-                      html += `R²: <b>${
-                        seg.r_squared !== null ? seg.r_squared.toFixed(2) : "-"
-                      }</b><br>`;
+                      html += getTrendDescription(seg, idx, "profundidade");
                     });
                     document.getElementById("trendStatsBox").innerHTML = html;
                     document
@@ -480,16 +525,17 @@
               .slice()
               .sort((a, b) => new Date(a.date) - new Date(b.date));
             window.currentChart = new Chart(ctx, {
-              type: "line",
+              type: "scatter",
               data: {
                 datasets: [
                   {
                     label: "Nitrato (mg/L)",
                     data: sortedData.map((d) => ({ x: d.date, y: d.nitrato })),
                     borderColor: "#28a745",
-                    backgroundColor: "rgba(40,167,69,0.2)",
-                    fill: "start",
-                    tension: 0.2,
+                    backgroundColor: "#28a745",
+                    showLine: false,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
                   },
                 ],
               },
@@ -551,7 +597,7 @@
                         );
                       const trendDatasets = trendData.segments.map(
                         (seg, idx) => ({
-                          label: `Tendência Segmento ${idx + 1}`,
+                          label: `Período ${idx + 1}`,
                           data: seg.trend_points, // NÃO inverter sinal!
                           borderColor: "#e67e22",
                           backgroundColor: "rgba(230,126,34,0.1)",
@@ -561,6 +607,7 @@
                           tension: 0,
                           _isTrend: true,
                           order: 99,
+                          type: "line",
                         })
                       );
                       window.currentChart.data.datasets =
@@ -568,24 +615,9 @@
                       window.currentChart.update();
                     }
                     // Mostrar estatísticas na box
-                    let html = `<b>Análise de tendência</b><br>`;
+                    let html = `<div class="trend-title">Análise de tendência</div>`;
                     trendData.segments.forEach((seg, idx) => {
-                      html += `<hr><b>Segmento ${idx + 1}</b><br>`;
-                      html += `Período: ${seg.start_date} a ${seg.end_date}<br>`;
-                      html += `Tipo: <b>${seg.trend_type}</b><br>`;
-                      html += `Inclinação/ano: <b>${
-                        seg.slope_per_year !== null
-                          ? seg.slope_per_year.toFixed(3)
-                          : "-"
-                      }</b><br>`;
-                      html += `p-valor: <b>${
-                        seg.p_value !== null
-                          ? seg.p_value.toExponential(2)
-                          : "-"
-                      }</b><br>`;
-                      html += `R²: <b>${
-                        seg.r_squared !== null ? seg.r_squared.toFixed(2) : "-"
-                      }</b><br>`;
+                      html += getTrendDescription(seg, idx, "nitrato");
                     });
                     document.getElementById("trendStatsBox").innerHTML = html;
                     document
@@ -912,7 +944,7 @@
                       );
                     const trendDatasets = trendData.segments.map(
                       (seg, idx) => ({
-                        label: `Tendência Segmento ${idx + 1}`,
+                        label: `Período ${idx + 1}`,
                         data: seg.trend_points.map((p) => ({
                           x: p.x,
                           y: -p.y,
@@ -925,6 +957,7 @@
                         tension: 0,
                         _isTrend: true,
                         order: 99,
+                        type: "line",
                       })
                     );
                     window.currentChart.data.datasets =
@@ -932,22 +965,9 @@
                     window.currentChart.update();
                   }
                   // Mostrar estatísticas na box
-                  let html = `<b>Análise de tendência</b><br>`;
+                  let html = `<div class="trend-title">Análise de tendência</div>`;
                   trendData.segments.forEach((seg, idx) => {
-                    html += `<hr><b>Segmento ${idx + 1}</b><br>`;
-                    html += `Período: ${seg.start_date} a ${seg.end_date}<br>`;
-                    html += `Tipo: <b>${seg.trend_type}</b><br>`;
-                    html += `Inclinação/ano: <b>${
-                      seg.slope_per_year !== null
-                        ? seg.slope_per_year.toFixed(3)
-                        : "-"
-                    }</b><br>`;
-                    html += `p-valor: <b>${
-                      seg.p_value !== null ? seg.p_value.toExponential(2) : "-"
-                    }</b><br>`;
-                    html += `R²: <b>${
-                      seg.r_squared !== null ? seg.r_squared.toFixed(2) : "-"
-                    }</b><br>`;
+                    html += getTrendDescription(seg, idx, "profundidade");
                   });
                   document.getElementById("trendStatsBox").innerHTML = html;
                   document
@@ -995,16 +1015,17 @@
           const ctx = document.getElementById("wellChart").getContext("2d");
           if (window.currentChart) window.currentChart.destroy();
           window.currentChart = new Chart(ctx, {
-            type: "line",
+            type: "scatter",
             data: {
               datasets: [
                 {
                   label: "Nitrato (mg/L)",
                   data: obj.data.map((d) => ({ x: d.date, y: d.nitrato })),
                   borderColor: "#28a745",
-                  backgroundColor: "rgba(40,167,69,0.2)",
-                  fill: "start",
-                  tension: 0.2,
+                  backgroundColor: "#28a745",
+                  showLine: false,
+                  pointRadius: 4,
+                  pointHoverRadius: 6,
                 },
               ],
             },
@@ -1019,7 +1040,10 @@
                   },
                   title: { display: true, text: "Data" },
                 },
-                y: { title: { display: true, text: "Nitrato (mg/L)" }, min: 0 },
+                y: {
+                  title: { display: true, text: "Nitrato (mg/L)" },
+                  min: 0,
+                },
               },
               plugins: {
                 zoom: {
@@ -1063,7 +1087,7 @@
                       );
                     const trendDatasets = trendData.segments.map(
                       (seg, idx) => ({
-                        label: `Tendência Segmento ${idx + 1}`,
+                        label: `Período ${idx + 1}`,
                         data: seg.trend_points, // NÃO inverter sinal!
                         borderColor: "#e67e22",
                         backgroundColor: "rgba(230,126,34,0.1)",
@@ -1073,6 +1097,7 @@
                         tension: 0,
                         _isTrend: true,
                         order: 99,
+                        type: "line",
                       })
                     );
                     window.currentChart.data.datasets =
@@ -1080,22 +1105,9 @@
                     window.currentChart.update();
                   }
                   // Mostrar estatísticas na box
-                  let html = `<b>Análise de tendência</b><br>`;
+                  let html = `<div class="trend-title">Análise de tendência</div>`;
                   trendData.segments.forEach((seg, idx) => {
-                    html += `<hr><b>Segmento ${idx + 1}</b><br>`;
-                    html += `Período: ${seg.start_date} a ${seg.end_date}<br>`;
-                    html += `Tipo: <b>${seg.trend_type}</b><br>`;
-                    html += `Inclinação/ano: <b>${
-                      seg.slope_per_year !== null
-                        ? seg.slope_per_year.toFixed(3)
-                        : "-"
-                    }</b><br>`;
-                    html += `p-valor: <b>${
-                      seg.p_value !== null ? seg.p_value.toExponential(2) : "-"
-                    }</b><br>`;
-                    html += `R²: <b>${
-                      seg.r_squared !== null ? seg.r_squared.toFixed(2) : "-"
-                    }</b><br>`;
+                    html += getTrendDescription(seg, idx, "nitrato");
                   });
                   document.getElementById("trendStatsBox").innerHTML = html;
                   document
