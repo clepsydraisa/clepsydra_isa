@@ -108,6 +108,19 @@
         font-size: 1.1em;
         margin-top: 0.2em;
       }
+      /* Estilo para a tabela de info ocupar toda a largura */
+      #infoTableBox {
+        width: 100%;
+        max-width: 100%;
+      }
+      #infoTableBox table {
+        width: 100%;
+        table-layout: auto;
+      }
+      #infoTableBox th, #infoTableBox td {
+        white-space: nowrap;
+        text-align: left;
+      }
     </style>
   </head>
   <body class="flex flex-col min-h-screen">
@@ -208,6 +221,12 @@
           </select>
         </div>
         <div id="map" style="height: 500px"></div>
+        <div class="mt-2 flex flex-col items-start">
+          <button id="infoBtn" class="px-4 py-2 bg-gray-100 text-blue-800 rounded hover:bg-gray-200 font-semibold transition">
+            + Info
+          </button>
+          <div id="infoTableBox" class="hidden mt-2"></div>
+        </div>
       </div>
     </main>
 
@@ -1212,6 +1231,7 @@
       function updateMapAndWellFilter() {
         updateMap();
         updateWellFilter();
+        if (infoVisible) showInfoTable();
       }
 
       // Atualizar filtro de poço ao carregar dados
@@ -1240,6 +1260,21 @@
               if (map) map.setView([39.5, -8], 8);
             }
           });
+        if (document.getElementById("infoBtn")) {
+          document.getElementById("infoBtn").onclick = async function() {
+            infoVisible = !infoVisible;
+            if (infoVisible) {
+              await showInfoTable();
+              this.textContent = '× Fechar Info';
+            } else {
+              document.getElementById("infoTableBox").classList.add("hidden");
+              document.getElementById("infoTableBox").innerHTML = "";
+              this.textContent = '+ Info';
+            }
+          };
+          // Inicializa o texto do botão
+          document.getElementById("infoBtn").textContent = '+ Info';
+        }
       });
 
       // Atualizar filtro de poço ao carregar outros dados
@@ -1287,6 +1322,74 @@
           // Municípios: estrutura pronta para implementar
         }
       }
+
+      // Adicione a função para mostrar a tabela de info
+      async function showInfoTable() {
+        const variable = document.getElementById("variableFilter").value;
+        let codes = [];
+        if (variable === "profundidade" && wellsData) {
+          codes = Object.keys(wellsData);
+        } else if (variable === "nitrato" && nitratoData) {
+          codes = Object.keys(nitratoData);
+        } else {
+          document.getElementById("infoTableBox").innerHTML = "<i>Nenhum dado disponível.</i>";
+          return;
+        }
+
+        // Agrupar segmentos por poço
+        let poços = {};
+        for (const codigo of codes) {
+          let url = variable === "profundidade"
+            ? `resources/trends/trend_${codigo.replace("/", "_")}.json`
+            : `resources/trends/trends_nitrato/trend_${codigo.replace("/", "_")}.json`;
+          try {
+            const resp = await fetch(url);
+            if (!resp.ok) continue;
+            const trendData = await resp.json();
+            poços[codigo] = trendData.segments.map((seg, idx) => {
+              let tipo = seg.trend_type === "decreasing" ? "Decrescente"
+                        : seg.trend_type === "increasing" ? "Crescente"
+                        : "Sem tendência";
+              return {
+                periodo: `${idx + 1}º ${seg.start_date} a ${seg.end_date}`,
+                tendencia: `${idx + 1}º ${tipo}`
+              };
+            });
+          } catch (e) { /* ignora erros de fetch */ }
+        }
+
+        let rows = Object.entries(poços).map(([codigo, segmentos]) => {
+          const periodos = segmentos.map(s => s.periodo).join(' | ');
+          const tendencias = segmentos.map(s => s.tendencia).join(' | ');
+          return `
+            <tr>
+              <td class="border px-2 py-1">${codigo}</td>
+              <td class="border px-2 py-1">${periodos}</td>
+              <td class="border px-2 py-1">${tendencias}</td>
+            </tr>
+          `;
+        });
+
+        let tableHtml = `
+          <table class="min-w-full border mt-2 text-xs">
+            <thead>
+              <tr class="bg-gray-100">
+                <th class="border px-2 py-1">Poço</th>
+                <th class="border px-2 py-1">Período</th>
+                <th class="border px-2 py-1">Tendência</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows.join("")}
+            </tbody>
+          </table>
+        `;
+        document.getElementById("infoTableBox").innerHTML = tableHtml;
+        document.getElementById("infoTableBox").classList.remove("hidden");
+      }
+
+      // Adicione o controle do botão Info
+      let infoVisible = false;
     </script>
   </body>
 </html>
