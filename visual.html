@@ -121,6 +121,20 @@
         white-space: nowrap;
         text-align: left;
       }
+      .show-chart-btn {
+        background: none;
+        border: none;
+        color: #2563eb;
+        font-size: 1.1em;
+        cursor: pointer;
+        margin-right: 0.3em;
+        padding: 0 0.2em;
+        vertical-align: middle;
+        transition: color 0.2s;
+      }
+      .show-chart-btn:hover {
+        color: #1d4ed8;
+      }
     </style>
   </head>
   <body class="flex flex-col min-h-screen">
@@ -1363,7 +1377,10 @@
           const tendencias = segmentos.map(s => s.tendencia).join(' | ');
           return `
             <tr>
-              <td class="border px-2 py-1">${codigo}</td>
+              <td class="border px-2 py-1">
+                <button class="show-chart-btn" title="Ver gráfico" data-codigo="${codigo}">📈</button>
+                ${codigo}
+              </td>
               <td class="border px-2 py-1">${periodos}</td>
               <td class="border px-2 py-1">${tendencias}</td>
             </tr>
@@ -1386,6 +1403,14 @@
         `;
         document.getElementById("infoTableBox").innerHTML = tableHtml;
         document.getElementById("infoTableBox").classList.remove("hidden");
+
+        // Adicionar event listener para os botões de gráfico
+        document.querySelectorAll('.show-chart-btn').forEach(btn => {
+          btn.onclick = function(e) {
+            const codigo = this.getAttribute('data-codigo');
+            focusOnWell(codigo);
+          };
+        });
       }
 
       // Adicione o controle do botão Info
