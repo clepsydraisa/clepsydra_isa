@@ -35,6 +35,30 @@
         transform: translateY(-5px);
         box-shadow: 0 10px 20px rgba(0,0,0,0.1);
       }
+      /* Header Navigation Styles */
+      .nav-link {
+        position: relative;
+        transition: all 0.3s ease;
+      }
+      .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -2px;
+        left: 0;
+        background-color: #174192;
+        transition: width 0.3s ease;
+      }
+      .nav-link:hover::after {
+        width: 100%;
+      }
+      .nav-link.active {
+        font-weight: 600;
+      }
+      .nav-link.active::after {
+        width: 100%;
+      }
     </style>
   </head>
   <body class="flex flex-col min-h-screen">
@@ -58,7 +82,7 @@
               <li>
                 <a
                   href="index.html"
-                  class="text-blue-900 hover:underline font-medium text-sm flex items-center"
+                  class="text-blue-900 nav-link font-medium text-sm flex items-center"
                 >
                   <i class="fas fa-home"></i>
                 </a>
@@ -66,27 +90,34 @@
               <li>
                 <a
                   href="about_c.html"
-                  class="text-blue-900 hover:underline font-medium text-sm"
+                  class="text-blue-900 nav-link font-medium text-sm"
                   >Sobre</a
                 >
               </li>
               <li>
-                <a href="parceiros.html" class="text-blue-900 hover:underline font-medium text-sm"
+                <a
+                  href="tarefas.html"
+                  class="text-blue-900 nav-link font-medium text-sm"
+                  >Tarefas</a
+                >
+              </li>
+              <li>
+                <a href="parceiros.html" class="text-blue-900 nav-link font-medium text-sm"
                   >Parceiros</a
                 >
               </li>
               <li>
-                <a href="biblio_dados.html" class="text-blue-900 hover:underline font-semibold text-sm"
+                <a href="biblio_dados.html" class="text-blue-900 nav-link font-semibold text-sm active"
                   >Biblioteca de Dados</a
                 >
               </li>
               <li>
-                <a href="visual.html" class="text-blue-900 hover:underline font-medium text-sm"
+                <a href="visual.html" class="text-blue-900 nav-link font-medium text-sm"
                   >Visualização</a
                 >
               </li>
               <li>
-                <a href="condicoesreais.html" class="text-blue-900 hover:underline font-medium text-sm"
+                <a href="condicoesreais.html" class="text-blue-900 nav-link font-medium text-sm"
                   >Condições Reais</a
                 >
               </li>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clepsydra Project</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      .ai-btn {
+        background-size: 200% 100%;
+        background-position: left center;
+        transition: background-position 0.4s cubic-bezier(0.4,0,0.2,1), transform 0.15s cubic-bezier(0.4,0,0.2,1);
+      }
+      .ai-btn:hover {
+        background-position: right center;
+        transform: scale(1.07);
+      }
+      .ai-btn:active {
+        transform: scale(0.96);
+      }
+      .tarefa-shadow {
+        box-shadow: 0 8px 32px 0 rgba(220,220,220,0.7);
+      }
+      .tarefa-shadow-hover:hover {
+        box-shadow: 0 16px 48px 0 rgba(255,255,255,0.8);
+        z-index: 10;
+        transform: scale(1.10);
+      }
+      .europa-clep-img {
+        max-width: 420px;
+        max-height: 60vh;
+        object-fit: contain;
+      }
+      /* Header Navigation Styles */
+      .nav-link {
+        position: relative;
+        transition: all 0.3s ease;
+      }
+      .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -2px;
+        left: 0;
+        background-color: #174192;
+        transition: width 0.3s ease;
+      }
+      .nav-link:hover::after {
+        width: 100%;
+      }
+      .nav-link.active {
+        font-weight: 600;
+      }
+      .nav-link.active::after {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body class="flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-white text-blue-900 py-4 px-6 shadow">
+      <div class="container mx-auto flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+          <a href="https://clepsydra.interreg-euro-med.eu/" target="_blank">
+            <img
+              src="https://github.com/clepsydraisa/clepsydra_isa/blob/main/images/logo_c2.png?raw=true"
+              alt="Clepsydra Logo"
+              class="h-16 w-auto"
+            />
+          </a>
+        </div>
+        <nav class="flex-1">
+          <div class="flex items-center justify-end space-x-6">
+            <ul class="flex items-center space-x-6">
+              <li>
+                <a
+                  href="index.html"
+                  class="text-blue-900 nav-link font-medium text-sm flex items-center"
+                >
+                  <i class="fas fa-home"></i>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="about_c.html"
+                  class="text-blue-900 nav-link font-medium text-sm"
+                  >Sobre</a
+                >
+              </li>
+              <li>
+                <a href="tarefas.html" class="text-blue-900 nav-link font-semibold text-sm active"
+                  >Tarefas</a
+                >
+              </li>
+              <li>
+                <a href="parceiros.html" class="text-blue-900 nav-link font-medium text-sm"
+                  >Parceiros</a
+                >
+              </li>
+              <li>
+                <a href="biblio_dados.html" class="text-blue-900 nav-link font-medium text-sm"
+                  >Biblioteca de Dados</a
+                >
+              </li>
+              <li>
+                <a href="visual.html" class="text-blue-900 nav-link font-medium text-sm"
+                  >Visualização</a
+                >
+              </li>
+              <li>
+                <a href="condicoesreais.html" class="text-blue-900 nav-link font-medium text-sm"
+                  >Condições Reais</a
+                >
+              </li>
+            </ul>
+            <button class="ai-btn bg-gradient-to-r from-blue-700 via-blue-600 to-blue-800 text-white font-medium text-sm py-2 px-4 rounded shadow focus:outline-none">
+              Modelo AI
+            </button>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow w-full py-12" style="background-color: #174192;">
+      <div class="relative w-full flex-grow min-h-[60vh] flex items-center justify-start" style="min-height: 600px;">
+        <!-- Mapa como background decorativo, ocupa parte da área principal -->
+        <div class="absolute right-0 top-0 h-[65vh] w-[900px] max-w-[60vw] pointer-events-none select-none z-0 overflow-hidden flex items-center justify-end">
+          <img src="https://github.com/clepsydraisa/clepsydra_isa/blob/main/images/europa_clep.png?raw=true" alt="Europa Clepsydra" class="h-full w-auto object-contain object-right" />
+        </div>
+        <!-- Boxes das tarefas em grid quadrado, alinhadas à esquerda e centralizadas verticalmente -->
+        <div class="relative z-10 flex flex-1 flex-col justify-center md:block w-full max-w-4xl pl-4 md:pl-16" style="height: 65vh; min-height: 420px;">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 h-full content-center">
+            <div class="bg-white bg-opacity-95 rounded-xl p-6 flex flex-col justify-center gap-2 border border-gray-100 items-start w-[600px] h-[220px] transition-all duration-200 cursor-pointer hover:opacity-80">
+              <div class="flex items-center gap-3 mb-1">
+                <div class="w-7 h-7 flex items-center justify-center rounded-full bg-blue-100 text-blue-700 font-bold text-base">1</div>
+                <span class="text-blue-900 text-base font-semibold">Tarefa 1</span>
+              </div>
+              <span class="text-gray-700 text-sm font-normal leading-relaxed">
+                Desenvolvimento de ferramentas para <span class="text-blue-700 font-medium">monitorização e obtenção dados</span> e <span class="text-blue-700 font-medium">identificação de lacunas</span>.
+              </span>
+            </div>
+            <div class="bg-white bg-opacity-95 rounded-xl p-6 flex flex-col justify-center gap-2 border border-gray-100 items-start w-[600px] h-[220px] transition-all duration-200 cursor-pointer hover:opacity-80">
+              <div class="flex items-center gap-3 mb-1">
+                <div class="w-7 h-7 flex items-center justify-center rounded-full bg-blue-100 text-blue-700 font-bold text-base">2</div>
+                <span class="text-blue-900 text-base font-semibold">Tarefa 2</span>
+              </div>
+              <span class="text-gray-700 text-sm font-normal leading-relaxed">
+                Criação ou <span class="text-blue-700 font-medium">melhoria/atualização</span> de rede de monitorização <span class="italic">(geração de dados)</span>
+              </span>
+            </div>
+            <div class="bg-white bg-opacity-95 rounded-xl p-6 flex flex-col justify-center gap-2 border border-gray-100 items-start w-[600px] h-[220px] transition-all duration-200 cursor-pointer hover:opacity-80">
+              <div class="flex items-center gap-3 mb-1">
+                <div class="w-7 h-7 flex items-center justify-center rounded-full bg-blue-100 text-blue-700 font-bold text-base">3</div>
+                <span class="text-blue-900 text-base font-semibold">Tarefa 3</span>
+              </div>
+              <span class="text-gray-700 text-sm font-normal leading-relaxed">
+                <span class="text-blue-700 font-medium">Observações em condições reais</span> – Living Lab
+              </span>
+            </div>
+            <div class="bg-white bg-opacity-95 rounded-xl p-6 flex flex-col justify-center gap-2 border border-gray-100 items-start w-[600px] h-[220px] transition-all duration-200 cursor-pointer hover:opacity-80">
+              <div class="flex items-center gap-3 mb-1">
+                <div class="w-7 h-7 flex items-center justify-center rounded-full bg-blue-100 text-blue-700 font-bold text-base">4</div>
+                <span class="text-blue-900 text-base font-semibold">Tarefa 4</span>
+              </div>
+              <span class="text-gray-700 text-sm font-normal leading-relaxed">
+                Capacitação e sensibilização social
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <style>
+        @media (max-width: 900px) {
+          .w-\[600px\] { width: 90vw !important; }
+        }
+        @media (max-width: 768px) {
+          .grid-cols-1, .md\:grid-cols-2 { grid-template-columns: 1fr !important; }
+          .w-full.max-w-4xl { align-items: center; }
+          .w-\[600px\] { width: 100% !important; }
+          .h-\[220px\] { height: auto !important; }
+        }
+      </style>
+    </main>
+
+    <!-- Friso colorido estreito acima do footer -->
+    <div class="w-full h-8" style="background: linear-gradient(to right, #17479e, #0e6bb5, #0093d3, #5a5a8c, #c1272d, #ff6f1f, #d6b08c, #a3bfa8, #4a2c0a);"></div>
+
+    <!-- Footer -->
+    <footer class="bg-white py-4 px-6 shadow">
+      <div class="container mx-auto flex justify-center items-center min-h-[80px]">
+        <img src="https://github.com/clepsydraisa/clepsydra_isa/blob/main/images/logo_footer_c.png?raw=true" alt="Logos rodapé" class="w-auto h-12" />
+      </div>
+    </footer>
+  </body>
+</html>
