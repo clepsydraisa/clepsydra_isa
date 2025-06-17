@@ -367,7 +367,8 @@
       let map, markersLayer;
       let wellsData = null;
       let nitratoData = null;
-      let precipData = null; // Add precipitation data variable
+      let precipData = null;
+      let regaData = null; // Add irrigation data variable
 
       // Inicializar o mapa
       function initMap() {
@@ -798,6 +799,67 @@
         });
       }
 
+      // Função para desenhar marcadores de rega
+      function drawRegaMarkers() {
+        clearMarkers();
+        Object.entries(regaData).forEach(([municipio, data]) => {
+          const marker = L.circleMarker(data.coord, {
+            radius: 6,
+            color: "#ff6b1f",
+            fillColor: "#ff6b1f",
+            fillOpacity: 0.8,
+          });
+          marker.addTo(markersLayer).on("click", () => {
+            document.getElementById("chart-modal").classList.remove("hidden");
+            document.getElementById("well-title").innerText = `Município ${municipio}`;
+            document.getElementById("trendAnalysisBtn").classList.add("hidden");
+            const ctx = document.getElementById("wellChart").getContext("2d");
+            if (window.currentChart) window.currentChart.destroy();
+            window.currentChart = new Chart(ctx, {
+              type: "bar",
+              data: {
+                labels: data.data.map((d) => d.date),
+                datasets: [
+                  {
+                    label: "Volume de Rega (hm³)",
+                    data: data.data.map((d) => d.volume),
+                    backgroundColor: "#ff6b1f",
+                  },
+                ],
+              },
+              options: {
+                responsive: true,
+                scales: {
+                  x: {
+                    title: { display: true, text: "Ano" },
+                  },
+                  y: {
+                    title: { display: true, text: "Volume (hm³)" },
+                    min: 0,
+                  },
+                },
+                plugins: {
+                  zoom: {
+                    pan: { enabled: true, mode: "x", modifierKey: null },
+                    zoom: {
+                      enabled: true,
+                      mode: "x",
+                      drag: { enabled: true },
+                      wheel: { enabled: true },
+                    },
+                  },
+                },
+              },
+            });
+            document.getElementById("resetZoomBtn").onclick = function () {
+              if (window.currentChart) window.currentChart.resetZoom();
+            };
+            document.getElementById("trendStatsBox").classList.add("hidden");
+            document.getElementById("trendStatsBox").innerHTML = "";
+          });
+        });
+      }
+
       // Função para limpar valores de nitrato com caracteres especiais
       function cleanNitrateValue(value) {
         if (typeof value === "string") {
@@ -904,6 +966,44 @@
         });
       }
 
+      // Carregar e processar o CSV de rega
+      function loadRegaData(callback) {
+        Papa.parse("resources/model_data/rega/consumos_de_agua.csv", {
+          download: true,
+          header: true,
+          delimiter: ";",
+          complete: function (results) {
+            const data = results.data;
+            const regas = {};
+            data.forEach((row) => {
+              if (!row.Municipio || !row.Lat || !row.Long) return;
+              // Corrigir vírgula para ponto nas coordenadas
+              const lat = parseFloat(row.Lat.replace(',', '.'));
+              const lon = parseFloat(row.Long.replace(',', '.'));
+              if (isNaN(lat) || isNaN(lon)) return;
+              if (!regas[row.Municipio]) {
+                regas[row.Municipio] = {
+                  coord: [lat, lon],
+                  data: [],
+                };
+              }
+              // Corrigir volume para hm3
+              const volume = parseFloat(row["Volume rega hm3"].replace(',', '.'));
+              regas[row.Municipio].data.push({
+                date: row.Ano,
+                volume: isNaN(volume) ? null : volume,
+              });
+            });
+            // Ordenar os dados por data
+            Object.values(regas).forEach((municipio) => {
+              municipio.data.sort((a, b) => a.date - b.date);
+            });
+            regaData = regas;
+            if (callback) callback();
+          },
+        });
+      }
+
       // Atualizar filtro de poço/código conforme variável
       function updateWellFilter() {
         const variable = document.getElementById("variableFilter").value;
@@ -915,6 +1015,8 @@
           codes = Object.keys(nitratoData);
         } else if (variable === "precipitacao" && precipData) {
           codes = Object.keys(precipData);
+        } else if (variable === "rega" && regaData) {
+          codes = Object.keys(regaData);
         }
         wellFilter.innerHTML =
           '<option value="">Todos</option>' +
@@ -1269,6 +1371,61 @@
           document.getElementById("trendAnalysisBtn").classList.add("hidden");
           document.getElementById("trendStatsBox").classList.add("hidden");
           document.getElementById("trendStatsBox").innerHTML = "";
+        } else if (
+          variable === "rega" &&
+          regaData &&
+          regaData[codigo]
+        ) {
+          obj = regaData[codigo];
+          map.setView(obj.coord, 14);
+          document.getElementById("chart-modal").classList.remove("hidden");
+          document.getElementById(
+            "well-title"
+          ).innerText = `Município ${codigo}`;
+          document.getElementById("trendAnalysisBtn").classList.add("hidden");
+          const ctx = document.getElementById("wellChart").getContext("2d");
+          if (window.currentChart) window.currentChart.destroy();
+          window.currentChart = new Chart(ctx, {
+            type: "bar",
+            data: {
+              labels: obj.data.map((d) => d.date),
+              datasets: [
+                {
+                  label: "Volume de Rega (hm³)",
+                  data: obj.data.map((d) => d.volume),
+                  backgroundColor: "#ff6b1f",
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              scales: {
+                x: {
+                  title: { display: true, text: "Ano" },
+                },
+                y: {
+                  title: { display: true, text: "Volume (hm³)" },
+                  min: 0,
+                },
+              },
+              plugins: {
+                zoom: {
+                  pan: { enabled: true, mode: "x", modifierKey: null },
+                  zoom: {
+                    enabled: true,
+                    mode: "x",
+                    drag: { enabled: true },
+                    wheel: { enabled: true },
+                  },
+                },
+              },
+            },
+          });
+          document.getElementById("resetZoomBtn").onclick = function () {
+            if (window.currentChart) window.currentChart.resetZoom();
+          };
+          document.getElementById("trendStatsBox").classList.add("hidden");
+          document.getElementById("trendStatsBox").innerHTML = "";
         }
       }
 
@@ -1287,13 +1444,21 @@
       // Inicialização
       document.addEventListener("DOMContentLoaded", function () {
         initMap();
+        // Restaurar seleção do filtro de variável do localStorage
+        const savedVar = localStorage.getItem("clepsydra_variableFilter");
+        if (savedVar) {
+          document.getElementById("variableFilter").value = savedVar;
+        }
         loadProfundidadeData(function () {
           drawProfundidadeMarkers();
           updateWellFilterAfterLoad();
         }); // Carrega profundidade por padrão
         document
           .getElementById("variableFilter")
-          .addEventListener("change", updateMapAndWellFilter);
+          .addEventListener("change", function() {
+            localStorage.setItem("clepsydra_variableFilter", this.value);
+            updateMapAndWellFilter();
+          });
         document
           .getElementById("wellFilter")
           .addEventListener("change", function () {
@@ -1335,6 +1500,12 @@
           updateWellFilterAfterLoad();
         });
       }
+      function loadRegaDataWithFilter(cb) {
+        loadRegaData(function () {
+          if (cb) cb();
+          updateWellFilterAfterLoad();
+        });
+      }
 
       // Modificar updateMap para usar as funções acima
       function updateMap() {
@@ -1361,6 +1532,12 @@
             drawPrecipMarkers();
             updateWellFilterAfterLoad();
           }
+        } else if (variable === "rega") {
+          if (!regaData) loadRegaDataWithFilter(drawRegaMarkers);
+          else {
+            drawRegaMarkers();
+            updateWellFilterAfterLoad();
+          }
         } else {
           clearMarkers();
           updateWellFilter();
@@ -1376,6 +1553,10 @@
           codes = Object.keys(wellsData);
         } else if (variable === "nitrato" && nitratoData) {
           codes = Object.keys(nitratoData);
+        } else if (variable === "precipitacao" && precipData) {
+          codes = Object.keys(precipData);
+        } else if (variable === "rega" && regaData) {
+          codes = Object.keys(regaData);
         } else {
           document.getElementById("infoTableBox").innerHTML = "<i>Nenhum dado disponível.</i>";
           return;
@@ -1386,7 +1567,9 @@
         for (const codigo of codes) {
           let url = variable === "profundidade"
             ? `resources/trends/trend_${codigo.replace("/", "_")}.json`
-            : `resources/trends/trends_nitrato/trend_${codigo.replace("/", "_")}.json`;
+            : variable === "nitrato"
+              ? `resources/trends/trends_nitrato/trend_${codigo.replace("/", "_")}.json`
+              : `resources/trends/trend_${codigo.replace("/", "_")}.json`;
           try {
             const resp = await fetch(url);
             if (!resp.ok) continue;
