@@ -126,7 +126,70 @@
     <!-- Main Content -->
     <main class="flex-grow w-full py-12 pt-24">
       <div class="container mx-auto px-6 mt-6">
-        <!-- Your content will go here -->
+        <!-- Texto introdutório -->
+        <section class="mb-10">
+          <h2 class="text-2xl font-bold text-blue-900 mb-4">Praticidade e Inovação na Quinta da Cholda</h2>
+          <p class="text-gray-700 text-lg leading-relaxed">
+            O trabalho de campo realizado na <b>Quinta da Cholda</b> destaca-se pela sua praticidade e aplicação direta de soluções inovadoras para a gestão agrícola. Com acesso a ferramentas digitais de monitorização, sensores, rega inteligente e consultoria especializada, a equipa consegue recolher, analisar e aplicar dados em tempo real, otimizando a produção e promovendo a sustentabilidade. A integração de tecnologia no campo permite decisões mais rápidas, precisas e adaptadas às necessidades reais da exploração agrícola.
+          </p>
+        </section>
+        <!-- Carrossel de imagens -->
+        <section class="mb-10">
+          <div id="carousel-campo" class="relative w-full max-w-3xl mx-auto rounded-lg overflow-hidden shadow-lg">
+            <div class="carousel-images flex transition-transform duration-700" style="width: 100%;">
+              <img src="images/campo1.jpg" class="w-full h-80 object-cover" alt="Campo 1" />
+              <img src="images/campo2.jpg" class="w-full h-80 object-cover" alt="Campo 2" />
+              <img src="images/campo3.jpg" class="w-full h-80 object-cover" alt="Campo 3" />
+              <img src="images/campo4.jpg" class="w-full h-80 object-cover" alt="Campo 4" />
+            </div>
+            <button id="prevBtn" class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 rounded-full p-2 shadow hover:bg-opacity-100 transition"><i class="fas fa-chevron-left"></i></button>
+            <button id="nextBtn" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 rounded-full p-2 shadow hover:bg-opacity-100 transition"><i class="fas fa-chevron-right"></i></button>
+          </div>
+          <script>
+            // Carrossel simples em JS puro
+            (function() {
+              const images = document.querySelectorAll('#carousel-campo .carousel-images img');
+              let idx = 0;
+              function show(idxToShow) {
+                images.forEach((img, i) => {
+                  img.style.display = i === idxToShow ? 'block' : 'none';
+                });
+              }
+              function next() {
+                idx = (idx + 1) % images.length;
+                show(idx);
+              }
+              function prev() {
+                idx = (idx - 1 + images.length) % images.length;
+                show(idx);
+              }
+              document.getElementById('nextBtn').onclick = next;
+              document.getElementById('prevBtn').onclick = prev;
+              show(0);
+            })();
+          </script>
+        </section>
+        <!-- Texto sobre ferramentas digitais -->
+        <section class="mb-10">
+          <h3 class="text-xl font-bold text-blue-900 mb-3">Ferramentas Digitais e Consultoria</h3>
+          <p class="text-gray-700 text-base mb-6">
+            A consultoria digital na Quinta da Cholda é suportada por plataformas inovadoras como <b>Irrocloud</b> e <b>myIrrigation</b>. Estas ferramentas permitem monitorizar remotamente a humidade do solo, controlar sistemas de rega, analisar dados meteorológicos e receber recomendações personalizadas para a gestão eficiente da água. O acesso a estas plataformas facilita a tomada de decisão baseada em dados, promovendo a sustentabilidade e a produtividade agrícola.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="flex flex-col items-center">
+              <a href="https://www.irrocloud.com/irrocloud/login/?next=/" target="_blank">
+                <img src="images/irrocloud_login.png" alt="Irrocloud" class="rounded-lg shadow-md w-full max-w-xs mb-2 hover:scale-105 transition" />
+              </a>
+              <span class="text-blue-800 font-semibold">Irrocloud</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <a href="https://myirrigation.eu/login" target="_blank">
+                <img src="images/myirrigation_login.png" alt="myIrrigation" class="rounded-lg shadow-md w-full max-w-xs mb-2 hover:scale-105 transition" />
+              </a>
+              <span class="text-blue-800 font-semibold">myIrrigation</span>
+            </div>
+          </div>
+        </section>
       </div>
     </main>
 
