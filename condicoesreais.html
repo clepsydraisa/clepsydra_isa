@@ -15,6 +15,7 @@
     <style>
       body {
         font-family: "Inter", sans-serif;
+        background: #f3f4f6;
       }
       .ai-btn {
         background-size: 200% 100%;
@@ -51,6 +52,39 @@
       }
       .nav-link.active::after {
         width: 100%;
+      }
+      /* Infinite carousel styles */
+      .carousel-infinite {
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        height: 20rem;
+        margin: 0 auto 2rem auto;
+        border-radius: 1rem;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+        background: transparent !important;
+      }
+      .carousel-track {
+        display: flex;
+        width: max-content;
+        animation: scroll-left 24s linear infinite;
+      }
+      .carousel-track img {
+        width: 32rem;
+        height: 20rem;
+        object-fit: cover;
+        margin-right: 1.5rem;
+        border-radius: 1rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        background: #f3f4f6 !important;
+      }
+      @keyframes scroll-left {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
       }
     </style>
   </head>
@@ -135,39 +169,18 @@
         </section>
         <!-- Carrossel de imagens -->
         <section class="mb-10">
-          <div id="carousel-campo" class="relative w-full max-w-3xl mx-auto rounded-lg overflow-hidden shadow-lg">
-            <div class="carousel-images flex transition-transform duration-700" style="width: 100%;">
-              <img src="images/campo1.jpg" class="w-full h-80 object-cover" alt="Campo 1" />
-              <img src="images/campo2.jpg" class="w-full h-80 object-cover" alt="Campo 2" />
-              <img src="images/campo3.jpg" class="w-full h-80 object-cover" alt="Campo 3" />
-              <img src="images/campo4.jpg" class="w-full h-80 object-cover" alt="Campo 4" />
+          <div class="carousel-infinite">
+            <div class="carousel-track">
+              <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/1.JPG" alt="Campo 1" />
+              <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/2.JPG" alt="Campo 2" />
+              <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/3.JPG" alt="Campo 3" />
+              <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/4.JPG" alt="Campo 4" />
+              <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/1.JPG" alt="Campo 1" />
+              <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/2.JPG" alt="Campo 2" />
+              <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/3.JPG" alt="Campo 3" />
+              <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/4.JPG" alt="Campo 4" />
             </div>
-            <button id="prevBtn" class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 rounded-full p-2 shadow hover:bg-opacity-100 transition"><i class="fas fa-chevron-left"></i></button>
-            <button id="nextBtn" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 rounded-full p-2 shadow hover:bg-opacity-100 transition"><i class="fas fa-chevron-right"></i></button>
           </div>
-          <script>
-            // Carrossel simples em JS puro
-            (function() {
-              const images = document.querySelectorAll('#carousel-campo .carousel-images img');
-              let idx = 0;
-              function show(idxToShow) {
-                images.forEach((img, i) => {
-                  img.style.display = i === idxToShow ? 'block' : 'none';
-                });
-              }
-              function next() {
-                idx = (idx + 1) % images.length;
-                show(idx);
-              }
-              function prev() {
-                idx = (idx - 1 + images.length) % images.length;
-                show(idx);
-              }
-              document.getElementById('nextBtn').onclick = next;
-              document.getElementById('prevBtn').onclick = prev;
-              show(0);
-            })();
-          </script>
         </section>
         <!-- Texto sobre ferramentas digitais -->
         <section class="mb-10">
@@ -178,15 +191,15 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="flex flex-col items-center">
               <a href="https://www.irrocloud.com/irrocloud/login/?next=/" target="_blank">
-                <img src="images/irrocloud_login.png" alt="Irrocloud" class="rounded-lg shadow-md w-full max-w-xs mb-2 hover:scale-105 transition" />
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/irrocloud.png" alt="Irrocloud" class="rounded-lg shadow-md w-full max-w-xs mb-2 hover:scale-105 transition" />
               </a>
               <span class="text-blue-800 font-semibold">Irrocloud</span>
             </div>
             <div class="flex flex-col items-center">
               <a href="https://myirrigation.eu/login" target="_blank">
-                <img src="images/myirrigation_login.png" alt="myIrrigation" class="rounded-lg shadow-md w-full max-w-xs mb-2 hover:scale-105 transition" />
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/myirrigation.png" alt="myIrrigation" class="rounded-lg shadow-md w-full max-w-xs mb-2 hover:scale-105 transition" />
               </a>
-              <span class="text-blue-800 font-semibold">myIrrigation</span>
+              <span class="text-blue-800 font-semibold">MyIrrigation</span>
             </div>
           </div>
         </section>
