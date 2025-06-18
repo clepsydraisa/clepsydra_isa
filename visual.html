@@ -163,7 +163,7 @@
   </head>
   <body class="flex flex-col min-h-screen">
     <!-- Header -->
-    <header class="bg-white text-blue-900 py-4 px-6 shadow">
+    <header class="fixed top-0 left-0 w-full bg-white text-blue-900 py-4 px-6 shadow z-50">
       <div class="container mx-auto flex items-center justify-between">
         <div class="flex items-center space-x-4">
           <a href="https://clepsydra.interreg-euro-med.eu/" target="_blank">
@@ -239,8 +239,8 @@
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow w-full py-12">
-      <div class="container mx-auto px-6">
+    <main class="flex-grow w-full py-12 pt-24">
+      <div class="container mx-auto px-6 mt-6">
         <!-- Filtro de variáveis -->
         <div class="mb-4 flex items-center space-x-2">
           <label for="variableFilter" class="font-semibold text-blue-900"
@@ -1615,7 +1615,31 @@
             </tbody>
           </table>
         `;
-        document.getElementById("infoTableBox").innerHTML = tableHtml;
+
+        // RESUMO DE TENDÊNCIAS (só última de cada poço)
+        let resumo = { 'Crescente': 0, 'Decrescente': 0, 'Sem tendência': 0 };
+        Object.values(poços).forEach(segmentos => {
+          if (!segmentos.length) return;
+          const ultima = segmentos[segmentos.length - 1].tendencia;
+          if (ultima.includes('Crescente')) resumo['Crescente']++;
+          else if (ultima.includes('Decrescente')) resumo['Decrescente']++;
+          else resumo['Sem tendência']++;
+        });
+        let resumoHtml = `
+          <table class="min-w-[300px] border mt-4 text-sm">
+            <thead>
+              <tr class="bg-gray-100">
+                <th class="border px-2 py-1" colspan="2">Resumo das tendências (última de cada poço)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="border px-2 py-1">Crescente</td><td class="border px-2 py-1">${resumo['Crescente']}</td></tr>
+              <tr><td class="border px-2 py-1">Decrescente</td><td class="border px-2 py-1">${resumo['Decrescente']}</td></tr>
+              <tr><td class="border px-2 py-1">Sem tendência</td><td class="border px-2 py-1">${resumo['Sem tendência']}</td></tr>
+            </tbody>
+          </table>
+        `;
+        document.getElementById("infoTableBox").innerHTML = tableHtml + resumoHtml;
         document.getElementById("infoTableBox").classList.remove("hidden");
 
         // Adicionar event listener para os botões de gráfico

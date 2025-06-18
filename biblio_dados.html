@@ -64,7 +64,7 @@
   <body class="flex flex-col min-h-screen">
     <!-- Header -->
     <header
-      class="bg-white text-blue-900 py-4 px-6 shadow"
+      class="fixed top-0 left-0 w-full bg-white text-blue-900 py-4 px-6 shadow z-50"
     >
       <div class="container mx-auto flex items-center justify-between">
         <div class="flex items-center space-x-4">
@@ -131,9 +131,8 @@
     </header>
 
     <!-- Main content that grows -->
-    <main class="flex flex-col flex-grow container mx-auto px-6 py-12">
-      <!-- Seção 1: Informação com os Dados -->
-      <section class="mb-12">
+    <main class="flex flex-col flex-grow container mx-auto px-6 py-12 pt-24">
+      <section class="mb-12 mt-6">
         <h2 class="text-3xl font-semibold text-gray-800 mb-4">
           Informação dos Dados
         </h2>
