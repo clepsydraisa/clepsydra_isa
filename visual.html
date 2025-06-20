@@ -391,14 +391,31 @@
         // Tradução e cor do tipo de tendência
         let trendType = seg.trend_type;
         let trendClass = "trend-type-none";
-        if (trendType === "decreasing") {
-          trendType = "Tendência Decrescente";
-          trendClass = "trend-type-down";
-        } else if (trendType === "increasing") {
-          trendType = "Tendência Crescente";
-          trendClass = "trend-type-up";
-        } else {
-          trendType = "Sem tendência";
+        let trendValue = seg.slope_per_year;
+
+        if (variable === 'profundidade') {
+          if (trendType === "decreasing") {
+            trendType = "Aumento da profundidade";
+            trendClass = "trend-type-down";
+          } else if (trendType === "increasing") {
+            trendType = "Diminuição da profundidade";
+            trendClass = "trend-type-up";
+          } else {
+            trendType = "Sem mudança significativa";
+          }
+          if (trendValue !== null) {
+            trendValue = Math.abs(trendValue);
+          }
+        } else { // Logic for other variables (nitrato)
+          if (trendType === "decreasing") {
+            trendType = "Tendência Decrescente";
+            trendClass = "trend-type-down";
+          } else if (trendType === "increasing") {
+            trendType = "Tendência Crescente";
+            trendClass = "trend-type-up";
+          } else {
+            trendType = "Sem tendência";
+          }
         }
 
         // Unidade com expoente
@@ -410,7 +427,7 @@
           <div class="trend-period-card">
             <div><b>Período ${idx + 1}:</b> ${seg.start_date} a ${seg.end_date}</div>
             <div class="${trendClass}">${trendType}</div>
-            <div class="trend-value">${seg.slope_per_year !== null ? seg.slope_per_year.toFixed(3) : "-"} ${unit}</div>
+            <div class="trend-value">${trendValue !== null ? trendValue.toFixed(3) : "-"} ${unit}</div>
           </div>
         `;
       }
@@ -977,7 +994,7 @@
             const data = results.data;
             const regas = {};
             data.forEach((row) => {
-              if (!row.Municipio || !row.Lat || !row.Long) return;
+              if (!row.Municipio || !row.Lat || !row.Long || row.Ano == "2022") return;
               // Corrigir vírgula para ponto nas coordenadas
               const lat = parseFloat(row.Lat.replace(',', '.'));
               const lon = parseFloat(row.Long.replace(',', '.'));
@@ -1445,11 +1462,6 @@
       // Inicialização
       document.addEventListener("DOMContentLoaded", function () {
         initMap();
-        // Restaurar seleção do filtro de variável do localStorage
-        const savedVar = localStorage.getItem("clepsydra_variableFilter");
-        if (savedVar) {
-          document.getElementById("variableFilter").value = savedVar;
-        }
         loadProfundidadeData(function () {
           drawProfundidadeMarkers();
           updateWellFilterAfterLoad();
@@ -1457,7 +1469,6 @@
         document
           .getElementById("variableFilter")
           .addEventListener("change", function() {
-            localStorage.setItem("clepsydra_variableFilter", this.value);
             updateMapAndWellFilter();
           });
         document
