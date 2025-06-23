@@ -1581,7 +1581,10 @@
             ? `resources/trends/trend_${codigo.replace("/", "_")}.json`
             : variable === "nitrato"
               ? `resources/trends/trends_nitrato/trend_${codigo.replace("/", "_")}.json`
-              : `resources/trends/trend_${codigo.replace("/", "_")}.json`;
+              : null;
+          
+          if (!url) continue;
+
           try {
             const resp = await fetch(url);
             if (!resp.ok) continue;
@@ -1592,7 +1595,8 @@
                         : "Sem tendência";
               return {
                 periodo: `${idx + 1}º ${seg.start_date} a ${seg.end_date}`,
-                tendencia: `${idx + 1}º ${tipo}`
+                tendencia: `${idx + 1}º ${tipo}`,
+                raw_trend: seg.trend_type,
               };
             });
           } catch (e) { /* ignora erros de fetch */ }
@@ -1600,7 +1604,25 @@
 
         let rows = Object.entries(poços).map(([codigo, segmentos]) => {
           const periodos = segmentos.map(s => s.periodo).join(' | ');
-          const tendencias = segmentos.map(s => s.tendencia).join(' | ');
+          let tendenciaTexto;
+
+          if (variable === 'profundidade') {
+            if (segmentos.length > 0) {
+              const ultimaTendenciaRaw = segmentos[segmentos.length - 1].raw_trend;
+              if (ultimaTendenciaRaw === 'decreasing') {
+                tendenciaTexto = 'Aumento da profundidade';
+              } else if (ultimaTendenciaRaw === 'increasing') {
+                tendenciaTexto = 'Diminuição da profundidade';
+              } else {
+                tendenciaTexto = 'Sem alteração';
+              }
+            } else {
+              tendenciaTexto = 'N/A';
+            }
+          } else {
+            tendenciaTexto = segmentos.map(s => s.tendencia).join(' | ');
+          }
+
           return `
             <tr>
               <td class="border px-2 py-1">
@@ -1608,7 +1630,7 @@
                 ${codigo}
               </td>
               <td class="border px-2 py-1">${periodos}</td>
-              <td class="border px-2 py-1">${tendencias}</td>
+              <td class="border px-2 py-1">${tendenciaTexto}</td>
             </tr>
           `;
         });
@@ -1629,28 +1651,47 @@
         `;
 
         // RESUMO DE TENDÊNCIAS (só última de cada poço)
-        let resumo = { 'Crescente': 0, 'Decrescente': 0, 'Sem tendência': 0 };
-        Object.values(poços).forEach(segmentos => {
-          if (!segmentos.length) return;
-          const ultima = segmentos[segmentos.length - 1].tendencia;
-          if (ultima.includes('Crescente')) resumo['Crescente']++;
-          else if (ultima.includes('Decrescente')) resumo['Decrescente']++;
-          else resumo['Sem tendência']++;
-        });
-        let resumoHtml = `
-          <table class="min-w-[300px] border mt-4 text-sm">
-            <thead>
-              <tr class="bg-gray-100">
-                <th class="border px-2 py-1" colspan="2">Resumo das tendências (última de cada poço)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td class="border px-2 py-1">Crescente</td><td class="border px-2 py-1">${resumo['Crescente']}</td></tr>
-              <tr><td class="border px-2 py-1">Decrescente</td><td class="border px-2 py-1">${resumo['Decrescente']}</td></tr>
-              <tr><td class="border px-2 py-1">Sem tendência</td><td class="border px-2 py-1">${resumo['Sem tendência']}</td></tr>
-            </tbody>
-          </table>
-        `;
+        let resumoHtml = "";
+        if (variable === 'profundidade') {
+            const resumo = { 'Aumento da profundidade': 0, 'Diminuição da profundidade': 0, 'Sem alteração': 0 };
+            Object.values(poços).forEach(segmentos => {
+                if (!segmentos.length) return;
+                const ultimaRaw = segmentos[segmentos.length - 1].raw_trend;
+                if (ultimaRaw === 'decreasing') resumo['Aumento da profundidade']++;
+                else if (ultimaRaw === 'increasing') resumo['Diminuição da profundidade']++;
+                else resumo['Sem alteração']++;
+            });
+            resumoHtml = `
+              <div class="font-semibold text-base mb-1 mt-4 text-center">-- RESUMO --</div>
+              <table class="min-w-[300px] border mt-0 text-sm mx-auto">
+                <thead><tr class="bg-gray-100"><th class="border px-2 py-1">Tendência</th><th class="border px-2 py-1">Nº de Poços</th></tr></thead>
+                <tbody>
+                  <tr><td class="border px-2 py-1">Diminuição da profundidade</td><td class="border px-2 py-1">${resumo['Diminuição da profundidade']}</td></tr>
+                  <tr><td class="border px-2 py-1">Aumento da profundidade</td><td class="border px-2 py-1">${resumo['Aumento da profundidade']}</td></tr>
+                  <tr><td class="border px-2 py-1">Sem alteração</td><td class="border px-2 py-1">${resumo['Sem alteração']}</td></tr>
+                </tbody>
+              </table>`;
+        } else if (variable === 'nitrato') {
+            const resumo = { 'Crescente': 0, 'Decrescente': 0, 'Sem tendência': 0 };
+            Object.values(poços).forEach(segmentos => {
+              if (!segmentos.length) return;
+              const ultima = segmentos[segmentos.length - 1].tendencia;
+              if (ultima.includes('Crescente')) resumo['Crescente']++;
+              else if (ultima.includes('Decrescente')) resumo['Decrescente']++;
+              else resumo['Sem tendência']++;
+            });
+            resumoHtml = `
+              <div class="font-semibold text-base mb-1 mt-4 text-center">-- RESUMO --</div>
+              <table class="min-w-[300px] border mt-0 text-sm mx-auto">
+                <thead><tr class="bg-gray-100"><th class="border px-2 py-1">Tendência</th><th class="border px-2 py-1">Nº de Poços</th></tr></thead>
+                <tbody>
+                  <tr><td class="border px-2 py-1">Crescente</td><td class="border px-2 py-1">${resumo['Crescente']}</td></tr>
+                  <tr><td class="border px-2 py-1">Decrescente</td><td class="border px-2 py-1">${resumo['Decrescente']}</td></tr>
+                  <tr><td class="border px-2 py-1">Sem tendência</td><td class="border px-2 py-1">${resumo['Sem tendência']}</td></tr>
+                </tbody>
+              </table>`;
+        }
+        
         document.getElementById("infoTableBox").innerHTML = tableHtml + resumoHtml;
         document.getElementById("infoTableBox").classList.remove("hidden");
 
