@@ -926,16 +926,17 @@
               const color = tempType === 'tx' ? '#dc3545' : '#007bff';
               
               window.currentChart = new Chart(ctx, {
-                type: "line",
+                type: "scatter",
                 data: {
                   datasets: [
                     {
                       label: label,
                       data: data,
                       borderColor: color,
-                      backgroundColor: color.replace(')', ', 0.2)').replace('rgb', 'rgba'),
-                      fill: "start",
-                      tension: 0.2,
+                      backgroundColor: color,
+                      showLine: false,
+                      pointRadius: 4,
+                      pointHoverRadius: 6,
                     },
                   ],
                 },
@@ -1644,16 +1645,17 @@
             const color = tempType === 'tx' ? '#dc3545' : '#007bff';
             
             window.currentChart = new Chart(ctx, {
-              type: "line",
+              type: "scatter",
               data: {
                 datasets: [
                   {
                     label: label,
                     data: data,
                     borderColor: color,
-                    backgroundColor: color.replace(')', ', 0.2)').replace('rgb', 'rgba'),
-                    fill: "start",
-                    tension: 0.2,
+                    backgroundColor: color,
+                    showLine: false,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
                   },
                 ],
               },
