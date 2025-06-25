@@ -72,11 +72,12 @@
       .carousel-track {
         display: flex;
         width: max-content;
-        animation: scroll-left 24s linear infinite;
+        animation: scroll-left 51s linear infinite;
         user-select: none;
         -webkit-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
+        cursor: grab;
       }
       .carousel-track.dragging {
         animation-play-state: paused;
@@ -89,7 +90,9 @@
         margin-right: 1.5rem;
         border-radius: 1rem;
         background: transparent !important;
-        pointer-events: none;
+      }
+      .carousel-track img.img-16 {
+        object-position: top;
       }
       @keyframes scroll-left {
         0% {
@@ -192,15 +195,31 @@
           <div class="carousel-infinite">
             <div class="carousel-track">
               <div class="relative group">
-                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/1.JPG" alt="Campo 1" />
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/6.jpg" alt="Campo de milho" />
                 <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
                   <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
-                    <p class="text-sm font-medium">Vista geral da Quinta da Cholda</p>
+                    <p class="text-sm font-medium">Campo de milho</p>
                   </div>
                 </div>
               </div>
               <div class="relative group">
-                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/2.JPG" alt="Campo 2" />
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/7.jpg" alt="Sonda diver" />
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
+                  <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
+                    <p class="text-sm font-medium">Sonda diver instalada num furo para medição da profundidade da toalha freática</p>
+                  </div>
+                </div>
+              </div>
+              <div class="relative group">
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/8.jpg" alt="Recolha de dados" />
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
+                  <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
+                    <p class="text-sm font-medium">Recolha de dados do diver para o computador</p>
+                  </div>
+                </div>
+              </div>
+              <div class="relative group">
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/2.JPG" alt="Tensiómetros" />
                 <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
                   <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
                     <p class="text-sm font-medium">Instalação de uma bateria de tensiómetros para medição do potencial de água no solo</p>
@@ -208,31 +227,96 @@
                 </div>
               </div>
               <div class="relative group">
-                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/3.JPG" alt="Campo 3" />
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/9.jpg" alt="Bateria de tensiómetros" />
                 <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
                   <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
-                    <p class="text-sm font-medium">Sistema de monitorização da humidade do solo</p>
+                    <p class="text-sm font-medium">Bateria de tensiómetros a diferentes profundidades</p>
                   </div>
                 </div>
               </div>
               <div class="relative group">
-                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/4.JPG" alt="Campo 4" />
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/10.jpg" alt="Conexão à cloud" />
                 <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
                   <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
-                    <p class="text-sm font-medium">Equipamentos de medição em campo experimental</p>
+                    <p class="text-sm font-medium">Conexão à cloud</p>
                   </div>
                 </div>
               </div>
               <div class="relative group">
-                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/1.JPG" alt="Campo 1" />
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/3.JPG" alt="Leituras no smartphone" />
                 <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
                   <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
-                    <p class="text-sm font-medium">Vista geral da Quinta da Cholda</p>
+                    <p class="text-sm font-medium">Leituras do potencial de água no smartphone</p>
                   </div>
                 </div>
               </div>
               <div class="relative group">
-                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/2.JPG" alt="Campo 2" />
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/12.jpg" alt="Sonda FDR" />
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
+                  <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
+                    <p class="text-sm font-medium">Instalação da sonda FDR de humidade do solo</p>
+                  </div>
+                </div>
+              </div>
+              <div class="relative group">
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/13.jpg" alt="Envio remoto" />
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
+                  <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
+                    <p class="text-sm font-medium">Envio remoto de informação</p>
+                  </div>
+                </div>
+              </div>
+              <div class="relative group">
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/14.jpg" alt="Cápsulas para recolha" />
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
+                  <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
+                    <p class="text-sm font-medium">Instalação das cápsulas para recolha da solução do solo e análise de nitratos</p>
+                  </div>
+                </div>
+              </div>
+              <div class="relative group">
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/15.jpg" alt="Cápsulas porosas" />
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
+                  <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
+                    <p class="text-sm font-medium">Instalação das cápsulas porosas 2</p>
+                  </div>
+                </div>
+              </div>
+              <div class="relative group">
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/16.jpg" alt="Recolha da solução" class="img-16" />
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
+                  <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
+                    <p class="text-sm font-medium">Recolha da solução do solo</p>
+                  </div>
+                </div>
+              </div>
+              <!-- Duplicação das imagens para o efeito infinito -->
+              <div class="relative group">
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/6.jpg" alt="Campo de milho" />
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
+                  <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
+                    <p class="text-sm font-medium">Campo de milho</p>
+                  </div>
+                </div>
+              </div>
+              <div class="relative group">
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/7.jpg" alt="Sonda diver" />
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
+                  <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
+                    <p class="text-sm font-medium">Sonda diver instalada num furo para medição da profundidade da toalha freática</p>
+                  </div>
+                </div>
+              </div>
+              <div class="relative group">
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/8.jpg" alt="Recolha de dados" />
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
+                  <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
+                    <p class="text-sm font-medium">Recolha de dados do diver para o computador</p>
+                  </div>
+                </div>
+              </div>
+              <div class="relative group">
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/2.jpg" alt="Tensiómetros" />
                 <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
                   <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
                     <p class="text-sm font-medium">Instalação de uma bateria de tensiómetros para medição do potencial de água no solo</p>
@@ -240,18 +324,66 @@
                 </div>
               </div>
               <div class="relative group">
-                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/3.JPG" alt="Campo 3" />
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/9.jpg" alt="Bateria de tensiómetros" />
                 <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
                   <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
-                    <p class="text-sm font-medium">Sistema de monitorização da humidade do solo</p>
+                    <p class="text-sm font-medium">Bateria de tensiómetros a diferentes profundidades</p>
                   </div>
                 </div>
               </div>
               <div class="relative group">
-                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/4.JPG" alt="Campo 4" />
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/10.jpg" alt="Conexão à cloud" />
                 <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
                   <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
-                    <p class="text-sm font-medium">Equipamentos de medição em campo experimental</p>
+                    <p class="text-sm font-medium">Conexão à cloud</p>
+                  </div>
+                </div>
+              </div>
+              <div class="relative group">
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/3.jpg" alt="Leituras no smartphone" />
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
+                  <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
+                    <p class="text-sm font-medium">Leituras do potencial de água no smartphone</p>
+                  </div>
+                </div>
+              </div>
+              <div class="relative group">
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/12.jpg" alt="Sonda FDR" />
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
+                  <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
+                    <p class="text-sm font-medium">Instalação da sonda FDR de humidade do solo</p>
+                  </div>
+                </div>
+              </div>
+              <div class="relative group">
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/13.jpg" alt="Envio remoto" />
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
+                  <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
+                    <p class="text-sm font-medium">Envio remoto de informação</p>
+                  </div>
+                </div>
+              </div>
+              <div class="relative group">
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/14.jpg" alt="Cápsulas para recolha" />
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
+                  <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
+                    <p class="text-sm font-medium">Instalação das cápsulas para recolha da solução do solo e análise de nitratos</p>
+                  </div>
+                </div>
+              </div>
+              <div class="relative group">
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/15.jpg" alt="Cápsulas porosas" />
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
+                  <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
+                    <p class="text-sm font-medium">Instalação das cápsulas porosas 2</p>
+                  </div>
+                </div>
+              </div>
+              <div class="relative group">
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/16.jpg" alt="Recolha da solução" class="img-16" />
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
+                  <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
+                    <p class="text-sm font-medium">Recolha da solução do solo</p>
                   </div>
                 </div>
               </div>
@@ -305,9 +437,9 @@
         let currentIndex = 0;
         
         // Touch events
-        track.addEventListener('touchstart', dragStart);
-        track.addEventListener('touchend', dragEnd);
-        track.addEventListener('touchmove', drag);
+        track.addEventListener('touchstart', dragStart, { passive: false });
+        track.addEventListener('touchend', dragEnd, { passive: false });
+        track.addEventListener('touchmove', drag, { passive: false });
         
         // Mouse events
         track.addEventListener('mousedown', dragStart);
@@ -319,6 +451,7 @@
         track.addEventListener('contextmenu', e => e.preventDefault());
         
         function dragStart(event) {
+          event.preventDefault();
           isDragging = true;
           startPos = getPositionX(event);
           track.classList.add('dragging');
@@ -329,6 +462,7 @@
         
         function drag(event) {
           if (!isDragging) return;
+          event.preventDefault();
           
           const currentPosition = getPositionX(event);
           const diff = currentPosition - startPos;
@@ -338,6 +472,8 @@
         }
         
         function dragEnd() {
+          if (!isDragging) return;
+          
           isDragging = false;
           track.classList.remove('dragging');
           
