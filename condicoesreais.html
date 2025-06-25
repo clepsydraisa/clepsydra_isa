@@ -64,11 +64,23 @@
         border-radius: 1rem;
         box-shadow: 0 2px 16px rgba(0,0,0,0.10);
         background: transparent !important;
+        cursor: grab;
+      }
+      .carousel-infinite:active {
+        cursor: grabbing;
       }
       .carousel-track {
         display: flex;
         width: max-content;
         animation: scroll-left 24s linear infinite;
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+      }
+      .carousel-track.dragging {
+        animation-play-state: paused;
+        cursor: grabbing;
       }
       .carousel-track img {
         width: 32rem;
@@ -77,6 +89,7 @@
         margin-right: 1.5rem;
         border-radius: 1rem;
         background: transparent !important;
+        pointer-events: none;
       }
       @keyframes scroll-left {
         0% {
@@ -178,14 +191,70 @@
         <section class="mb-10">
           <div class="carousel-infinite">
             <div class="carousel-track">
-              <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/1.JPG" alt="Campo 1" />
-              <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/2.JPG" alt="Campo 2" />
-              <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/3.JPG" alt="Campo 3" />
-              <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/4.JPG" alt="Campo 4" />
-              <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/1.JPG" alt="Campo 1" />
-              <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/2.JPG" alt="Campo 2" />
-              <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/3.JPG" alt="Campo 3" />
-              <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/4.JPG" alt="Campo 4" />
+              <div class="relative group">
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/1.JPG" alt="Campo 1" />
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
+                  <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
+                    <p class="text-sm font-medium">Vista geral da Quinta da Cholda</p>
+                  </div>
+                </div>
+              </div>
+              <div class="relative group">
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/2.JPG" alt="Campo 2" />
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
+                  <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
+                    <p class="text-sm font-medium">Instalação de uma bateria de tensiómetros para medição do potencial de água no solo</p>
+                  </div>
+                </div>
+              </div>
+              <div class="relative group">
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/3.JPG" alt="Campo 3" />
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
+                  <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
+                    <p class="text-sm font-medium">Sistema de monitorização da humidade do solo</p>
+                  </div>
+                </div>
+              </div>
+              <div class="relative group">
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/4.JPG" alt="Campo 4" />
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
+                  <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
+                    <p class="text-sm font-medium">Equipamentos de medição em campo experimental</p>
+                  </div>
+                </div>
+              </div>
+              <div class="relative group">
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/1.JPG" alt="Campo 1" />
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
+                  <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
+                    <p class="text-sm font-medium">Vista geral da Quinta da Cholda</p>
+                  </div>
+                </div>
+              </div>
+              <div class="relative group">
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/2.JPG" alt="Campo 2" />
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
+                  <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
+                    <p class="text-sm font-medium">Instalação de uma bateria de tensiómetros para medição do potencial de água no solo</p>
+                  </div>
+                </div>
+              </div>
+              <div class="relative group">
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/3.JPG" alt="Campo 3" />
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
+                  <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
+                    <p class="text-sm font-medium">Sistema de monitorização da humidade do solo</p>
+                  </div>
+                </div>
+              </div>
+              <div class="relative group">
+                <img src="https://raw.githubusercontent.com/clepsydraisa/clepsydra_isa/refs/heads/main/images/4.JPG" alt="Campo 4" />
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
+                  <div class="bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-center max-w-xs">
+                    <p class="text-sm font-medium">Equipamentos de medição em campo experimental</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -221,5 +290,66 @@
         <img src="https://github.com/clepsydraisa/clepsydra_isa/blob/main/images/logo_footer_c.png?raw=true" alt="Logos rodapé" class="w-auto h-12" />
       </div>
     </footer>
+
+    <script>
+      // Carousel drag functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        const carousel = document.querySelector('.carousel-infinite');
+        const track = document.querySelector('.carousel-track');
+        
+        let isDragging = false;
+        let startPos = 0;
+        let currentTranslate = 0;
+        let prevTranslate = 0;
+        let animationID = 0;
+        let currentIndex = 0;
+        
+        // Touch events
+        track.addEventListener('touchstart', dragStart);
+        track.addEventListener('touchend', dragEnd);
+        track.addEventListener('touchmove', drag);
+        
+        // Mouse events
+        track.addEventListener('mousedown', dragStart);
+        track.addEventListener('mouseup', dragEnd);
+        track.addEventListener('mouseleave', dragEnd);
+        track.addEventListener('mousemove', drag);
+        
+        // Prevent context menu
+        track.addEventListener('contextmenu', e => e.preventDefault());
+        
+        function dragStart(event) {
+          isDragging = true;
+          startPos = getPositionX(event);
+          track.classList.add('dragging');
+          
+          // Pause the animation
+          track.style.animationPlayState = 'paused';
+        }
+        
+        function drag(event) {
+          if (!isDragging) return;
+          
+          const currentPosition = getPositionX(event);
+          const diff = currentPosition - startPos;
+          
+          // Move the track
+          track.style.transform = `translateX(${prevTranslate + diff}px)`;
+        }
+        
+        function dragEnd() {
+          isDragging = false;
+          track.classList.remove('dragging');
+          
+          // Resume the animation
+          track.style.animationPlayState = 'running';
+          track.style.transform = '';
+        }
+        
+        function getPositionX(event) {
+          return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+        }
+      });
+    </script>
   </body>
 </html> 
