@@ -1865,7 +1865,7 @@
         let poços = {};
         for (const codigo of codes) {
           let url = variable === "profundidade"
-            ? `resources/trends/trend_${codigo.replace("/", "_")}.json`
+            ? `resources/trends/trends_piezo/trend_${codigo.replace("/", "_")}.json`
             : variable === "nitrato"
               ? `resources/trends/trends_nitrato/trend_${codigo.replace("/", "_")}.json`
               : null;
