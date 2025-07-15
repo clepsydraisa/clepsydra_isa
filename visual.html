@@ -260,6 +260,7 @@
             <option value="precipitacao">Precipitação</option>
             <option value="rega">Rega</option>
             <option value="temperaturas">Temperaturas</option>
+            <option value="caudal">Caudal</option>
           </select>
           <label for="wellFilter" class="font-semibold text-blue-900 ml-4"
             >Pontos:</label
@@ -376,6 +377,7 @@
       let precipData = null;
       let regaData = null; // Add irrigation data variable
       let tempData = null; // Add temperature data variable
+      let caudalData = null; // Add caudal data variable
 
       // Inicializar o mapa
       function initMap() {
@@ -998,6 +1000,81 @@
         });
       }
 
+      // Função para desenhar marcadores de caudal
+      function drawCaudalMarkers() {
+        clearMarkers();
+        Object.entries(caudalData).forEach(([localizacao, station]) => {
+          const marker = L.circleMarker(station.coord, {
+            radius: 6,
+            color: "#17a2b8",
+            fillColor: "#17a2b8",
+            fillOpacity: 0.8,
+          });
+          marker.addTo(markersLayer).on("click", () => {
+            document.getElementById("chart-modal").classList.remove("hidden");
+            document.getElementById("well-title").innerText = `Estação ${localizacao}`;
+            document.getElementById("trendAnalysisBtn").classList.add("hidden");
+            const ctx = document.getElementById("wellChart").getContext("2d");
+            if (window.currentChart) window.currentChart.destroy();
+            // Ordenar os dados por data antes de plotar
+            const sortedData = station.data
+              .slice()
+              .sort((a, b) => new Date(a.date) - new Date(b.date));
+            window.currentChart = new Chart(ctx, {
+              type: "line",
+              data: {
+                datasets: [
+                  {
+                    label: "Caudal médio diário (m³/s)",
+                    data: sortedData.map((d) => ({
+                      x: d.date,
+                      y: d.caudal,
+                    })),
+                    borderColor: "#17a2b8",
+                    backgroundColor: "rgba(23,162,184,0.2)",
+                    fill: "start",
+                    tension: 0.2,
+                  },
+                ],
+              },
+              options: {
+                responsive: true,
+                scales: {
+                  x: {
+                    type: "time",
+                    time: {
+                      unit: "year",
+                      tooltipFormat: "yyyy-MM-dd",
+                    },
+                    title: { display: true, text: "Data" },
+                  },
+                  y: {
+                    title: { display: true, text: "Caudal (m³/s)" },
+                    min: 0,
+                  },
+                },
+                plugins: {
+                  zoom: {
+                    pan: { enabled: true, mode: "x", modifierKey: null },
+                    zoom: {
+                      enabled: true,
+                      mode: "x",
+                      drag: { enabled: true },
+                      wheel: { enabled: true },
+                    },
+                  },
+                },
+              },
+            });
+            document.getElementById("resetZoomBtn").onclick = function () {
+              if (window.currentChart) window.currentChart.resetZoom();
+            };
+            document.getElementById("trendStatsBox").classList.add("hidden");
+            document.getElementById("trendStatsBox").innerHTML = "";
+          });
+        });
+      }
+
       // Função para limpar valores de nitrato com caracteres especiais
       function cleanNitrateValue(value) {
         if (typeof value === "string") {
@@ -1183,6 +1260,52 @@
         });
       }
 
+      // Função para limpar valores de caudal (remove (vau), aspas, espaços)
+      function cleanCaudalValue(value) {
+        if (typeof value === "string") {
+          value = value.replace(/\(vau\)/gi, "").replace(/\"/g, "").trim();
+        }
+        var num = parseFloat(value);
+        return isNaN(num) ? null : num;
+      }
+
+      // Carregar e processar o CSV de caudal
+      function loadCaudalData(callback) {
+        Papa.parse("resources/model_data/caudal/caudal.csv", {
+          download: true,
+          header: true,
+          complete: function (results) {
+            const data = results.data;
+            const stations = {};
+            data.forEach((row) => {
+              if (!row.localização) return;
+              if (!stations[row.localização]) {
+                const [lon, lat] = convertCoords(row.coord_x_m, row.coord_y_m);
+                stations[row.localização] = {
+                  coord: [lat, lon],
+                  data: [],
+                };
+              }
+              // Converter data para string ISO e guardar
+              let dateStr = row.Data ? row.Data.substring(0, 10) : "";
+              const caudalValue = cleanCaudalValue(row["ALMOUROL (17G/02H)_Caudal médio diário (m3/s)"]);
+              if (caudalValue !== null) {
+                stations[row.localização].data.push({
+                  date: dateStr,
+                  caudal: caudalValue,
+                });
+              }
+            });
+            // Ordenar os dados de cada estação por data
+            Object.values(stations).forEach((station) => {
+              station.data.sort((a, b) => new Date(a.date) - new Date(b.date));
+            });
+            caudalData = stations;
+            if (callback) callback();
+          },
+        });
+      }
+
       // Atualizar filtro de poço/código conforme variável
       function updateWellFilter() {
         const variable = document.getElementById("variableFilter").value;
@@ -1198,6 +1321,11 @@
           codes = Object.keys(regaData);
         } else if (variable === "temperaturas" && tempData) {
           codes = Object.keys(tempData);
+        } else if (variable === "caudal" && caudalData) {
+          codes = Object.keys(caudalData);
+        } else {
+          document.getElementById("infoTableBox").innerHTML = "<i>Nenhum dado disponível.</i>";
+          return;
         }
         wellFilter.innerHTML =
           '<option value="">Todos</option>' +
@@ -1713,6 +1841,70 @@
           document.getElementById("resetZoomBtn").onclick = function () {
             if (window.currentChart) window.currentChart.resetZoom();
           };
+        } else if (
+          variable === "caudal" &&
+          caudalData &&
+          caudalData[codigo]
+        ) {
+          obj = caudalData[codigo];
+          map.setView(obj.coord, 14);
+          document.getElementById("chart-modal").classList.remove("hidden");
+          document.getElementById("well-title").innerText = `Estação ${codigo}`;
+          document.getElementById("trendAnalysisBtn").classList.add("hidden");
+          const ctx = document.getElementById("wellChart").getContext("2d");
+          if (window.currentChart) window.currentChart.destroy();
+          // Ordenar os dados por data antes de plotar
+          const sortedData = obj.data
+            .slice()
+            .sort((a, b) => new Date(a.date) - new Date(b.date));
+          window.currentChart = new Chart(ctx, {
+            type: "line",
+            data: {
+              datasets: [
+                {
+                  label: "Caudal médio diário (m³/s)",
+                  data: sortedData.map((d) => ({ x: d.date, y: d.caudal })),
+                  borderColor: "#17a2b8",
+                  backgroundColor: "rgba(23,162,184,0.2)",
+                  fill: "start",
+                  tension: 0.2,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              scales: {
+                x: {
+                  type: "time",
+                  time: {
+                    unit: "year",
+                    tooltipFormat: "yyyy-MM-dd",
+                  },
+                  title: { display: true, text: "Data" },
+                },
+                y: {
+                  title: { display: true, text: "Caudal (m³/s)" },
+                  min: 0,
+                },
+              },
+              plugins: {
+                zoom: {
+                  pan: { enabled: true, mode: "x", modifierKey: null },
+                  zoom: {
+                    enabled: true,
+                    mode: "x",
+                    drag: { enabled: true },
+                    wheel: { enabled: true },
+                  },
+                },
+              },
+            },
+          });
+          document.getElementById("resetZoomBtn").onclick = function () {
+            if (window.currentChart) window.currentChart.resetZoom();
+          };
+          document.getElementById("trendStatsBox").classList.add("hidden");
+          document.getElementById("trendStatsBox").innerHTML = "";
         }
       }
 
@@ -1798,6 +1990,13 @@
         });
       }
 
+      function loadCaudalDataWithFilter(cb) {
+        loadCaudalData(function () {
+          if (cb) cb();
+          updateWellFilterAfterLoad();
+        });
+      }
+
       // Modificar updateMap para usar as funções acima
       function updateMap() {
         const variable = document.getElementById("variableFilter").value;
@@ -1835,6 +2034,12 @@
             drawTempMarkers();
             updateWellFilterAfterLoad();
           }
+        } else if (variable === "caudal") {
+          if (!caudalData) loadCaudalDataWithFilter(drawCaudalMarkers);
+          else {
+            drawCaudalMarkers();
+            updateWellFilterAfterLoad();
+          }
         } else {
           clearMarkers();
           updateWellFilter();
@@ -1856,6 +2061,8 @@
           codes = Object.keys(regaData);
         } else if (variable === "temperaturas" && tempData) {
           codes = Object.keys(tempData);
+        } else if (variable === "caudal" && caudalData) {
+          codes = Object.keys(caudalData);
         } else {
           document.getElementById("infoTableBox").innerHTML = "<i>Nenhum dado disponível.</i>";
           return;
