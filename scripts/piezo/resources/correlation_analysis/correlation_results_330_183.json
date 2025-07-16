@@ -1,0 +1,127 @@
+{
+  "poço": "330_183",
+  "data_analise": "2025-07-16T11:47:45.677752",
+  "correlacoes_gerais": {
+    "pearson": {
+      "correlation": -0.04627492692680641,
+      "p_value": 0.4878547874358759
+    },
+    "spearman": {
+      "correlation": 0.19170770353998434,
+      "p_value": 0.003739220275605
+    },
+    "n_samples": 227
+  },
+  "lag_correlations": [
+    {
+      "lag": 0,
+      "pearson_corr": -0.04627492692680641,
+      "pearson_p": 0.4878547874358759,
+      "spearman_corr": 0.19170770353998434,
+      "spearman_p": 0.003739220275605,
+      "n_samples": 227
+    },
+    {
+      "lag": 1,
+      "pearson_corr": 0.008811829518072477,
+      "pearson_p": 0.8951908651907278,
+      "spearman_corr": 0.16880809209047612,
+      "spearman_p": 0.011023955252709392,
+      "n_samples": 226
+    },
+    {
+      "lag": 2,
+      "pearson_corr": -0.06722628784759184,
+      "pearson_p": 0.3154200997054722,
+      "spearman_corr": 0.13209634969396403,
+      "spearman_p": 0.0478058669872227,
+      "n_samples": 225
+    },
+    {
+      "lag": 3,
+      "pearson_corr": -0.18044380176459857,
+      "pearson_p": 0.006773308024729073,
+      "spearman_corr": 0.02356979071569392,
+      "spearman_p": 0.7257117833554576,
+      "n_samples": 224
+    },
+    {
+      "lag": 4,
+      "pearson_corr": -0.27320025901299144,
+      "pearson_p": 3.537597018064059e-05,
+      "spearman_corr": -0.11479321383099085,
+      "spearman_p": 0.08721917264584664,
+      "n_samples": 223
+    },
+    {
+      "lag": 5,
+      "pearson_corr": -0.34994833757737975,
+      "pearson_p": 8.557377455913768e-08,
+      "spearman_corr": -0.1794077392309762,
+      "spearman_p": 0.007366557170603357,
+      "n_samples": 222
+    },
+    {
+      "lag": 6,
+      "pearson_corr": -0.35702100238856693,
+      "pearson_p": 4.805696823952289e-08,
+      "spearman_corr": -0.13792433401187143,
+      "spearman_p": 0.04050457712622279,
+      "n_samples": 221
+    },
+    {
+      "lag": 7,
+      "pearson_corr": -0.3097252613605732,
+      "pearson_p": 2.8204796216574873e-06,
+      "spearman_corr": -0.086812801010324,
+      "spearman_p": 0.19958681172513482,
+      "n_samples": 220
+    },
+    {
+      "lag": 8,
+      "pearson_corr": -0.23370379328653135,
+      "pearson_p": 0.00048824768154627913,
+      "spearman_corr": -0.003993981834921263,
+      "spearman_p": 0.953137280785011,
+      "n_samples": 219
+    },
+    {
+      "lag": 9,
+      "pearson_corr": -0.14063073388521055,
+      "pearson_p": 0.03800762948387708,
+      "spearman_corr": 0.09851293469607275,
+      "spearman_p": 0.1471443190829347,
+      "n_samples": 218
+    },
+    {
+      "lag": 10,
+      "pearson_corr": -0.009845509619573218,
+      "pearson_p": 0.885343141960614,
+      "spearman_corr": 0.1510341986610959,
+      "spearman_p": 0.026094630327072647,
+      "n_samples": 217
+    },
+    {
+      "lag": 11,
+      "pearson_corr": 0.03599009754002818,
+      "pearson_p": 0.5988565821934689,
+      "spearman_corr": 0.2470045755719731,
+      "spearman_p": 0.00024626186224281784,
+      "n_samples": 216
+    },
+    {
+      "lag": 12,
+      "pearson_corr": 0.0051838926594725354,
+      "pearson_p": 0.9397626493222516,
+      "spearman_corr": 0.19362648542363584,
+      "spearman_p": 0.004377589581826651,
+      "n_samples": 215
+    }
+  ],
+  "seasonal_correlation": {
+    "Winter": 0.13751446705739853,
+    "Spring": -0.3237251847087082,
+    "Summer": -0.012180035640685122,
+    "Fall": -0.22383316593221256
+  }
+}
