@@ -19,8 +19,8 @@ warnings.filterwarnings('ignore')
 # ===================== CONFIGURAÇÕES =====================
 # Caminhos principais
 BASE_DIR = Path(__file__).parent.parent
-CSV_POZOS = Path(__file__).parent / 'csv_modelo/aquifer_depth_piezo.csv'
-CSV_PRECIP = Path(__file__).parent / 'csv_modelo/bd_precipitacao.csv'
+CSV_POZOS = Path(__file__).parent / 'csv_model/aquifer_depth_piezo.csv'
+CSV_PRECIP = Path(__file__).parent.parent.parent / 'precipitacao/bd_precipitacao.csv'
 RESULTS_DIR = BASE_DIR / 'resources/trends_piezo'
 MODELS_DIR = BASE_DIR / 'resources/models_piezo'
 RESULTS_DIR.mkdir(parents=True, exist_ok=True)
