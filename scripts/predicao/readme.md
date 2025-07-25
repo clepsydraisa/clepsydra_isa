@@ -1,4 +1,4 @@
-Para forecasting em geral, ver livro (on-line) [Forecasting: Principles and Practice](https://otexts.com/fpp2/)
+Para forecasting em geral, ver livro (on-line) [Forecasting: Principles and Practice](https://otexts.com/fpp2/). Este livro usa o package *forecast* de R. O package `tbats` em Python substitui *forecast* para modelos do tipo *exponential smoothing* -- ver https://github.com/intive-DataScience/tbats
 
 *Exponential smoothing and ARIMA models are the two most widely used approaches to time series forecasting, and provide complementary approaches to the problem. While exponential smoothing models are based on a description of the trend and seasonality in the data, ARIMA models aim to describe the autocorrelations in the data.*
 
