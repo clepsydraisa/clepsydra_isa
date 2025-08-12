@@ -1,3 +1,5 @@
 scripts/piezo/modelo_ml/csv_modelo/*.csv
 EDA/data/precipitacao.csv
 EDA/data/temp_2014_2024_eobs.csv
+EDA/data/precipitacao.csv
+EDA/data/temp_2014_2024_eobs.csv
